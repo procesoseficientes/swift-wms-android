@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-navbar color="secondary" no-border-bottom>
+        <ion-buttons left>
+            <button
+                ion-button
+                icon-only
+                (click)="backButtonAction()"
+                class="my-style-for-modal"
+            >
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "_title.Suggested-Licenses_" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <p class="materialId">{{ materialId }}</p>
+        </ion-item>
+        <ion-item>
+            <p text-wrap>{{ materialName }}</p>
+        </ion-item>
+        <ion-item *ngFor="let l of listLicense">
+            <table></table>
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 45%">
+                        <h2>
+                            <p text-wrap>{{ l.LICENCE_ID }}</p>
+                        </h2>
+                    </td>
+                    <td style="column-span: 2; width: 45%">
+                        <p text-wrap>{{ l.QTY }}</p>
+                    </td>
+                    <td rowspan="4" style="width: 10%">
+                        <button
+                            ion-button
+                            large
+                            item-end
+                            (click)="userWantsToProcessSku(l)"
+                        >
+                            <ion-icon name="swap"></ion-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="column-span: 3; width: 90%">
+                        <p text-wrap>{{ l.LOCATION }}</p>
+                    </td>                    
+                </tr>
+                <tr>
+                    <td style="column-span: 3; width: 90%">
+                        <p text-wrap>{{ l.STATUS_NAME }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 45%">
+                        <p *ngIf="l.TONE && l.TONE != ''">
+                            <span style="font-weight: bold;" item-left>
+                                {{ "_label.Tone_" | translate }}:
+                            </span>
+                            {{ l.TONE }}
+                        </p>
+                    </td>
+                    <td style="column-span: 2; width: 45%">
+                        <p *ngIf="l.CALIBER && l.CALIBER != ''">
+                            <span style="font-weight: bold;" item-left>
+                                {{ "_label.Caliber_" | translate }}:
+                            </span>
+                            {{ l.CALIBER }}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </ion-item>
+    </ion-list>
+</ion-content>

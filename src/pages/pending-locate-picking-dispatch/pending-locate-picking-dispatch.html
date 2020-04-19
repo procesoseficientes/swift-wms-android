@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Pending-Locate-Wave_' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list no-padding>
+        <button no-padding *ngFor="let pending of wavePickingPendingToLocate" ion-item (click)="gotoLocateWavePicking(pending)">
+            <ion-icon item-right name="exit"></ion-icon>
+            <ion-row padding-left>
+                <ion-col col-4 class="grid-header">
+                    {{ '_label.Wave_' | translate}}
+                </ion-col>
+                <ion-col col-8 class="grid-description">
+                    {{ pending.WAVE_PICKING_ID }}
+                </ion-col>
+            </ion-row>
+            <ion-row padding-left>
+                <ion-col col-8 class="grid-description">
+                    {{ showDocNum(pending) | translate}}
+                </ion-col>
+            </ion-row>
+            <ion-row padding-left>
+                <ion-col col-8 class="grid-description">
+                    {{ pending.TASK_SUBTYPE }}
+                </ion-col>
+            </ion-row>
+        </button>
+    </ion-list>
+</ion-content>

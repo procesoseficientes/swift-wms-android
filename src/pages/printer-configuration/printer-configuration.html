@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-navbar color="primary" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Printer-configuration_' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-refresher (ionRefresh)="refreshPrinters($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-fab right top >
+        <button ion-fab color="light">
+            <ion-icon name="settings"></ion-icon>
+        </button>
+        <ion-fab-list side="left">
+            <button ion-fab (click)="linkPrinter()">
+                <ion-icon name="checkmark"></ion-icon>
+            </button>
+            <button ion-fab (click)="printTest()">
+                <ion-icon name="print"></ion-icon>
+            </button>
+            <button ion-fab (click)="refreshPrinters()">
+                <ion-icon name="refresh"></ion-icon>
+            </button>
+        </ion-fab-list>
+    </ion-fab>
+
+    <ion-list radio-group [(ngModel)]="selectedOption">
+        <ion-item *ngFor="let p of printers" id="{{p.address}}">
+            <span item-left *ngIf="p.selected">
+                ✔️
+            </span>
+            <span item-left>
+                <ion-label>{{ p.friendlyName }}
+                    <p>{{ p.address }}</p>
+                </ion-label>
+            </span>
+
+            <span item-right>
+                <ion-radio checked="p.selected" value="{{p.address}}"></ion-radio>
+            </span>
+        </ion-item>
+    </ion-list>
+</ion-content>

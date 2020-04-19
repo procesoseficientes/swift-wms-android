@@ -1,0 +1,113 @@
+<ion-header>
+
+    <ion-navbar color="secondary">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backButton">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title *ngIf="regimenTask == 'GENERAL'">{{ '_title.Create-license_' | translate }}</ion-title>
+        <ion-title *ngIf="regimenTask == 'FISCAL'">{{ "_title.Reception_Fiscal_" | translate }}</ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegment">
+            <ion-segment-button value="createLicense">
+                {{ "_button.Create-license_" | translate }}
+            </ion-segment-button>
+            <ion-segment-button value="taskDetail" (ionSelect)="showDetail()">
+                {{ "_segments.Inventory-Detail_" | translate }}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content no-padding>
+    <div [ngSwitch]="currentSegment" no-padding>
+        <ion-list *ngSwitchCase="'createLicense'" padding>
+            <ion-list no-padding>
+                <ion-item *ngIf="receptionHeader.document">
+                    {{"_label.Document-number_"| translate}}
+                    <p item-end id="documentNumber">{{receptionHeader.document}}</p>
+                </ion-item>
+                <ion-item *ngIf="receptionHeader.receptionSubType">
+                    {{"_label.Reception-type_"| translate}}
+                    <p item-end id="receptionType">{{receptionHeader.receptionSubType}}</p>
+                </ion-item>
+                <ion-item *ngIf="receptionHeader.supplierName">
+                    {{"_label.Supplier_"| translate}}
+                    <p item-end id="supplierName">{{receptionHeader.supplierName}}</p>
+                </ion-item>
+                <ion-item *ngIf="receptionHeader.order">
+                    {{"_label.Reference-number_"| translate}}
+                    <p item-end id="referenceNumber" [class]="receptionHeader.order">{{receptionHeader.order}}</p>
+                </ion-item>
+                <ng-container *ngIf="showPolicyAndRegime">
+                    <ion-item>
+                        {{"_label.Regime_"| translate}}
+                        <p item-end id="regime" [class]="receptionHeader.order">{{createLicense.regime}}</p>
+                    </ion-item>
+                    <ion-item>
+                        {{"_label.Policy_"| translate}}
+                        <p item-end id="policy" [class]="receptionHeader.order">{{receptionHeader.policyCode}}</p>
+                    </ion-item>
+                </ng-container>
+            </ion-list>
+            <ion-toolbar>
+                <ion-item>
+                    <p>
+                        <button ion-button large block (click)="userWantsToCreateLicense()" id="createLicense">
+                            {{ '_button.Create-license_' | translate }}
+                        </button>
+                    </p>
+                    <p>
+                        <button ion-button large block (click)="userWantsToCompleteTask()" id="completeTask">
+                            {{ '_button.Complete-task_' | translate }}
+                        </button>
+                    </p>
+                </ion-item>
+            </ion-toolbar>
+        </ion-list>
+    </div>
+    <div [ngSwitch]="currentSegment" no-padding>
+        <ion-list *ngSwitchCase="'taskDetail'" no-padding>
+            <ion-card no-padding *ngFor="let material of materials">
+                <ion-card-header ion-fixed class="heads" no-padding>
+                    <ion-fab top right>
+                        <button color="light" ion-fab id="showPrint" (click)="userWantsPrintMaterial(material)">
+                            <ion-icon name="print" color="dark"></ion-icon>
+                        </button>
+                    </ion-fab>
+                </ion-card-header>
+                <ion-card-content no-padding>
+                    <ion-item no-padding>
+                        <ion-grid id="grid-detail">
+                            <ion-row>
+                                <ion-col col-4 class="grid-header">
+                                    {{ '_label.Material_' | translate }}
+                                </ion-col>
+                                <ion-col class="grid-description" text-wrap *ngIf="material.MATERIAL_ID != null">
+                                    {{ material.MATERIAL_ID }}
+                                </ion-col>
+                            </ion-row>
+                            <ion-row *ngIf="material.MATERIAL_NAME != null">
+                                <ion-col class="grid-description" text-wrap>
+                                    {{ material.MATERIAL_NAME }}
+                                </ion-col>
+                            </ion-row>
+                            <ion-row *ngIf="material.QTY != null">
+                                <ion-col col-4 class="grid-header">
+                                    {{ '_label.Quantity_' | translate }}
+                                </ion-col>
+                                <ion-col col-8 class="grid-description">
+                                    {{ material.QTY }}
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
+                </ion-card-content>
+            </ion-card>
+        </ion-list>
+    </div>
+</ion-content>

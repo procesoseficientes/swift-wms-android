@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-navbar color="favorite">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Material-Info_' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-list no-padding radio-group [(ngModel)]="selectedOption" *ngFor="let material of materials" >
+        <ion-item padding button >
+            <ion-label>
+                <ion-row class="rowOwner">
+                    {{ material.clientOwner }} {{material.Company?.companyName}}
+                </ion-row>
+                <ion-row text-wrap>
+                    {{ material.materialId }}
+                </ion-row>
+                <ion-row text-wrap>
+                    {{ material.materialName }}
+                </ion-row>
+            </ion-label>
+            <ion-radio [value]="material.materialId"  (ionSelect)="gotoLocateMaterialInfo(material)"></ion-radio>
+        </ion-item>
+    </ion-list>
+</ion-content>

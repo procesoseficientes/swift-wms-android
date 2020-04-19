@@ -1,0 +1,18 @@
+{
+    "env": {
+        "test": {
+            "plugins": [
+                "istanbul",
+                {
+                    "exclude": [
+                        "**/*.spec.js",
+                        "**/*.mock.js",
+                        "**/*.spec.ts",
+                        "**/*.mock.ts"
+                    ],
+                    "useInlineSourceMaps": true
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,65 @@
+page-search-license-dispatch {
+    .camp-info {
+        font-size: 1.4em;        
+        text-align: left;
+    }
+    .date-color {
+        text-align: right;
+        font-size: 0.8em;
+        font-weight: bold;
+        padding-left: 5%;
+        padding-right: 5%;
+        color: color($colors,theme-color-2);
+        padding-top: 5%;
+    }
+
+    .header-doc {
+        width: 100%;
+    }
+
+    .customer-name{
+        font-size: 1.0em;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .owner{
+        font-weight: bold;
+        font-size: 0.8em;
+    }
+
+    .icon-person{
+        float: left;
+        margin: 10px 2.5px 10px 2.5px;
+    }
+    
+    .other-box{
+        margin: 10px 2.5px 10px 2.5px;
+    }
+
+    .transform-text{
+        text-transform: none;
+    }
+
+    .div-box{
+        float: left;
+        display:flex;
+    }
+
+    .priority-container {
+        text-align: -webkit-right;                
+    }
+
+    .priority-color {
+        width: 2em; 
+        height: 2em; 
+        z-index: 1
+    }
+    .number-task-color {
+        text-align: right;
+        font-size: 1.8em;
+        font-weight: bold;
+        padding-left: 5%;
+        padding-right: 5%;        
+    }
+}

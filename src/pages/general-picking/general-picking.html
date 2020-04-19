@@ -1,0 +1,181 @@
+<ion-header>
+    <ion-navbar color="secondary" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title *ngIf="isGeneralTransfer">{{ '_title.General-transfer_' | translate }}</ion-title>
+        <ion-title *ngIf="regimenTask == 'GENERAL' && !isGeneralTransfer">{{ "_title.General-Picking_" | translate }}</ion-title>
+        <ion-title *ngIf="regimenTask == 'FISCAL' && !isGeneralTransfer">{{ "_title.Fiscal-Picking_" | translate }}</ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegment">
+            <ion-segment-button value="pendingToWork">
+                {{ "_segments.Pending-to-work_" | translate }}
+            </ion-segment-button>
+            <ion-segment-button value="pickingDetail" (ionSelect)="showDetail()">
+                {{ "_segments.Picking-detail_" | translate }}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div [ngSwitch]="currentSegment">
+        <ion-list *ngSwitchCase="'pendingToWork'">
+            <ion-item>
+                <p class="wavePicking" id="wavePickingId">
+                    {{ "_label.WavePicking_" | translate }}: {{ wavePickingId }}
+                </p>
+                <p class="project">
+                    {{ projectShortName }}
+                </p>
+            </ion-item>
+            <ion-item-sliding *ngFor="let header of headers" #item>
+                <ion-item *ngIf="
+                        header.isComplete != true
+                    " ion-item (click)="showDetail(header.Material.materialId)">
+                    <ion-thumbnail item-start>
+                        <img [src]="header.Material.image1" alt="." />
+                    </ion-thumbnail>
+                    <button ion-item>
+                        <h2>{{ header.Material.materialId }}</h2>
+                        <p text-wrap>{{ header.Material.materialName }}</p>
+                        <p text-wrap>
+                            {{ header.qtyAssigned - header.qtyPending }}/{{
+                                header.qtyAssigned
+                            }}
+                        </p>
+                    </button>
+                </ion-item>
+                <ion-item-options>
+                    <button ion-button color="light" icon-only (click)="printMaterial(header.Material.materialId)">
+                        <ion-icon name="print"></ion-icon>
+                    </button>
+                    <button *ngIf="!isGeneralTransfer" ion-button color="light" icon-only (click)="
+                            confirmFinishWithDifferences(
+                                header.Material.materialId
+                            )
+                        ">
+                        <ion-icon name="done-all"></ion-icon>
+                    </button>
+                    <button *ngIf="isGeneralTransfer" ion-button color="light" icon-only (click)="userWantsToCompleteTask()">
+                        <ion-icon name="done-all"></ion-icon>
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+    </div>
+    <div [ngSwitch]="currentSegment">
+        <ion-list *ngSwitchCase="'pickingDetail'">
+            <ion-item>
+                <p class="wavePicking" id="wavePickingId">
+                    {{ "_label.WavePicking_" | translate }}: {{ wavePickingId }}
+                </p>
+                <p class="project">
+                    {{ projectShortName }}
+                </p>
+            </ion-item>
+            <ion-item *ngIf="locationTarget">
+                <p text-wrap>
+                    <span style="font-weight: bold;" item-left>
+                        {{ "_label.Location-target_" | translate }}:
+                    </span>
+                    {{ locationTarget }}
+                </p>
+            </ion-item>
+            <ion-item *ngIf="licenseDispatchId != 0">
+                <p text-wrap>
+                    <span style="font-weight: bold;" item-left *ngIf="!isGeneralTransfer">
+                        {{ "_label.License-Dispatch_" | translate }}:
+                    </span>
+                    <span style="font-weight: bold;" item-left *ngIf="isGeneralTransfer">
+                        {{ "_label.License-Transfer_" | translate }}:
+                    </span>
+                    {{ licenseDispatchId }}
+                </p>
+                <button ion-button large item-end (click)="locateLicenseDispatch(false)">
+                    <ion-icon name="walk"></ion-icon>
+                </button>
+                <button ion-button large item-end (click)="insertLicenseDispatch()">
+                    <ion-icon name="add-circle"></ion-icon>
+                </button>
+                <button ion-button large item-end (click)="printLicenseDispatch()">
+                    <ion-icon name="print"></ion-icon>
+                </button>
+            </ion-item>
+
+            <ng-container *ngFor="let m of taskGroupedByMaterial">
+                <ion-item *ngIf="m.isComplete != true">
+                    <button ion-item (click)="toggleDetails(m)">
+                        <h2>{{ m.Material.materialId }}</h2>
+                        <button *ngIf="
+                                m.Tasks[0].isDiscretionary != 1 &&
+                                m.Material.batchRequested != 1
+                            " ion-button large item-end (click)="suggestedPicking(m.Tasks[0], m)">
+                            <ion-icon name="swap"></ion-icon>
+                        </button>
+                        <ion-icon color="primary" item-right [name]="m.icon"></ion-icon>
+                    </button>
+                    <ion-list *ngIf="m.showDetails">
+                        <ng-container *ngFor="let t of m.Tasks">
+                            <ion-item *ngIf="t.quantityPending != 0">
+                                <button ion-item (click)="userWantsToProcessSku(t, m)">
+                                    <p text-wrap>
+                                        <span style="font-weight: bold;" item-left>
+                                            {{
+                                                "_label.Location_" | translate
+                                            }}:
+                                        </span>
+                                        {{ t.locationSpotSource }}
+                                    </p>
+                                    <p text-wrap>
+                                        <span style="font-weight: bold;" item-left>
+                                            {{ "_label.License_" | translate }}:
+                                        </span>
+                                        {{ t.licenseIdSource }}
+                                    </p>
+                                    <p text-wrap *ngIf="t.statusCode">
+                                        <span style="font-weight: bold;" item-left>
+                                            {{ "_label.Status_" | translate }}:
+                                        </span>
+                                        {{ t.statusCode }}
+                                    </p>
+                                    <p text-wrap>
+                                        <span style="font-weight: bold;" item-left>
+                                            {{
+                                                "_label.Quantity_" | translate
+                                            }}:
+                                        </span>
+                                        {{ t.quantityPending }}
+                                    </p>
+                                </button>
+                                <ion-item *ngIf="t.Material.SerialNumbers.length > 0">
+                                    <span style="font-weight: bold;" item-left>
+                                        {{ "_label.Series_" | translate }}:
+                                    </span>
+                                    <p text-wrap *ngFor="
+                                            let s of t.Material.SerialNumbers
+                                        ">
+                                        {{ s.serial }}
+                                    </p>
+                                </ion-item>
+                            </ion-item>
+                        </ng-container>
+                    </ion-list>
+                </ion-item>
+            </ng-container>
+        </ion-list>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-item>
+        <p>
+            <button ion-button large block (click)="userWantsToCompleteTask()" id="completeTask" *ngIf="isGeneralTransfer">
+                {{ '_button.Complete-task_' | translate }}
+            </button>
+        </p>
+    </ion-item>
+</ion-footer>

@@ -1,0 +1,129 @@
+<ion-header>
+    <ion-navbar color="secondary" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Process-Sku_' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-fab bottom right *ngIf="processSku.materialBarcode?.length>0 && processSku.sourceLocation?.length> 0">
+        <button color="light" ion-fab (click)="userWantsToProcessPicking()" id="processPicking">
+            <ion-icon name="walk" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+    <ion-fab bottom left *ngIf="false">
+        <button color="light" ion-fab (click)="printLabel()" id="printLabel">
+            <ion-icon name="print" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+    <div [ngSwitch]="currentSegment">
+        <ion-list>
+            <ion-item *ngIf="licenseDispatchId != 0">
+                <p text-wrap>
+                    <span style="font-weight: bold;" item-left *ngIf="!isGeneralTransfer">
+                        {{ '_label.License-Dispatch_' | translate }}:
+                    </span>
+                    <span style="font-weight: bold;" item-left *ngIf="isGeneralTransfer">
+                        {{ "_label.License-Transfer_" | translate }}:
+                    </span>
+                    {{licenseDispatchId}}
+                </p>
+                <button ion-button large item-end (click)="insertLicenseDispatch()">
+                    <ion-icon name="add-circle"></ion-icon>
+                </button>
+                <button ion-button large item-end (click)="printLicenseDispatch()">
+                    <ion-icon name="print"></ion-icon>
+                </button>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-list>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.ScanLocation_' | translate}} ({{task.locationSpotSource}})
+            </ion-label>
+
+            <ion-input type="text" [(ngModel)]="processSku.sourceLocation" [readonly]="true"
+                (ionFocus)="userWantsToChangeCurrentScan(1)" id="sourceLocation"></ion-input>
+            <ion-icon name="barcode" *ngIf="showScanIcon(1)" item-end></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.ScanLicense_' | translate}} ({{task.licenseIdSource}})
+            </ion-label>
+            <ion-input type="number" [(ngModel)]="processSku.licenseId" [readonly]="true"
+                (ionFocus)="userWantsToChangeCurrentScan(2)" id="licenseId"></ion-input>
+            <ion-icon name="barcode" *ngIf="showScanIcon(2)" item-end></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.ScanSku_' | translate}} ({{task.barcodeId}})
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="processSku.materialBarcode" [readonly]="true"
+                (ionFocus)="userWantsToChangeCurrentScan(3)" id="materialBarcode"></ion-input>
+            <ion-icon name="barcode" *ngIf="showScanIcon(3)" item-end></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.Measurement-unit_' | translate}}
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="processSku.unitMsr" [readonly]="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.InputQty_' | translate}} ({{task.quantityPendingWithUnitMsr}})
+            </ion-label>
+            <ion-input type="number" min="0" [max]="task.quantityPendingWithUnitMsr" [(ngModel)]="processSku.quantity"
+                [readonly]="processSku.requestSerial" id="quantityPending"></ion-input>
+        </ion-item>
+        <ion-item class="label" *ngIf="task.tone && task.tone.length > 0">
+            <ion-label stacked>
+                {{ '_label.Tone_' | translate}}
+            </ion-label>
+            <ion-label stacked>
+                {{task.tone }}
+            </ion-label>
+        </ion-item>
+        <ion-item *ngIf="task.caliber && task.caliber.length > 0">
+            <ion-label class="label" stacked>
+                {{ '_label.Caliber_' | translate}}
+            </ion-label>
+            <ion-label stacked>
+                {{task.caliber }}
+            </ion-label>
+
+        </ion-item>
+        <ion-item *ngIf="processSku.useMt2">
+            <ion-label class="label" stacked>
+                {{ '_label.Space-used-m2_' | translate}}
+            </ion-label>
+            <ion-input type="number" min="0" [(ngModel)]="processSku.usedMt2" id="usedMt2"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="processSku.batch && processSku.batch.length > 0">
+            <ion-label class="label" stacked>
+                {{ '_label.Batch_' | translate}}
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="processSku.batch" [readonly]="true">
+
+            </ion-input>
+        </ion-item>
+        <ion-item *ngIf="processSku.dateExpiration && processSku.dateExpiration.length > 0">
+            <ion-label class="label" stacked>
+                {{ '_label.Expiration-date_' | translate}}
+            </ion-label>
+
+            <ion-datetime disabled displayFormat="DD/MM/YYYY" [(ngModel)]="processSku.dateExpiration">
+            </ion-datetime>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()" id="scanBarcode" materialId="">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

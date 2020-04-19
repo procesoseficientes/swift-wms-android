@@ -1,0 +1,118 @@
+<ion-header>
+    <ion-navbar color="favorite" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Explode-Master-Pack_' | translate}}</ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegment">
+            <ion-segment-button value="scanMaterial" id="scanMaterial">
+                {{ '_segments.Scan-Master-Pack_' | translate}}
+            </ion-segment-button>
+            <ion-segment-button value="masterDetail" id="masterDetail">
+                {{ '_segments.Master-Pack-Detail_' | translate}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content >
+    <ion-fab bottom right>
+        <button color="light" ion-fab *ngIf="detail.length > 0" (click)="explodeMasterPack()" id="explodeMasterPack">
+            <ion-icon name="done-all" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <div [ngSwitch]="currentSegment">
+        <ion-list *ngSwitchCase="'scanMaterial'">
+
+            <button ion-item detail-none (click)="changeCurrentScan(1)" id="licenseId">
+                <p class="material-code" id="materialCode">
+                    {{ '_label.License_' | translate}}
+                </p>
+                <p class="material-code" id="materialCode">
+                    {{licenseId }}
+                </p>
+                <ion-icon name="barcode" *ngIf="showScanIcon(1)" item-end></ion-icon>
+            </button>
+
+            <button ion-item detail-none (click)="changeCurrentScan(2)" id="changeCurrentScan">
+                <p class="material-code" id="materialCode">
+                    {{ '_label.Material_' | translate }}
+                </p>
+                <p class="material-code" id="materialCode">
+                    {{material.MATERIAL_ID }}
+                </p>
+                <p class="material-name" id="materialName">
+                    {{material.MATERIAL_NAME}}
+                </p>
+                <ion-icon name="barcode" *ngIf="showScanIcon(2)" item-end></ion-icon>
+            </button>
+            <ion-item *ngIf="material.BATCH">
+                <ion-label stacked>
+                    {{ '_label.Batch_' | translate}}
+                </ion-label>
+                <ion-input type="text" disabled [(ngModel)]="material.BATCH" id="materialBatch"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="material.BATCH">
+                <ion-label stacked>
+                    {{ '_label.Expiration-date_' | translate}}
+                </ion-label>
+                <ion-datetime disabled [(ngModel)]="material.DATE_EXPIRATION" displayFormat="MMM DD YYYY" max="2099-12-31" id="materialExpirationDate"></ion-datetime>
+            </ion-item>
+            <ion-item *ngIf="material.MATERIAL_ID">
+                <ion-label stacked>
+                    {{ '_label.Quantity_' | translate}}
+                </ion-label>
+                <ion-label stacked>
+                    {{ material.QTY }}
+                </ion-label>
+            </ion-item>
+        </ion-list>
+
+
+        <ion-list *ngSwitchCase="'masterDetail'">
+            <ion-item *ngFor="let d of detail" class="detail">
+
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Material_' | translate}}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ d.MATERIAL_ID }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Description_' | translate}}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ d.MATERIAL_NAME }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Quantity_' | translate}}
+                        </ion-col>
+                        <ion-col col-4 class="grid-description">
+                            {{ d.QTY }}
+                        </ion-col>
+                    </ion-row>
+
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar *ngIf="showScanBarcode() && !isAndroid">
+        <button ion-button large block (click)="scanBarcode()" id="scanBarcode">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

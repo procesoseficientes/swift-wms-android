@@ -1,0 +1,51 @@
+page-locate-general-transfer {
+    ion-buttons button[icon-only].my-style-for-modal {
+        margin: 0 6px;
+        min-width: 36px;
+    }
+
+    ion-card-header {
+        width: inherit;
+        height: 75px;
+    }
+
+    .material-code {
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    
+    .license {
+        text-align: center;
+        font-weight: bold;
+        font-size: 22px;
+    }
+    .material-name {
+        text-align: center;
+    }
+
+    .detail {
+        border-top: 1px;
+        border-bottom: 1px;
+    }
+
+    .material-name {
+        text-align: left;
+        font-weight: bold;
+        font-size: 2em;
+    }
+
+    .grid-header {
+        color: #666666;
+        text-align: left;
+        text-align: left;
+        font-size: 0.875em;
+    }
+
+    .grid-description {
+        color: #666666;
+        font-weight: bold;
+        text-align: left;
+        font-size: 0.875em;
+    }
+}

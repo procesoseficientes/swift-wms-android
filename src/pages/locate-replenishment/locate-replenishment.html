@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <ion-title>{{ '_title.Locate-Replenishment_' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-item *ngFor="let l of locations" class="detail">
+        <button ion-item (click)="toggleDetails(l)" [color]="l.color">
+            <h2>{{ '_label.Location_' | translate }}: {{ l.targetLocation }}</h2>
+            <ion-icon name="barcode" item-right *ngIf="locateDispatch.showScanIcon(1,null,l,currentScan)"></ion-icon>
+            <ion-icon name="checkmark" item-right *ngIf="l.isComplete"></ion-icon>
+            <ion-icon color="primary" item-right [name]="l.icon"></ion-icon>
+        </button>
+        <div *ngIf="l.showDetails">
+            <ion-list>
+                <ion-item *ngFor="let L of l.licenses" (click)="userWantsToChangeCurrentScan(2,L,l)">
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            ({{ L.licenseId }})
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-description">
+                            [{{ L.currentLocation }}]
+                        </ion-col>
+                    </ion-row>
+                    <ion-icon name="barcode" *ngIf="locateDispatch.showScanIcon(2,L,null,currentScan)" item-end></ion-icon>
+                    <ion-icon name="checkmark" *ngIf="L.isComplete" item-end></ion-icon>
+                    <button ion-button large item-end (click)="goToLicenseInfo(L)">
+                        <ion-icon name="apps"></ion-icon>
+                    </button>
+                    <button ion-button large item-end (click)="printLicenseDispatch(L)">
+                        <ion-icon name="print"></ion-icon>
+                    </button>
+
+                </ion-item>
+
+            </ion-list>
+        </div>
+    </ion-item>
+</ion-content>
+
+
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backButton">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Physical-Count_' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <p class="taskId" id="taskId">
+                {{taskId}}
+            </p>
+        </ion-item>
+        <ion-item *ngFor="let l of locations">
+            <p class="location-spot">
+                {{l.LOCATION}}
+            </p>
+            <p>
+                {{l.WAREHOUSE_ID}} - {{l.ZONE_DESCRIPTION}}
+            </p>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

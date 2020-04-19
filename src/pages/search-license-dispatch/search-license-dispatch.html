@@ -1,0 +1,96 @@
+<ion-header>
+    <ion-navbar color="favorite" no-border-bottom>
+        <ion-buttons left>
+            <button
+                ion-button
+                icon-only
+                (click)="backButtonAction()"
+                class="my-style-for-modal"
+                id="backAction"
+            >
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "_title.Dispatch-of-License_" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list radio-group [(ngModel)]="selectedOption">
+        <ion-item>
+            <ion-label>{{ "_label.Dispatch-License_" | translate }}</ion-label>
+            <ion-radio checked="true" value="DISPATCH_LICENSE"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>{{ "_label.Document-number_" | translate }}</ion-label>
+            <ion-radio value="DOC_NUM"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>{{ "_label.WavePicking_" | translate }}</ion-label>
+            <ion-radio value="WAVE_PICKING_ID"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-item>
+        <ion-input
+            type="text"
+            #input
+            [(ngModel)]="inputSearch"
+            (keypress)="keyPressSerie($event.keyCode)"
+        ></ion-input>
+        <ion-icon name="barcode" item-end></ion-icon>
+    </ion-item>
+    <div>
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content> </ion-refresher-content>
+        </ion-refresher>
+        <ion-row *ngFor="let wavePicking of listWavePickingPending">
+            <ion-card (dblclick)="showDispatchLicense(wavePicking.WAVE_PICKING_ID)">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 80%">
+                            <div class="camp-info" style="font-weight: bold;" >
+                                {{ wavePicking.WAVE_PICKING_ID }}
+                            </div>
+                        </td>
+                        <td style="width: 20%">
+                            <div padding class="priority-container">
+                                <img
+                                    [src]="
+                                        getColorOfPriority(wavePicking.PRIORITY)
+                                    "
+                                    alt="."
+                                    class="priority-color"
+                                    top
+                                />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="camp-info">
+                    {{
+                        wavePicking.COMPLETED_DATE
+                            | notificationDate
+                            | translate
+                    }}
+                    {{ wavePicking.COMPLETED_DATE | formatDate }}
+                </div>
+                <div class="camp-info">
+                    {{ wavePicking.CLIENT_NAME }}
+                </div>
+                <div *ngIf="wavePicking.DOC_NUM > 0" class="camp-info">
+                    {{ wavePicking.DOC_NUM }}
+                </div>
+            </ion-card>
+        </ion-row>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()" id="scanBarcode">
+            {{ "_button.Scan-barcode_" | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

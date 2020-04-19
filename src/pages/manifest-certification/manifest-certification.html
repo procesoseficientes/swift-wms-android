@@ -1,0 +1,157 @@
+<ion-header>
+
+    <ion-navbar color="primary" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "_title.Manifest-certification_" | translate }}</ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegment" (ionChange)="changeCurrentSegment()">
+            <ion-segment-button value="scanMaterial" id="scanMaterial">
+                {{ '_segments.Scan-Material_' | translate}}
+            </ion-segment-button>
+            <ion-segment-button value="certificationDetail" id="certificationDetail">
+                {{ '_segments.Certification-Detail_' | translate}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-fab bottom right *ngIf="allowIncompleteCertification && certificationId != 0">
+        <button color="light" ion-fab (click)="confirmIncompleteCertification()">
+            <ion-icon name="done-all" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <div [ngSwitch]="currentSegment">
+        <ion-list *ngSwitchCase="'scanMaterial'">
+            <ion-item>
+                <button ion-item detail-none (click)="changeCurrentScan(1)" id="changeCurrentScan">
+                    <p class="button-title">
+                        {{ '_label.Scan-Manifest_' | translate }}
+                    </p>
+                    <p class="button-detail">
+                        {{ manifestId }}
+                        <ion-badge item-end *ngIf="manifestId">{{completedPercentage}}%</ion-badge>
+                    </p>
+                </button>
+                <ion-icon name="barcode" *ngIf="showScanIcon(1)" item-end></ion-icon>
+            </ion-item>
+
+            <ion-item *ngIf="certificationId != 0">
+                <ion-label stacked>{{ '_label.Scan-Type_' | translate}}</ion-label>
+                <ion-select [(ngModel)]="scanType" (ionChange)="scanTypeChanged($event)">
+                    <ion-option value="1">
+                        {{ "_label.Material_" | translate }}
+                    </ion-option>
+                    <ion-option value="2">
+                        {{ "_label.Label_" | translate }}
+                    </ion-option>
+                    <ion-option value="3">
+                        {{ "_label.Box_" | translate }}
+                    </ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item *ngIf="showOption(1) && manifestId">
+                <button ion-item detail-none (click)="changeCurrentScan(2)" id="changeCurrentScan">
+                    <p class="button-title-non-centered">
+                        {{ material.materialId || '_label.Scan-Material_' | translate }}
+                    </p>
+                    <p class="button-detail-non-centered">
+                        {{ material.materialName }}
+                    </p>
+                </button>
+                <ion-icon name="barcode" *ngIf="showScanIcon(2)" item-end></ion-icon>
+            </ion-item>
+
+            <ion-item *ngIf="material.materialId && manifestId">
+                <ion-label stacked>
+                    {{ '_label.Quantity_' | translate}}
+                </ion-label>
+                <ion-input type="number" #qty [(ngModel)]="material.quantity" (keypress)="keyPressQuantity($event.keyCode)">
+                </ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="showOption(2) && manifestId">
+                <button ion-item detail-none (click)="changeCurrentScan(3)">
+                    <p class="button-title-non-centered">
+                        {{ '_label.Scan-Label_' | translate }}
+                    </p>
+                    <p class="button-detail-non-centered">
+                        {{ scanData }}
+                    </p>
+                </button>
+                <ion-icon name="barcode" *ngIf="showScanIcon(3)" item-end></ion-icon>
+            </ion-item>
+
+            <ion-item *ngIf="showOption(3) && manifestId">
+                <button ion-item detail-none (click)="changeCurrentScan(4)">
+                    <p class="button-title-non-centered">
+                        {{ '_label.Scan-Box_' | translate }}
+                    </p>
+                    <p class="button-detail-non-centered">
+                        {{ scanData }}
+                    </p>
+                </button>
+                <ion-icon name="barcode" *ngIf="showScanIcon(4)" item-end></ion-icon>
+            </ion-item>
+
+        </ion-list>
+        <ion-list *ngSwitchCase="'certificationDetail'">
+            <ion-item>
+                <p class="license" id="licenseId">
+                    {{manifestId}}
+                </p>
+                <ion-badge id="percentageId" item-end *ngIf="manifestId">{{completedPercentage}}%</ion-badge>
+            </ion-item>
+            <ion-item>
+                <ion-list>
+                    <ion-item *ngFor="let d of detail" (click)="toggleDetails(d)" class="detail">
+                        <ion-icon color="primary" item-right [name]="d.icon"></ion-icon>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-4 class="grid-header">
+                                    {{ '_label.Material_' | translate}}
+                                </ion-col>
+                                <ion-col col-8 class="grid-description">
+                                    {{ d.MATERIAL_ID }}
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col col-4 class="grid-header">
+                                    {{ '_label.Quantity_' | translate}}
+                                </ion-col>
+                                <ion-col col-4 class="grid-description">
+                                    {{ d.QTY }}
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                        <div *ngIf="d.showDetails && d.SerialNumbers">
+                            <ion-list>
+                                <ion-item *ngFor="let s of d.SerialNumbers" style="text-align: center; font-weight: bold;">
+                                    {{s.SERIAL_NUMBER}}
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
+
+
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

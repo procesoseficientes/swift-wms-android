@@ -1,0 +1,149 @@
+<ion-header>
+    <ion-navbar color="favorite" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Scan_Dispatch-of-License_' | translate }} </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-fab bottom right *ngIf="checkCompletedLicenses()">
+        <button color="light" ion-fab (click)="completedProcessLicensesDispatch()" id="processLicensesDispatch">
+            <ion-icon name="done-all" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+    <ion-list>
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-6 class="grid-header">
+                        {{ '_label.WavePicking_' | translate }}
+                    </ion-col>
+                    <ion-col col-6 class="grid-header">
+                        {{ '_label.Document-number_' | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-6 class="grid-description">
+                        {{wavePickingForLicenseDispatch.WAVE_PICKING_ID}}
+                    </ion-col>
+                    <ion-col col-6 class="grid-description">
+                        {{ showDocNum(wavePickingForLicenseDispatch) | translate}}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-6 class="grid-header">
+                        {{ '_label.Customer_Name_' | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-6 class="grid-description">
+                        {{ showClientName(wavePickingForLicenseDispatch) | translate}}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-6 class="grid-header">
+                        {{ '_label.Delivery-date_' | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-6 class="grid-description">
+                        {{wavePickingForLicenseDispatch.DELIVERY_DATE | date : 'dd-MMM-yyyy' }}
+                    </ion-col>
+                    <ion-col col-6 class="grid-description">
+                        {{completedLicenses}} / {{licenseDispatch.length}}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+    <ion-item *ngFor="let l of licenseDispatch; let indexLicense = index" class="detail">
+        <button ion-item (click)="toggleDetails(l)">
+            <ion-icon color="primary" item-right [name]="l.icon" [color]="light"></ion-icon>
+            <ion-icon name="barcode" item-right *ngIf="l.showScanIcon"></ion-icon>
+            <ion-icon name="checkmark" item-right *ngIf="l.isComplete"></ion-icon>
+            <ion-grid id="grid-detail">
+                <ion-row>
+                    <ion-col col-6 class="grid-header">
+                        {{ '_label.License_' | translate }}
+                    </ion-col>
+                    <ion-col col-6 class="grid-header">
+                        {{l.correlative}} / {{licenseDispatch.length}}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-6 class="grid-description">
+                        {{l.licenseId}}
+                    </ion-col>
+                    <ion-col col-6 class="grid-description">
+                        {{l.pickedBy}}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <ion-grid id="grid-detail">
+                <ion-row>
+                    <ion-col col-6 class="grid-header">
+                        {{ '_label.Location_' | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-4 class="grid-description">
+                        {{l.location}}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </button>
+        <ng-container *ngIf="l.showDetails">
+            <ion-item *ngFor="let d of l.detail; let indexDetail = index">
+                <div [class]="validateColor(d)">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-8 class="grid-description" width-75>
+                                {{ d.materialId }}
+                            </ion-col>
+                            <p class="wrapText" text-wrap>
+                                {{ d.materialName }}
+                            </p>
+                        </ion-row>
+                        <ion-row>
+                            <table>
+                                <tr>
+                                    <td>
+                                        {{ '_label.Quantity_' | translate}}
+                                    </td>
+                                    <td>
+                                        <ion-item>
+                                            <ion-input type="number" [(ngModel)]="d.qty" [value]="d.qty" name="detail.materialId"
+                                                id="detail.materialId" pattern="[0-9]*" required="true" [max]="d.qtyOrigin"
+                                                (ionBlur)="validateInputNumber(d)"></ion-input>
+                                        </ion-item>
+                                    </td>
+                                    <td>
+                                        / {{ d.qtyOrigin }}
+                                    </td>
+                                </tr>
+                            </table>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </ion-item>
+        </ng-container>
+    </ion-item>
+</ion-content>
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()" id="scanBarcode">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,95 @@
+<ion-header>
+    <ion-navbar color="favorite" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "_title.Exit_Pass_" | translate }} </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content no-padding>
+    <ion-fab right bottom *ngIf="checkCompletedExitPass()">
+        <button ion-fab color="light">
+            <ion-icon name="settings"></ion-icon>
+        </button>
+        <ion-fab-list side="left">
+            <button ion-fab (click)="printExitPass()">
+                <ion-icon name="print"></ion-icon>
+            </button>
+            <button color="light" ion-fab (click)="backButtonAction()">
+                    <ion-icon name="undo" color="favorite"></ion-icon>
+                </button>
+        </ion-fab-list>
+    </ion-fab>
+    <ion-fab bottom right  *ngIf="checkCompletedData()">
+        <button color="light" ion-fab (click)="completedProcessExitPass()">
+            <ion-icon name="done-all" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+    <ion-list no-padding>
+        <ion-item no-padding *ngIf="exitPassId > 0">
+            <ion-title>{{exitPassId}}</ion-title>
+        </ion-item>
+        <ion-item no-padding>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-15 class="grid-header">
+                        {{ "_label.Dispatch-Number_" | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-15 class="grid-description">
+                        {{dispatchNumber}}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-15 class="grid-header">
+                        {{ "_label.Pilot_" | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-15 class="grid-header">
+                        {{ "_label.Name_" | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-15 class="grid-description">
+                        <ion-item>
+                            <ion-input type="text" #input [(ngModel)]="inputName" maxlength="250" [readonly]="checkCompletedExitPass()"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-15 class="grid-header">
+                        {{ "_label.Last-Name_" | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-15 class="grid-description">
+                        <ion-item>
+                            <ion-input type="text" #input [(ngModel)]="inputLastName" maxlength="250" [readonly]="checkCompletedExitPass()"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-15 class="grid-header">
+                        {{ "_label.Vehicle_" | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-15 class="grid-header">
+                        {{ "_label.Plate-Number" | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-15 class="grid-description">
+                        <ion-item>
+                            <ion-input type="text" #input [(ngModel)]="inputplateNumber" maxlength="10" [readonly]="checkCompletedExitPass()"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+</ion-content>

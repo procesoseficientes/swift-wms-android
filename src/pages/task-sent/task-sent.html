@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-navbar color="twitter">
+        <ion-title>{{ '_tab.Task-sent_' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-card no-padding *ngFor="let transaction of transactions">
+        <ion-card-content no-padding>
+            <ion-item no-padding>
+                <ion-grid id="grid-detail">
+                    <ion-row>
+                        <ion-col   class="grid-header">
+                            {{ '_label.License_' | translate }}
+                        </ion-col>
+                        <ion-col   class="grid-description">
+                            {{ transaction.licenseId }}
+                        </ion-col>
+                        <ion-col class="grid-description" text-wrap *ngIf="transaction.materialId != null">
+                            {{ transaction.materialId }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="transaction.materialName != null">
+                        <ion-col class="grid-description" text-wrap>
+                            {{ transaction.materialName }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="transaction.qty != null">
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Quantity_' | translate }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ transaction.qty }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Date_' | translate }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ transaction.dateCreated | date : 'dd/MMM/yyyy hh:mm:ss' }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Type_' | translate }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ showTaskType(transaction.taskType) | translate}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="transaction.taskId != null">
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Task_' | translate }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ transaction.taskId }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Location_' | translate }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ transaction.location }}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

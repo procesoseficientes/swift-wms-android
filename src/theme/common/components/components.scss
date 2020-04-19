@@ -1,0 +1,6 @@
+@import "./spinner";
+@import "./preload-image";
+@import "./background-image";
+
+@include preload-image-styles(rgba($white-c, 0.25), 28px, $white-d);
+@include background-image-styles(rgba($white-c, 0.5), 28px, $white-d);

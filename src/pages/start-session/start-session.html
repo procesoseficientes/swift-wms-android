@@ -1,0 +1,49 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>{{"_titleView.Login_" | translate}}</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="loginForm">
+        <ion-card>
+
+            <ion-card-header>
+            </ion-card-header>
+
+            <ion-card-content>
+
+                <ion-list>
+
+                    <ion-item>
+                        <ion-label>{{ "_label.User_" | translate }}</ion-label>
+                        <ion-input [(ngModel)]="userCredentials.loginId" formControlName="loginId" type="text" id="loginId"
+                            spellcheck="false" autocapitalize="on"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <button ion-button large block (click)="userWantsCheckPin()" id="inputPassword" [disabled]="formIsNotValid()">{{
+                            "_label.Password_" | translate }}</button>
+                    </ion-item>
+
+                    <ion-item>
+                        <button ion-button large block (click)="userWantsExitApp()" color="danger">
+                            {{ "_button.EXIT-SWIFT_" | translate }}
+                        </button>
+                    </ion-item>
+                    <ion-item (click)="showVersionCode()">
+                        <div style="width: 100%; text-align: center;">
+                            <span style="font-weight: bold;" item-center>
+                                {{ '_label.Version_' | translate }}:
+                            </span>
+                            {{ version }}
+
+                        </div>
+                    </ion-item>                  
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </form>
+</ion-content>

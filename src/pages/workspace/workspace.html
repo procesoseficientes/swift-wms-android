@@ -1,0 +1,10 @@
+<ion-tabs #myTabs id="myTabs" tabs-only color="dark" tabsHighlight="true" tabsLayout="icon-top">
+    <ion-tab [root]="myTaskRoot" (ionSelect)="changeTab('MyTasksPage')" tabTitle="{{ '_tab.My-tasks_' | translate }}"
+        tabIcon="list"></ion-tab>
+    <ion-tab [root]="taskSentRoot" (ionSelect)="changeTab('TasksSentPage')" tabTitle="{{ '_tab.Task-sent_' | translate }}"
+        tabIcon="send"></ion-tab>
+    <ion-tab [root]="infoCenterRoot" (ionSelect)="changeTab('InfoCenterPage')" tabTitle="{{ '_tab.Info-center_' | translate }}"
+        tabIcon="information"></ion-tab>
+    <ion-tab [root]="moreTransactionsRoot" (ionSelect)="changeTab('MoreTransactionsPage')" tabTitle="{{ '_tab.More-transactions_' | translate }}"
+        tabIcon="more"></ion-tab>
+</ion-tabs>

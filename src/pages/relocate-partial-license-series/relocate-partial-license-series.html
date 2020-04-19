@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-navbar color="favorite">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "_title.Relocate-Series_" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-fab bottom right>
+        <button color="light" ion-fab (click)="acceptSeries()">
+            <ion-icon name="checkmark-circle" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+    <ion-fab bottom left>
+        <button color="light" ion-fab (click)="userWantsToAddSeriesRank()">
+            <ion-icon name="code-working" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <ion-list>
+        <ion-item>
+            <ion-label stacked>{{ "_label.Status_" | translate }}</ion-label>
+            <ion-select [(ngModel)]="materialStatus" id="materialStatus">
+                <ion-option *ngFor="let s of statusList" [value]="s.paramName">
+                    {{ s.textValue }}
+                </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            {{ "_label.Total-series_" | translate }}
+            <ion-badge item-end>{{ scannedSeries.length }}</ion-badge>
+        </ion-item>
+        <ion-item>
+            <ion-input type="text" #serialInput [(ngModel)]="scanData" (keypress)="keyPressSerie($event.keyCode)"></ion-input>
+            <ion-icon name="barcode" item-end></ion-icon>
+        </ion-item>
+
+        <ion-item *ngFor="let scanned of scannedSeries">
+            <button clear outline item-left ion-button color="light" icon-only (click)="showDeleteSerieConfirmation(scanned.SERIAL)"
+                class="my-style-for-modal">
+                <ion-icon name="trash" color="dark"></ion-icon>
+            </button>
+            <span item-left id="scanSerie"> {{ scanned.SERIAL }} </span>
+            <span item-right> ✔️ </span>
+        </ion-item>
+
+        <ion-item *ngFor="let s of availableSeries">
+            <span item-left id="serie"> {{ s.SERIAL }} </span>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()">
+            {{ "_button.Scan-barcode_" | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

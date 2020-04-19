@@ -1,0 +1,211 @@
+<ion-header>
+    <ion-navbar color="secondary" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title *ngIf="regimenTask == 'GENERAL'">{{ '_title.General-Reception_' | translate}}</ion-title>
+        <ion-title *ngIf="regimenTask == 'FISCAL'">{{ "_title.Reception_Fiscal_" | translate }}</ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegment">
+            <ion-segment-button value="scanMaterial" id="scanMaterial">
+                {{ '_segments.Scan-Material_' | translate}}
+            </ion-segment-button>
+            <ion-segment-button value="licenseDetail" id="licenseDetail">
+                {{ '_segments.License-detail_' | translate}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content >
+    <ion-fab top right>
+        <button color="light" ion-fab (click)="showPrintOption()" id="showPrint">
+            <ion-icon name="print" color="dark"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <ion-fab bottom right>
+        <button color="light" ion-fab *ngIf="detail.length > 0" (click)="validateSuggestedLocation()" id="locateLicense">
+            <ion-icon name="walk" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <div [ngSwitch]="currentSegment">
+        <ion-list *ngSwitchCase="'scanMaterial'">
+            <ion-item>
+                <button ion-item detail-none (click)="changeCurrentScan(1)" id="changeCurrentScan">
+                    <p class="material-code" id="materialCode">
+                        {{material.materialId}}
+                    </p>
+                    <p class="material-name" id="materialName">
+                        {{material.materialName}}
+                    </p>
+                </button>
+                <ion-icon name="barcode" *ngIf="showScanIcon(1)" item-end></ion-icon>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>{{ '_label.Status_' | translate}}</ion-label>
+                <ion-select [(ngModel)]="materialStatus" id="materialStatus" [disabled]="statusDisabled">
+                    <ion-option *ngFor="let s of statusList" [value]="s.paramName">
+                        {{s.textValue}}
+                    </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="material.batchRequested === 1">
+                <ion-label stacked>
+                    {{ '_label.Batch_' | translate}}
+                </ion-label>
+                <ion-input type="text" [(ngModel)]="material.batch" (ionFocus)="changeCurrentScan(2)" id="materialBatch"></ion-input>
+                <ion-icon name="barcode" *ngIf="showScanIcon(2)" item-end></ion-icon>
+            </ion-item>
+            <ion-item *ngIf="material.batchRequested === 1">
+                <ion-label stacked>
+                    {{ '_label.Expiration-date_' | translate}}
+                </ion-label>
+                <ion-datetime displayFormat="MMM DD YYYY" max="2099-12-31" [(ngModel)]="material.expirationDate" id="materialExpirationDate"></ion-datetime>
+            </ion-item>
+            <ion-item *ngIf="material.isCar === 1">
+                <ion-label stacked>
+                    {{ '_label.VIN_' | translate}}
+                </ion-label>
+                <ion-input type="text" [(ngModel)]="material.vin" (ionFocus)="changeCurrentScan(3)" id="materialVin"></ion-input>
+                <ion-icon name="barcode" *ngIf="showScanIcon(3)" item-end></ion-icon>
+            </ion-item>
+            <ion-item *ngIf="material.handleTone === 1">
+                <ion-label stacked>
+                    {{ '_label.Tone_' | translate}}
+                </ion-label>
+                <ion-input type="text" [(ngModel)]="material.tone" id="materialTone"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="material.handleCaliber === 1">
+                <ion-label stacked>
+                    {{ '_label.Caliber_' | translate}}
+                </ion-label>
+                <ion-input type="text" [(ngModel)]="material.caliber" id="materialCaliber"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="material.materialId">
+                <ion-label stacked>
+                    {{ '_label.Measurement-unit_' | translate}}
+                </ion-label>
+                <ion-input type="text" [(ngModel)]="material.measurementUnit" [disabled]="true"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="material.materialId">
+                <ion-label stacked>
+                    {{ '_label.Quantity_' | translate}}
+                </ion-label>
+                <ion-input type="number" #qty [(ngModel)]="material.quantity" (keypress)="keyPressQuantity($event.keyCode)" id="materialQuantity"></ion-input>
+            </ion-item>
+        </ion-list>
+
+
+        <ion-list *ngSwitchCase="'licenseDetail'" no-padding>
+            <ion-item>
+                <p class="license" id="licenseId">
+                    {{licenseId}}
+                </p>
+            </ion-item>
+            <ion-item *ngFor="let d of detail" (click)="toggleDetails(d)" class="detail">
+                <ion-icon color="primary" item-right [name]="d.icon"></ion-icon>
+
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Material_' | translate}}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ d.materialId }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Description_' | translate}}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description" text-wrap>
+                            {{ d.materialName }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Status_' | translate}}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description" text-wrap>
+                            {{ d.materialStatus }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Measurement-unit_' | translate}}
+                        </ion-col>
+                        <ion-col col-4 class="grid-description">
+                            {{ d.measurementUnit }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ '_label.Quantity_' | translate}}
+                        </ion-col>
+                        <ion-col col-4 class="grid-description">
+                            {{ d.quantity }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="d.batchRequested === 1">
+                        <ion-col col-6 class="grid-header">
+                            {{ '_label.Batch_' | translate}}
+                        </ion-col>
+                        <ion-col col-6 class="grid-description">
+                            {{ d.batch }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="d.batchRequested === 1">
+                        <ion-col col-6 class="grid-header">
+                            {{ '_label.Expiration-date_' | translate}}
+                        </ion-col>
+                        <ion-col col-6 class="grid-description">
+                            {{ d.expirationDate | date }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="d.handleTone === 1 || d.handleCaliber === 1">
+                        <ion-col col-3 class="grid-header" *ngIf="d.handleTone === 1">
+                            {{ '_label.Tone_' | translate}}
+                        </ion-col>
+                        <ion-col col-3 class="grid-description" *ngIf="d.handleTone === 1">
+                            {{ d.tone }}
+                        </ion-col>
+                        <ion-col col-3 class="grid-header" *ngIf="d.handleCaliber === 1">
+                            {{ '_label.Caliber_' | translate}}
+                        </ion-col>
+                        <ion-col col-3 class="grid-description" *ngIf="d.handleCaliber === 1">
+                            {{ d.caliber }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="d.isCar === 1">
+                        <ion-col col-3 class="grid-header">
+                            {{ '_label.VIN_' | translate}}
+                        </ion-col>
+                        <ion-col col-3 class="grid-description">
+                            {{ d.vin }}
+                        </ion-col>
+                    </ion-row>
+
+                <div *ngIf="d.showDetails && d.serialNumberRequests">
+                    <ion-list>
+                        <ion-item *ngFor="let s of d.SerialNumbers" style="text-align: center; font-weight: bold;">
+                            {{s.serial}}
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+
+</ion-content>
+<ion-footer>
+    <ion-toolbar *ngIf="showScanBarcode() && !isAndroid">
+        <button ion-button large block (click)="scanBarcode()" id="scanBarcode">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

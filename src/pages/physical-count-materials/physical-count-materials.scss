@@ -1,0 +1,41 @@
+page-physical-count-materials {
+    .taskId {
+        text-align: center;
+        font-weight: bold;
+        font-size: 22px;
+    }
+
+    .location-spot {
+        font-weight: bold;
+    }
+
+    .license {
+        text-align: center;
+        font-weight: bold;
+        font-size: 22px;
+    }
+
+    .grid-header {
+        color: #666666;
+        font-weight: bold;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .grid-description {
+        color: #666666;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .detail
+    {
+        border-top: 1px;
+        border-bottom: 1px;
+    }
+
+    ion-buttons button[icon-only].my-style-for-modal {
+        margin: 0 6px;
+        min-width: 36px;
+    }
+}

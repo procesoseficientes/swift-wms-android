@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ '_tab.More-transactions_' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <button ion-item (click)="goToMergeLicenses()">
+            {{"_title.Merge-licenses_"| translate}}
+            <ion-icon item-end name="git-network"></ion-icon>
+        </button>
+        <button ion-item (click)="goToReceptionByDocument()"> {{"_title.Reception-by-document_"| translate}}
+            <ion-icon item-end name="document"></ion-icon>
+        </button>
+        <button ion-item (click)="goToManifestCertification()">
+            {{"_title.Manifest-certification_"| translate}}
+            <ion-icon item-end name="list"></ion-icon>
+        </button>
+        <button ion-item (click)="goToExplodeMasterPack()">
+            {{"_title.Explode-Master-Pack_"| translate}}
+            <ion-icon item-end name="albums"></ion-icon>
+        </button>
+        <button ion-item (click)="goToDispatchOfLicense()">
+            {{"_title.Dispatch-of-License_"| translate}}
+            <ion-icon item-end name="clipboard"></ion-icon>
+        </button>
+    </ion-list>
+</ion-content>

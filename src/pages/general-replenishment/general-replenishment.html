@@ -1,0 +1,113 @@
+<ion-header>
+    <ion-navbar color="secondary" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Replenishment_' | translate}}</ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegmentReplenishment">
+            <ion-segment-button value="pendingToWork">
+                {{ '_segments.Pending-to-work_' | translate}}
+            </ion-segment-button>
+            <ion-segment-button value="pickingDetail" (ionSelect)="showDetailReplenish()">
+                {{ '_segments.Picking-detail_' | translate}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content >
+    <div [ngSwitch]="currentSegmentReplenishment">
+        <ion-list *ngSwitchCase="'pendingToWork'">
+            <ion-item>
+                <p class="wavePicking" id="wavePickingId">
+                    {{ '_label.WavePicking_' | translate }}: {{wavePickingId}}
+                </p>
+            </ion-item>
+            <ion-item-sliding *ngFor="let header of headersToReplenish" #item>
+                <ion-item ion-item (click)="showDetailReplenish(header.Material.materialId)">
+                    <ion-thumbnail item-start>
+                        <img [src]="header.Material.image1" alt=".">
+                    </ion-thumbnail>
+                    <button >
+                        <h2>{{header.Material.materialId}}</h2>
+                        <p text-wrap>{{header.Material.materialName}}</p>
+                        <p text-wrap>{{header.qtyAssigned-header.qtyPending}}/{{header.qtyAssigned}}</p>
+                    </button>
+                </ion-item>
+                <ion-item-options>
+                    <button ion-button color="light" icon-only (click)="printMaterialReplenish(header.Material.materialId)">
+                        <ion-icon name="print"></ion-icon>
+                    </button>
+                    <button ion-button color="light" icon-only (click)="confirmFinishWithDifferencesReplenish(header.Material.materialId)">
+                        <ion-icon name="done-all"></ion-icon>
+                    </button>
+                </ion-item-options>
+
+            </ion-item-sliding>
+        </ion-list>
+    </div>
+    <div [ngSwitch]="currentSegmentReplenishment">
+        <ion-list *ngSwitchCase="'pickingDetail'">
+            <ion-item>
+                <p class="wavePicking" id="wavePickingId">
+                    {{ '_label.WavePicking_' | translate }}: {{wavePickingId}}
+                </p>
+            </ion-item>
+            <ion-item *ngIf="licenseDispatchId != 0">
+                <p text-wrap>
+                    <span style="font-weight: bold;" item-left>
+                        {{ '_label.License-Dispatch_' | translate }}:
+                    </span>
+                    {{licenseDispatchId}}
+                </p>
+                <button ion-button large item-end (click)="locateLicenseDispatchReplenish(false)">
+                    <ion-icon name="walk"></ion-icon>
+                </button>
+            </ion-item>
+
+            <ion-item *ngFor="let m of taskGroupedByMaterialToReplenish">
+                <button ion-item (click)="toggleDetailsReplenish(m)">
+                    <h2>{{m.Material.materialId}}</h2>
+                    <ion-icon color="primary" item-right [name]="m.icon"></ion-icon>
+                </button>
+                <ion-list *ngIf="m.showDetails">
+                    <ion-item *ngFor="let t of m.Tasks">
+                        <button ion-item (click)="userWantsToProcessSkuReplenish(t, m)">
+                            <p text-wrap>
+                                <span style="font-weight: bold;" item-left>
+                                    {{ '_label.Location_' | translate }}:
+                                </span>
+                                {{t.locationSpotSource}}
+                            </p>
+                            <p text-wrap>
+                                <span style="font-weight: bold;" item-left>
+                                    {{ '_label.License_' | translate }}:
+                                </span>
+                                {{t.licenseIdSource}}
+                            </p>
+                            <p text-wrap>
+                                <span style="font-weight: bold;" item-left>
+                                    {{ '_label.Quantity_' | translate }}:
+                                </span>
+                                {{t.quantityPending}}
+                            </p>
+                        </button>
+                        <ion-item *ngIf="t.Material.SerialNumbers.length > 0">
+                            <span style="font-weight: bold;" item-left>
+                                {{ '_label.Series_' | translate }}:
+                            </span>
+                            <p text-wrap *ngFor="let s of t.Material.SerialNumbers">
+                                {{s.serial}}
+                            </p>
+                        </ion-item>
+                    </ion-item>
+                </ion-list>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

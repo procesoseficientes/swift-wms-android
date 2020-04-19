@@ -1,0 +1,223 @@
+<ion-header>
+    <ion-navbar color="secondary" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "_title.Slotting_" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <div no-padding>
+        <ion-segment [(ngModel)]="suggestion">
+            <ion-segment-button (click)="showScanIcon(1)" class="tabs" value="zone">
+                <p class="tabDescription">{{ "_label.Zone_" | translate }}</p>
+                <div>
+                    <ion-icon name="barcode" *ngIf="currentScan == 1" item-right></ion-icon>
+                </div>
+            </ion-segment-button>
+            <ion-segment-button (click)="showScanIcon(2)" class="tabs" value="material">
+                <p class="tabDescription">
+                    {{ "_label.Material_" | translate }}
+                </p>
+                <div>
+                    <ion-icon name="barcode" *ngIf="currentScan == 2 && parameterSuggestionMaterial == 1" item-right>
+                    </ion-icon>
+                </div>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+    <div class="center">
+        <h4>
+            {{ "_label.License_" | translate }}:
+            {{ licenseId }}
+        </h4>
+        <p>
+            {{ "_label.Associated-Families_" | translate }}:
+            {{ countClassInLicense }}
+        </p>
+    </div>
+
+    <div [ngSwitch]="suggestion" no-padding>
+        <ion-list *ngSwitchCase="'zone'" no-padding>
+            <div *ngIf="showLocationByZona">
+                <ion-item no-padding>
+                    <!--Area de acordeon-->
+                    <div no-padding>
+                        <ion-list no-padding *ngFor="let list of listSuggestionZone">
+                            <ion-item no-padding (click)="toggleDetails(list)">
+                                <p class="zone">
+                                    {{ list.ZONE }}
+                                </p>
+                                <ion-row>
+                                    <span class="labelDescription">
+                                        {{
+                                            "_label.Allowed-Families_"
+                                                | translate
+                                        }}:
+                                        <strong>{{ list.COUNT_CLASS }}</strong>
+                                    </span>
+                                    <span class="labelDescription labelMandatory">
+                                        {{ "_label.Mandatory_" | translate }}:
+                                        <strong *ngIf="list.MANDATORY == 1">{{
+                                            "_button.YES_" | translate
+                                        }}</strong>
+                                        <strong *ngIf="list.MANDATORY == 0">{{
+                                            "_button.NO_" | translate
+                                        }}</strong>
+                                    </span>
+                                </ion-row>
+                                <ion-icon color="primary" [name]="list.ICON" item-right></ion-icon>
+                            </ion-item>
+                            <ion-item no-padding *ngIf="list.SHOW_DETAIL" class="detail">
+                                <ion-grid class="grid-detail" no-padding>
+                                    <ion-row>
+                                        <ion-col col-6 class="grid-header">
+                                            {{ "_label.Location_" | translate }}
+                                        </ion-col>
+                                        <ion-col col-3 class="grid-header">
+                                            {{ "_label.Weight_" | translate }}
+                                        </ion-col>
+                                        <ion-col col-3 class="grid-header">
+                                            {{ "_label.Space_" | translate }}
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row *ngFor="let item of list.LOCATIONS">
+                                        <ion-col style="display: flex;flex-direction:column;" col-6 class="grid-description row">
+                                            <p>
+                                                {{ item.LOCATION }}
+                                            </p>
+                                            <p>
+                                                {{ item.SPOT_TYPE }}
+                                            </p>
+                                        </ion-col>
+                                        <ion-col col-3 class="grid-description row">
+                                            <ion-icon item-left [name]="item.WEIGHT_ICON"
+                                                [color]="item.WEIGHT_ICON_COLOR" id="iconAvaible"></ion-icon>
+                                            {{ item.AVAILABLE_WEIGHT }}
+                                        </ion-col>
+                                        <ion-col col-3 class="grid-description row">
+                                            <ion-icon item-left [name]="item.VOLUME_ICON"
+                                                [color]="item.VOLUME_ICON_COLOR" id="iconAvaible"></ion-icon>
+                                            {{ item.AVAILABLE_VOLUME }}
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </ion-item>
+            </div>
+        </ion-list>
+        <ion-list *ngSwitchCase="'material'">
+            <div *ngIf="parameterSuggestionMaterial == 1">
+                <ion-item>
+                    <!--Area para tabla-->
+                    <div padding>
+                        <ion-list *ngFor="
+                                let suggestionMaterial of listSuggestionMaterial
+                            ">
+                            <ion-item (click)="toggleDetails(suggestionMaterial)">
+                                <ion-row>
+                                    <p class="zone">
+                                        {{ suggestionMaterial.LOCATION_SPOT }}
+                                    </p>
+                                </ion-row>
+                                <ion-icon color="primary" [name]="suggestionMaterial.ICON" item-right></ion-icon>
+                            </ion-item>
+                            <ion-item *ngIf="suggestionMaterial.SHOW_DETAIL">
+                                <ion-list no-padding>
+                                    <ion-item no-padding class="detail">
+                                        <ion-grid class="grid-detail" padding>
+                                            <ion-row>
+                                                <ion-col col-4 class="grid-header">
+                                                    {{
+                                                        "_label.Material_"
+                                                            | translate
+                                                    }}
+                                                </ion-col>
+                                                <ion-col col-8 class="grid-description">
+                                                    {{
+                                                        suggestionMaterial.MATERIAL_ID
+                                                    }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col col-4 class="grid-header">
+                                                    {{
+                                                        "_label.Quantity_"
+                                                            | translate
+                                                    }}
+                                                </ion-col>
+                                                <ion-col col-8 class="grid-description">
+                                                    {{ suggestionMaterial.QTY }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="suggestionMaterial.TONE">
+                                                <ion-col col-4 class="grid-header">
+                                                    {{
+                                                        "_label.Tone_"
+                                                            | translate
+                                                    }}
+                                                </ion-col>
+                                                <ion-col col-8 class="grid-description">
+                                                    {{
+                                                        suggestionMaterial.TONE
+                                                    }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="
+                                                    suggestionMaterial.CALIBER
+                                                ">
+                                                <ion-col col-4 class="grid-header">
+                                                    {{
+                                                        "_label.Caliber_"
+                                                            | translate
+                                                    }}
+                                                </ion-col>
+                                                <ion-col col-8 class="grid-description">
+                                                    {{
+                                                        suggestionMaterial.CALIBER
+                                                    }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="suggestionMaterial.BATCH">
+                                                <ion-col col-4 class="grid-header">
+                                                    {{
+                                                        "_label.Batch_"
+                                                            | translate
+                                                    }}
+                                                </ion-col>
+                                                <ion-col col-8 class="grid-description">
+                                                    {{
+                                                        suggestionMaterial.BATCH
+                                                    }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="suggestionMaterial.DATE_EXPIRATION">
+                                                <ion-col col-4 class="grid-header">
+                                                    {{ "_label.Expiration-date_" | translate }}
+                                                </ion-col>
+                                                <ion-col col-8 class="grid-description">
+                                                    {{ suggestionMaterial.DATE_EXPIRATION }}
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-item>
+                                </ion-list>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </ion-item>
+            </div>
+        </ion-list>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()" id="scanBarcode" materialId="">
+            {{ "_button.Scan-barcode_" | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

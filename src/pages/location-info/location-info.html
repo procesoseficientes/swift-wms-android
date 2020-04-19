@@ -1,0 +1,194 @@
+<ion-header>
+    <ion-navbar color="favorite" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{locationId}}</ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegment">
+            <ion-segment-button value="locationDescription">
+                {{ '_segments.Location-Description_' | translate}}
+            </ion-segment-button>
+            <ion-segment-button value="locationInventoryDetail" (ionSelect)="populateInventoryDetail()">
+                {{ '_segments.Location-Inventory-Detail_' | translate}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div [ngSwitch]="currentSegment">
+        <ion-list *ngSwitchCase="'locationDescription'">
+            <ion-item no-padding>
+                <ion-row no-padding>
+                    <ion-col col-6 *ngIf="locationInfo.spotType === 'RACK'">
+                        <ion-card>
+                            <ion-card-header padding text-wrap class="informative">
+                                {{ '_label.Available-weight_' | translate}}
+                            </ion-card-header>
+                            <ion-card-content text-wrap>
+                                <ion-icon item-left [name]="locationInfo.availableWeight > 0 ? 'md-checkmark':'md-close'"
+                                    class="informative-icon">
+                                </ion-icon>
+                                {{locationInfo.availableWeight}}
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                    <ion-col col-6 *ngIf="locationInfo.spotType === 'RACK' || locationInfo.spotType === 'PISO'">
+                        <ion-card>
+                            <ion-card-header padding text-wrap class="informative">
+                                {{ '_label.Available-space_' | translate}}
+                            </ion-card-header>
+                            <ion-card-content text-wrap>
+                                <ion-icon item-left [name]="locationInfo.availableVolume > 0 ? 'md-checkmark':'md-close'"
+                                    class="informative-icon">
+                                </ion-icon>
+                                {{locationInfo.availableVolume}} {{ unit }}
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked class="informative">{{ '_label.Warehouse_' | translate}}:</ion-label>
+                <ion-label>{{locationInfo.warehouseParent}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked class="informative">{{ '_label.Type_' | translate}}:</ion-label>
+                <ion-label>{{locationInfo.spotType}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked class="informative">{{ '_label.Zone_' | translate}}:</ion-label>
+                <ion-label>{{locationInfo.zone}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-list>
+                    <ion-item *ngIf="locationInfo.allowPicking === 1">
+                        {{ '_label.Allow-Picking_' | translate}}
+                    </ion-item>
+                    <ion-item *ngIf="locationInfo.allowRealloc === 1">
+                        {{ '_label.Allow-Relocation_' | translate}}
+                    </ion-item>
+                    <ion-item *ngIf="locationInfo.allowStorage === 1">
+                        {{ '_label.Allow-Storage_' | translate}}
+                    </ion-item>
+                </ion-list>
+            </ion-item>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'locationInventoryDetail'" no-padding>
+            <ion-item no-padding *ngFor="let i of inventory" class="detail">
+                <ion-icon color="primary" item-right [name]="i.icon"></ion-icon>
+                <ion-item class="itemHeader" (dblclick)="goToLicenseInfo(i)" (click)="toggleDetails(i)">
+                        <ion-row>
+                            <ion-col col-3>
+                                {{ '_label.License_' | translate}}
+                            </ion-col>
+                            <ion-col col-9 (click)="showLabel('License_')">
+                                <b> {{ i.licenseId }}</b>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-3>
+                                {{ '_label.Client_' | translate}}
+                            </ion-col>
+                            <ion-col col-9 (click)="showLabel('Client_')">
+                                {{ i.clientOwner }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-3>
+                                {{ '_label.Policy_' | translate}}
+                            </ion-col>
+                            <ion-col col-9 (click)="showLabel('Policy_')">
+                                {{ i.policyCode }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-3>
+                                {{ '_label.Status_' | translate}}
+                            </ion-col>
+                            <ion-col col-9 (click)="showLabel('Status_')">
+                                {{ i.statusName }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="showRegime">
+                            <ion-col col-3>
+                                {{ '_label.Regime_' | translate}}
+                            </ion-col>
+                            <ion-col col-9 (click)="showLabel('Regime_')">
+                                {{ i.regime }}
+                            </ion-col>
+                        </ion-row>
+                </ion-item>
+                <ng-container  *ngIf="!i.showDetails">
+                    <ion-item  *ngFor="let d of i.Inventory" (dblclick)="goToMaterialInfo(d)" class="detailLicense" no-padding>
+                        <ion-row>
+                            <ion-col class="grid-description" (click)="showLabel('Material_')">
+                                {{ d.materialId }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                                <ion-col class="grid-description rowDescription" (click)="showLabel('Description_')">
+                                    {{ d.materialName }}
+                                </ion-col>
+                            </ion-row>
+                        <ion-row>
+                            <ion-col class="grid-description" (click)="showLabel('Quantity_')">
+                                <b>{{ d.qty }}</b>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-4 class="grid-description" *ngIf="d.batch" (click)="showLabel('Batch_')">
+                                {{ d.batch }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-8 class="grid-description" *ngIf="d.dateExpiration" (click)="showLabel('Expiration-date_')">
+                                {{d.dateExpiration | formatDateNoTime}}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="grid-description" (click)="showLabel('Status_')">
+                                {{ d.statusName }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="d.shortName">
+                            <ion-col class="grid-description" (click)="showLabel('Project_')">
+                                {{ d.shortName }}
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row *ngIf="d.tone || d.caliber">
+                            <ion-col col-3 class="grid-header" *ngIf="d.tone">
+                                {{ '_label.Tone_' | translate}}
+                            </ion-col>
+                            <ion-col col-3 class="grid-description" *ngIf="d.tone">
+                                {{ d.tone }}
+                            </ion-col>
+                            <ion-col col-3 class="grid-header" *ngIf="d.caliber">
+                                {{ '_label.Caliber_' | translate}}
+                            </ion-col>
+                            <ion-col col-3 class="grid-description" *ngIf="d.caliber">
+                                {{ d.caliber }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="d.vin">
+                            <ion-col col-4 class="grid-header">
+                                {{ '_label.VIN_' | translate}}
+                            </ion-col>
+                            <ion-col col-8 class="grid-description">
+                                {{ d.vin }}
+                            </ion-col>
+                        </ion-row>
+                    </ion-item>
+                </ng-container>
+            </ion-item>
+        </ion-list>
+    </div>
+
+</ion-content>

@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backButton">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Physical-Count_' | translate }}</ion-title>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="showContextualMenu()" class="my-style-for-modal" id="contextualMenu">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-fab bottom right>
+        <button color="light" ion-fab (click)="finishLocation()" id="processPicking">
+            <ion-icon name="done-all" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <ion-list>
+        <ion-item>
+            <p class="locationSpot" id="locationSpot">
+                {{locationSpot}}
+            </p>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.ScanLicense_' | translate}}
+            </ion-label>
+            <ion-input type="number" [readonly]="true" [(ngModel)]="licenseId" (ionFocus)="changeCurrentScan(1)"></ion-input>
+            <ion-icon name="barcode" *ngIf="showScanIcon(1)" item-end></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.Scan-Material_' | translate}}
+            </ion-label>
+            <ion-input type="text" [readonly]="true" [(ngModel)]="material.MATERIAL_ID" (ionFocus)="changeCurrentScan(2)"></ion-input>
+            <ion-icon name="barcode" *ngIf="showScanIcon(2)" item-end></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.Material-Name_' | translate}}
+            </ion-label>
+            <ion-input type="text" [readonly]="true" [(ngModel)]="material.MATERIAL_NAME"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="material.BATCH_REQUESTED == 1">
+            <ion-label class="label" stacked>
+                {{ '_label.Batch_' | translate}}
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="material.BATCH"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="material.BATCH_REQUESTED == 1">
+            <ion-label class="label" stacked>
+                {{ '_label.Expiration-date_' | translate}}
+            </ion-label>
+            <ion-datetime displayFormat="MMM DD YYYY" max="2099-12-31" [(ngModel)]="material.EXPIRATION_DATE"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.Measurement-unit_' | translate}}
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="material.UNIT" [disabled]="true"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="material.SERIAL_NUMBER_REQUESTS != 1">
+            <ion-label class="label" stacked>
+                {{ '_label.InputQty_' | translate}}
+            </ion-label>
+            <ion-input type="number" min="0" [(ngModel)]="material.QTY" (keypress)="keyPressQuantity($event.keyCode)"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="material.SERIAL_NUMBER_REQUESTS == 1">
+            <ion-label class="label" stacked>
+                {{ '_label.Series_' | translate}}
+            </ion-label>
+            <ion-input type="text" (ionFocus)="changeCurrentScan(3)" [(ngModel)]="serialNumber" (keypress)="keyPressSerial($event.keyCode)"></ion-input>
+            <ion-icon name="barcode" *ngIf="showScanIcon(3)" item-end></ion-icon>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

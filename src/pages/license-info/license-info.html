@@ -1,0 +1,215 @@
+<ion-header>
+    <ion-navbar color="favorite" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "_title.License-Info_" | translate }}</ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegment">
+            <ion-segment-button value="LicenseDetail">
+                {{ "_segments.License-detail_" | translate }}
+            </ion-segment-button>
+            <ion-segment-button value="DocumentDetail">
+                {{ "_segments.Document-Detail_" | translate }}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <div [ngSwitch]="currentSegment">
+        <ion-list no-padding *ngSwitchCase="'LicenseDetail'">
+            <ion-fab top right>
+                <button color="light" ion-fab id="showPrint" (click)="printLicense()">
+                    <ion-icon name="print" color="dark"></ion-icon>
+                </button>
+            </ion-fab>
+
+            <ion-fab bottom right>
+                <button ion-fab color="light" (click)="showRelocationOptions()">
+                    <img src="assets/images/fork-truck.png" alt="." />
+                </button>
+            </ion-fab>
+
+            <ion-list no-padding>
+                <p class="license" id="licenseId">
+                    {{ licenseId }}
+                </p>
+                <ion-item no-padding>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-6 class="grid-header">
+                                {{ "_label.Location_" | translate }}
+                            </ion-col>
+                            <ion-col col-6 class="grid-header">
+                                {{ "_label.Policy_" | translate }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-6 class="grid-description">
+                                {{ currentLocation }}
+                            </ion-col>
+                            <ion-col col-6 class="grid-description">
+                                {{ policyCode }}
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+                <ion-item no-padding>
+                    <span padding-left class="grid-header">
+                        {{ "_label.Client_" | translate }}
+                    </span>
+                    <span class="grid-description">
+                        {{ clientOwner }}
+                    </span>
+                </ion-item>
+                <ion-item *ngFor="let i of inventory" (click)="toggleDetails(i)" (dblclick)="goToMaterialInfo(i)"
+                    class="detail">
+                    <ion-icon color="primary" item-right [name]="i.icon"></ion-icon>
+                    <ion-grid id="grid-detail">
+                        <ion-row>
+                            <ion-col class="grid-description" (click)="showLabel('Material_')">
+                                {{ i.materialId }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="grid-description rowDescription" (click)="showLabel('Description_')">
+                                {{ i.materialName }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="grid-description" (click)="showLabel('Quantity_')">
+                                {{ i.qty }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="grid-description" (click)="showLabel('Status_')">
+                                {{ i.statusName }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="grid-description" *ngIf="i.shortName" (click)="showLabel('Project_')">
+                                {{ i.shortName }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-8 class="grid-description" *ngIf="i.dateExpiration"
+                                (click)="showLabel('Expiration-date_')">
+                                {{ i.dateExpiration | formatDateNoTime }}
+                            </ion-col>
+                            <ion-col col-4 class="grid-description" *ngIf="i.batch" (click)="showLabel('Batch_')">
+                                {{ i.batch }}
+                            </ion-col>
+
+                        </ion-row>
+                        <ion-row *ngIf="i.tone || i.caliber">
+                            <ion-col col-3 class="grid-header" *ngIf="i.tone">
+                                {{ "_label.Tone_" | translate }}
+                            </ion-col>
+                            <ion-col col-3 class="grid-description" *ngIf="i.tone">
+                                {{ i.tone }}
+                            </ion-col>
+                            <ion-col col-3 class="grid-header" *ngIf="i.caliber">
+                                {{ "_label.Caliber_" | translate }}
+                            </ion-col>
+                            <ion-col col-3 class="grid-description" *ngIf="i.caliber">
+                                {{ i.caliber }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="i.vin">
+                            <ion-col col-4 class="grid-header">
+                                {{ "_label.VIN_" | translate }}
+                            </ion-col>
+                            <ion-col col-8 class="grid-description">
+                                {{ i.vin }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="showRegime">
+                            <ion-col col-4 class="grid-header">
+                                {{ "_label.Regime_" | translate }}
+                            </ion-col>
+                            <ion-col col-8 class="grid-description">
+                                {{ i.regime }}
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    <div *ngIf="i.showDetails && i.serialNumberRequests === 1">
+                        <ion-list>
+                            <ion-item *ngFor="let s of i.SerialNumbers" style="text-align: center; font-weight: bold;">
+                                {{ s.serial }}
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-list>
+        <ion-list no-padding *ngSwitchCase="'DocumentDetail'">
+            <ng-container *ngIf="showDocument">
+                <ion-fab top right>
+                    <button color="light" ion-fab id="showPrint" (click)="printLicense()">
+                        <ion-icon name="print" color="dark"></ion-icon>
+                    </button>
+                </ion-fab>
+                <ion-list>
+                    <p class="license" id="licenseId">
+                        {{ licenseId }}
+                    </p>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ "_label.Wave_" | translate }}
+                        </ion-col>
+
+                        <ion-col col-8 class="grid-header">
+                            {{ "_label.SALE_ORDER_" | translate }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-description">
+                            {{ documentDetail.WAVE_PICKING_ID }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ documentDetail.DOC_NUM }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ "_label.Customer_" | translate }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-header">
+                            {{ "_label.Number_" | translate }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-description">
+                            {{ documentDetail.CUSTOMER_NAME }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ documentDetail.CORRELATIVE }} /
+                            {{ documentDetail.TOTAL_LICENSES }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ "_label.Due-Date_" | translate }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ documentDetail.DUE_DATE | formatDate }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-4 class="grid-header">
+                            {{ "_label.Prepared-By_" | translate }}
+                        </ion-col>
+                        <ion-col col-8 class="grid-description">
+                            {{ documentDetail.PREPARED_BY }}
+                        </ion-col>
+                    </ion-row>
+                </ion-list>
+            </ng-container>
+        </ion-list>
+    </div>
+</ion-content>

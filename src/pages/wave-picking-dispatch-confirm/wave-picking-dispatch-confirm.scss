@@ -1,0 +1,46 @@
+page-wave-picking-dispatch-confirm {
+    .license {
+        text-align: center;
+        font-weight: bold;
+        font-size: 2em;
+    }
+
+    .grid-header {
+        color: #666666;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .grid-description {
+        color: #666666;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .detail {
+        border-top: 1px;
+        border-bottom: 1px;
+    }
+
+    .incompleteRow {
+        text-align: center;
+        font-weight: bold;
+        background-color: #eff2a9;
+    }
+
+    .completeRow {
+        text-align: center;
+        font-weight: bold;
+        background-color: #a8f1aa;
+    }
+
+    .notAllowedRow {
+        text-align: center;
+        font-weight: bold;
+        background-color: #f26326;
+    }
+
+    .wrapText {
+        text-align: left;
+    }
+}

@@ -1,0 +1,26 @@
+@mixin header-styles($background, $color) {
+    .toolbar-background {
+        border: none !important;
+        background-color: $background;
+    }
+
+    .toolbar-title,
+    .back-button,
+    .bar-button {
+        color: $color;
+    }
+}
+
+ion-header {
+    @include header-styles(color($colors, header, base), color($colors, header, contrast));
+}
+
+ion-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 90px 1px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}

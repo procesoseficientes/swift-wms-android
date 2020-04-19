@@ -1,0 +1,228 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <ion-buttons left>
+            <button ion-button icon-only class="my-style-for-modal" (click)="backButtonAction()" id="backButton">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            {{ '_title.Locate-general-transfer_' | translate }}
+        </ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegment">
+            <ion-segment-button value="licenseDetail" id="licenseDetail">
+                {{ '_segments.License-detail_' | translate }}
+            </ion-segment-button>
+            <ion-segment-button value="location" id="Locate">
+                {{ '_segments.Locate_' | translate }}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <div [ngSwitch]="currentSegment">
+        <ion-list *ngSwitchCase="'licenseDetail'" no-padding>
+            <ion-fab top right>
+                <button color="light" ion-fab (click)="showPrintOption()" id="showPrint">
+                    <ion-icon name="print" color="dark"></ion-icon>
+                </button>
+            </ion-fab>
+            <ion-item>
+                <p class="license" id="licenseId">
+                    {{licenseId}}
+                </p>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>{{ '_label.Status_' | translate}}</ion-label>
+                <ion-select [(ngModel)]="materialStatus" id="materialStatus" [disabled]="statusDisabled">
+                    <ion-option *ngFor="let s of statusList" [value]="s.paramName">
+                        {{s.textValue}}
+                    </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngFor="let d of detail" (click)="toogleDetails(d)" class="detail">
+                <ion-icon color="primary" item-right [name]="d.icon"></ion-icon>
+
+                <ion-row>
+                    <ion-col col-4 class="grid-header">
+                        {{ '_label.Material_' | translate}}
+                    </ion-col>
+                    <ion-col col-8 class="grid-description">
+                        {{ d.materialId }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-4 class="grid-header">
+                        {{ '_label.Description_' | translate}}
+                    </ion-col>
+                    <ion-col col-8 class="grid-description" text-wrap>
+                        {{ d.materialName }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-4 class="grid-header">
+                        {{ '_label.Status_' | translate}}
+                    </ion-col>
+                    <ion-col col-8 class="grid-description" text-wrap>
+                        {{ d.materialStatus }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-4 class="grid-header">
+                        {{ '_label.Measurement-unit_' | translate}}
+                    </ion-col>
+                    <ion-col col-4 class="grid-description">
+                        {{ d.measurementUnit }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-4 class="grid-header">
+                        {{ '_label.Quantity_' | translate}}
+                    </ion-col>
+                    <ion-col col-4 class="grid-description">
+                        {{ d.quantity }}
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="d.batchRequested === 1">
+                    <ion-col col-6 class="grid-header">
+                        {{ '_label.Batch_' | translate}}
+                    </ion-col>
+                    <ion-col col-6 class="grid-description">
+                        {{ d.batch }}
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="d.batchRequested === 1">
+                    <ion-col col-6 class="grid-header">
+                        {{ '_label.Expiration-date_' | translate}}
+                    </ion-col>
+                    <ion-col col-6 class="grid-description">
+                        {{ d.expirationDate | date }}
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="d.handleTone === 1 || d.handleCaliber === 1">
+                    <ion-col col-3 class="grid-header" *ngIf="d.handleTone === 1">
+                        {{ '_label.Tone_' | translate}}
+                    </ion-col>
+                    <ion-col col-3 class="grid-description" *ngIf="d.handleTone === 1">
+                        {{ d.tone }}
+                    </ion-col>
+                    <ion-col col-3 class="grid-header" *ngIf="d.handleCaliber === 1">
+                        {{ '_label.Caliber_' | translate}}
+                    </ion-col>
+                    <ion-col col-3 class="grid-description" *ngIf="d.handleCaliber === 1">
+                        {{ d.caliber }}
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="d.isCar === 1">
+                    <ion-col col-3 class="grid-header">
+                        {{ '_label.VIN_' | translate}}
+                    </ion-col>
+                    <ion-col col-3 class="grid-description">
+                        {{ d.vin }}
+                    </ion-col>
+                </ion-row>
+
+                <div *ngIf="d.showDetails && d.serialNumberRequests">
+                    <ion-list>
+                        <ion-item *ngFor="let s of d.serialNumbers" style="text-align: center; font-weight: bold;">
+                            {{ s.serial }}
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </ion-item>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'location'">
+            <ion-fab bottom right>
+                <button color="light" ion-fab (click)="locateLicense()" *ngIf="locationSpot.locationSpot !== ''">
+                    <ion-icon name="done-all" color="favorite"></ion-icon>
+                </button>
+            </ion-fab>
+
+            <ion-item>
+                <button ion-item detail-none >
+                    <p class="location-title" *ngIf="locationSpot.locationSpot">
+                        {{ locationSpot.locationSpot }}
+                    </p>
+                    <p class="location-title" *ngIf="!locationSpot.locationSpot">
+                        {{ '_label.ScanLocation_' | translate }}
+                    </p>
+                </button>
+                <ion-icon name="barcode" item-end></ion-icon>
+            </ion-item>
+            <ion-item *ngIf="locationSpot.spotType === 'PISO'">
+                <ion-label stacked>{{ '_label.Space-used-m2_' | translate}}</ion-label>
+                <ion-input type="number" [(ngModel)]="mt2" (ionBlur)="changeUsedMt2()"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>{{ '_label.Licensed-positions_' | translate}}</ion-label>
+                <ion-input
+                type="tel"
+                id="totalPostion"
+                *ngIf="inputTotalPosition"
+                [(ngModel)]="totalPosition"
+                (keyup)="validateTotalPositionsOnKeyUp($event)"
+                (ionBlur)="validateTotalPositionsOnLostFocus($event)"
+            ></ion-input>
+            </ion-item>
+            <ion-row no-padding>
+                <ion-col col-6 *ngIf="locationSpot.spotType === 'RACK'">
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-icon outline item-left [name]="locationSpot.ShelfSpotVolumeAndWeight.weightIcon" [color]="locationSpot.ShelfSpotVolumeAndWeight.weightIconColor">
+                            </ion-icon>
+                            <span item-left text-wrap style="font-weight: bold;">
+                                {{ '_label.Available-weight_' | translate}}
+                            </span>
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{ locationSpot.ShelfSpotVolumeAndWeight.availableWeight }}
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+                <ion-col col-6 *ngIf="locationSpot.spotType === 'RACK' || locationSpot.spotType === 'PISO'">
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-icon outline item-left [name]="locationSpot.ShelfSpotVolumeAndWeight.volumeIcon" [color]="locationSpot.ShelfSpotVolumeAndWeight.volumeIconColor">
+                            </ion-icon>
+                            <span item-left text-wrap style="font-weight: bold;">
+                                {{ '_label.Available-space_' | translate}}
+                            </span>
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{locationSpot.ShelfSpotVolumeAndWeight.availableVolume}}
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+            <ion-item *ngIf="locationSpot.locationSpot !== ''">
+                <span style="font-weight: bold;" item-left>{{ '_label.Warehouse_' | translate}}:</span>
+                <span item-left>{{locationSpot.warehouseParent}}</span>
+            </ion-item>
+            <ion-item *ngIf="locationSpot.locationSpot !== ''">
+                <span style="font-weight: bold;" item-left>{{ '_label.Zone_' | translate}}:</span>
+                <span item-left>{{locationSpot.zone}}</span>
+            </ion-item>
+            <ion-item *ngIf="locationSpot.locationSpot !== ''">
+                <span style="font-weight: bold;" item-left>{{ '_label.Type_' | translate}}:</span>
+                <span item-left>{{locationSpot.spotType}}</span>
+            </ion-item>
+            <ion-item *ngIf="locationSpot.locationSpot !== '' && locationSpot.allowFastPicking === 1">
+                <span item-left>{{ '_label.Allow-Fast-Picking_' | translate}} ✔️</span>
+            </ion-item>
+            <ion-item *ngIf="locationSpot.locationSpot !== '' && locationSpot.allowFastPicking === 1">
+                <span item-left>{{ '_label.Description-overrided_' | translate}} </span>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-toolbar *ngIf="showScanBarcode() && !isAndroid">
+        <button ion-button large block (click)="scanBarcode()" id="scanBarcode">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

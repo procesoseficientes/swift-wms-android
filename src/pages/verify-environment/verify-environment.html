@@ -1,0 +1,39 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{"_titleView.Work-Environment_"| translate}}</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <button id="checkWireless" ion-item (click)="userWantsCheckWireless()">
+            <ion-icon name="wifi"></ion-icon>
+            {{"_label.Wireless-status_"| translate}}
+            <ion-icon id="statusWireless" item-end name="{{wirelessInfo?.icon}}" color="{{wirelessInfo?.iconColor}}"></ion-icon>
+            <p>{{wirelessInfo?.name}}:[{{wirelessInfo?.ip}}]</p>
+        </button>
+        <button id="checkBluetooth" ion-item (click)="userWantsCheckBluetooth()">
+            <ion-icon name="bluetooth"></ion-icon>
+            {{"_label.Bluetooth-status_"| translate}}
+            <ion-icon id="statusBluetooth" item-end name="{{bluetoothInfo?.icon}}" color="{{bluetoothInfo?.iconColor}}"></ion-icon>
+        </button>
+        <button id="checkBattery" ion-item (click)="userWantsCheckBattery()">
+            <ion-icon name="battery-full"></ion-icon>
+            {{"_label.Battery-level_"| translate}}
+            <ion-badge id="statusBattery" item-end>{{batteryLevel}}</ion-badge>
+        </button>
+        <button ion-item id="lastLogged" (click)="userWantsToCheckLastUserLogged()">
+            <ion-icon name="person"></ion-icon>
+            {{"_label.Last-user-logged_"| translate}}
+            <p id="lastUserLogged" item-end>{{lastUserLogged}}</p>
+        </button>
+    </ion-list>
+    <button ion-button large block color="primary" id="startSession" (click)="userWantStartSession()">
+        {{"_button.START-SESSION_"| translate}}
+    </button>
+    <button ion-button large block color="danger" id="exitApp" (click)="userWantsExitApp()">
+        {{"_button.EXIT-SWIFT_"| translate}}
+    </button>
+</ion-content>

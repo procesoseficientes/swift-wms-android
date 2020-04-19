@@ -1,0 +1,49 @@
+page-location-info {
+    .location {
+        text-align: center;
+        font-weight: bold;
+        font-size: 2em;
+    }
+
+    .informative {
+        font-weight: bold;
+    }
+
+    .informative-icon {
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+
+    .grid-header {
+        color: #666666;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .grid-description {
+        color: #666666;
+        text-align: left;
+    }
+
+    .detail {
+        //border-top: 1px;
+        border-bottom: 1px solid #666666;
+    }
+
+    #grid-detail {
+        border-bottom: 1px solid lightgrey;
+    }
+
+    .detailLicense {
+        margin: 2px 5px 5px 30px !important;
+        text-align: left;
+    }
+
+    .detailHeader {
+        border-top: 1px solid lightgrey;
+    }
+
+    .itemHeader{
+        padding-left: 10px !important;
+    }
+}

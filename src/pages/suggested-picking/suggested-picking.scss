@@ -1,0 +1,18 @@
+page-suggested-picking {
+    ion-buttons button[icon-only].my-style-for-modal {
+        margin: 0 6px;
+        min-width: 36px;
+    }
+    
+    .detail
+    {
+        border-top: 1px;
+        border-bottom: 1px;
+    }
+    .materialId {
+        text-align: center;
+        font-weight: bold;
+        font-size: 22px;
+    }
+    
+}

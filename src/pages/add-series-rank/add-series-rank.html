@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-navbar color="secondary" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Add-Series-Rank_' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-list no-padding>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.Prefix_' | translate}}
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="prefix" id="sourceLocation"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.StartValue_' | translate}}
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="startValue" id="startValueRank" (ionFocus)="userWantsToChangeCurrentScan(1)"></ion-input>
+            <ion-icon name="barcode" *ngIf="showScanIcon(1)" item-end></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.EndValue_' | translate}}
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="endValue" id="endValueRank" (ionFocus)="userWantsToChangeCurrentScan(2)"></ion-input>
+            <ion-icon name="barcode" *ngIf="showScanIcon(2)" item-end></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label class="label" stacked>
+                {{ '_label.Sufix_' | translate}}
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="sufix" id="sufixRank"></ion-input>
+        </ion-item>
+        <ion-item padding>
+            <button ion-button large block (click)="userWantsAddSeriesRank()" id="inputPassword">
+                {{"_button.OK_" | translate }}</button>
+        </ion-item>
+        <ion-item padding>
+            <ion-label class="label" stacked>
+                Ej: {{ prefix }}{{ startValue }}{{ sufix }} - {{ prefix }}{{ endValue }}{{ sufix }}
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()" id="scanBarcode" materialId="">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

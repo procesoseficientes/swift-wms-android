@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <ion-title>{{ '_title.License-Charges_' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form>
+        <ion-item *ngFor="let charge of charges; let idx = index">
+            <ion-label for="charge.typeChargeId" stacked>{{charge.description}}</ion-label>
+            <ion-input type="number" [(ngModel)]="charges[idx].qty" name="charge.typeChargeId" id="charge.typeChargeId" min="1" required="true"
+                (ionBlur)="validateInputNumber(idx)"></ion-input>
+        </ion-item>
+    </form>
+
+    <ion-fab bottom right>
+        <button color="light" ion-fab (click)="saveChargesInLicense()">
+            <ion-icon name="md-checkmark-circle" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+
+</ion-content>

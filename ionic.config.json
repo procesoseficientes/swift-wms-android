@@ -1,0 +1,15 @@
+{
+  "name": "swfit-3pl",
+  "integrations": {
+    "cordova": {},
+    "gulp": {}
+  },
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/server",
+      "proxyUrl": "http://mobilitywebapi.centralus.cloudapp.azure.com:1025"
+    }
+  ],
+  "app_id": ""
+}

@@ -1,0 +1,103 @@
+<ion-header>
+    <ion-navbar color="favorite" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Relocate-Partial-License_' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-fab bottom right>
+        <button color="light" ion-fab (click)="locateLicense()" *ngIf="locationSpot.locationSpot !== ''">
+            <ion-icon name="done-all" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <ion-list>
+        <ion-item>
+            <button ion-item detail-none>
+                <p class="location-title">
+                    {{ locationSpot.locationSpot }}
+                </p>
+            </button>
+            <ion-icon name="barcode" item-end></ion-icon>
+        </ion-item>
+        <ion-item *ngIf="locationSpot.spotType === 'PISO'">
+            <ion-label stacked>{{ '_label.Space-used-m2_' | translate}}</ion-label>
+            <ion-input type="number" [(ngModel)]="mt2" (ionBlur)="changeUsedMt2()"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>{{ '_label.Licensed-positions_' | translate}}</ion-label>
+            <ion-input
+                type="tel"
+                id="totalPostion"
+                *ngIf="inputTotalPosition"
+                [(ngModel)]="totalPosition"
+                (keyup)="validateTotalPositionsOnKeyUp($event)"
+                (ionBlur)="validateTotalPositionsOnLostFocus($event)"
+            ></ion-input>
+        </ion-item>
+        <ion-row no-padding>
+            <ion-col col-6 *ngIf="locationSpot.spotType === 'RACK'">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-icon outline item-left [name]="locationSpot.ShelfSpotVolumeAndWeight.weightIcon" [color]="locationSpot.ShelfSpotVolumeAndWeight.weightIconColor">
+                        </ion-icon>
+                        <span item-left text-wrap style="font-weight: bold;">
+                            {{ '_label.Available-weight_' | translate}}
+                        </span>
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ locationSpot.ShelfSpotVolumeAndWeight.availableWeight }}
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col col-6 *ngIf="locationSpot.spotType === 'RACK' || locationSpot.spotType === 'PISO'">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-icon outline item-left [name]="locationSpot.ShelfSpotVolumeAndWeight.volumeIcon" [color]="locationSpot.ShelfSpotVolumeAndWeight.volumeIconColor">
+                        </ion-icon>
+                        <span item-left text-wrap style="font-weight: bold;">
+                            {{ '_label.Available-space_' | translate }}
+                        </span>
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ locationSpot.ShelfSpotVolumeAndWeight.availableVolume }}
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-item *ngIf="locationSpot.locationSpot !== ''">
+            <span style="font-weight: bold;" item-left>{{ '_label.Warehouse_' | translate}}:</span>
+            <span item-left>{{ locationSpot.warehouseParent }}</span>
+        </ion-item>
+        <ion-item *ngIf="locationSpot.locationSpot !== ''">
+            <span style="font-weight: bold;" item-left>{{ '_label.Zone_' | translate}}:</span>
+            <span item-left>{{ locationSpot.zone }}</span>
+        </ion-item>
+        <ion-item *ngIf="locationSpot.locationSpot !== ''">
+            <span style="font-weight: bold;" item-left>{{ '_label.Type_' | translate}}:</span>
+            <span item-left>{{ locationSpot.spotType }}</span>
+        </ion-item>
+        <ion-item *ngIf="locationSpot.locationSpot !== '' && locationSpot.allowFastPicking === 1">
+            <span item-left>{{ '_label.Allow-Fast-Picking_' | translate}} ✔️</span>
+        </ion-item>
+        <ion-item *ngIf="locationSpot.locationSpot !== '' && locationSpot.allowFastPicking === 1">
+            <span item-left>{{ '_label.Description-overrided_' | translate}} </span>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

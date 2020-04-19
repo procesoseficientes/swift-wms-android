@@ -1,0 +1,33 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backButton">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ '_title.Reception-by-document_' | translate }}</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label stacked>
+                {{ '_label.Document-number_' | translate}}
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="documentNumber" (keypress)="keyPressDocument($event.keyCode)"></ion-input>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

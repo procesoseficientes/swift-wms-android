@@ -1,0 +1,30 @@
+page-create-license {
+    ion-buttons button[icon-only].my-style-for-modal {
+        margin: 0 6px;
+        min-width: 36px;
+    }
+
+    ion-card-header {
+        width: inherit;
+        height: 75px;
+    }
+
+    .material-name {
+        text-align: left;
+        font-weight: bold;
+        font-size: 2em;
+    }
+
+    .grid-header {
+        color: #666666;
+        text-align: left;
+        font-size: 0.8750em;
+    }
+
+    .grid-description {
+        color: #666666;
+        font-weight: bold;
+        text-align: left;
+        font-size: 0.8750em;
+    }
+}

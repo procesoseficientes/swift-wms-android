@@ -1,0 +1,161 @@
+<ion-header>
+    <ion-navbar color="primary" no-border-bottom>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backAction">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            {{"_title.Merge-licenses_"| translate}}
+        </ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" no-border-top>
+        <ion-segment [(ngModel)]="currentSegment">
+            <ion-segment-button value="scanLocation" id="scanLocation">
+                {{ '_segments.ScanLocation_' | translate}}
+            </ion-segment-button>
+            <ion-segment-button value="mergeDetail" id="mergeDetail">
+                {{ '_segments.Merge-detail_' | translate}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <div [ngSwitch]="currentSegment">
+        <ion-list *ngSwitchCase="'scanLocation'">
+            <ion-item>
+                <button ion-item detail-none (click)="changeCurrentScan(1)">
+                    <p class="material-code">
+                        {{ locationText || '_label.Location_' | translate }}
+                    </p>
+                </button>
+                <ion-icon name="barcode" *ngIf="showScanIcon(1)" item-end></ion-icon>
+            </ion-item>
+
+            <ion-item>
+                <button ion-item detail-none (click)="changeCurrentScan(2)">
+                    <p class="material-code">
+                        {{material.materialId || '_label.Material_' | translate}}
+                    </p>
+                    <p class="material-name">
+                        {{material.materialName}}
+                    </p>
+                </button>
+                <ion-icon name="barcode" *ngIf="showScanIcon(2)" item-end></ion-icon>
+            </ion-item>
+        </ion-list>
+        <ion-list *ngSwitchCase="'mergeDetail'">
+            <ion-item>
+                <p class="license" id="licenseId">
+                    {{locationText}}
+                </p>
+                <p class="material-name">
+                    {{material.materialName}}
+                </p>
+                <ion-icon item-end name="git-network" (click)="mergeLocationLicenses()"></ion-icon>
+            </ion-item>
+            <ion-item>
+                <ion-list>
+                    <ion-item *ngFor="let l of licenses" (click)="toggleDetails(l)" class="detail">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-3 class="grid-header">
+                                    {{ '_label.License_' | translate}}
+                                </ion-col>
+                                <ion-col col-8 class="grid-description">
+                                    {{ l.licenseDescription }}
+                                </ion-col>
+                                <ion-col col-1>
+                                    <ion-icon color="primary" item-end [name]="l.icon"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row *ngIf="l.showDetails && l.detail">
+                                <ion-list>
+                                    <ion-item *ngFor="let d of l.detail">
+                                        <ion-grid>
+                                            <ion-row>
+                                                <ion-col col-4 class="grid-header">
+                                                    {{ '_label.Material_' | translate}}
+                                                </ion-col>
+                                                <ion-col col-8 class="grid-description">
+                                                    {{ d.materialId }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col col-4 class="grid-header">
+                                                    {{ '_label.Quantity_' | translate}}
+                                                </ion-col>
+                                                <ion-col col-4 class="grid-description">
+                                                    {{ d.quantity }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="d.batch">
+                                                <ion-col col-6 class="grid-header">
+                                                    {{ '_label.Batch_' | translate}}
+                                                </ion-col>
+                                                <ion-col col-6 class="grid-description">
+                                                    {{ d.batch }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="d.expirationDate">
+                                                <ion-col col-6 class="grid-header">
+                                                    {{ '_label.Expiration-date_' | translate}}
+                                                </ion-col>
+                                                <ion-col col-6 class="grid-description">
+                                                    {{ d.expirationDate | date }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="d.tone || d.caliber">
+                                                <ion-col col-3 class="grid-header" *ngIf="d.tone">
+                                                    {{ '_label.Tone_' | translate}}
+                                                </ion-col>
+                                                <ion-col col-3 class="grid-description" *ngIf="d.tone">
+                                                    {{ d.tone }}
+                                                </ion-col>
+                                                <ion-col col-3 class="grid-header" *ngIf="d.caliber">
+                                                    {{ '_label.Caliber_' | translate}}
+                                                </ion-col>
+                                                <ion-col col-3 class="grid-description" *ngIf="d.caliber">
+                                                    {{ d.caliber }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="d.vin">
+                                                <ion-col col-3 class="grid-header">
+                                                    {{ '_label.VIN_' | translate}}
+                                                </ion-col>
+                                                <ion-col col-3 class="grid-description">
+                                                    {{ d.vin }}
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="d.docNum">
+                                                <ion-col col-3 class="grid-header">
+                                                    {{ '_label.Order_' | translate}}
+                                                </ion-col>
+                                                <ion-col col-3 class="grid-description">
+                                                    {{ d.docNum }}
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-item>
+                                </ion-list>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
+                </ion-list>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
+
+
+
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

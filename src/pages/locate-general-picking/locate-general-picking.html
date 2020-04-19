@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <ion-title>{{ '_title.General-Picking_' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-fab bottom right>
+        <button color="light" ion-fab (click)="locatePicking()" *ngIf="location.locationSpot !== ''">
+            <ion-icon name="done-all" color="favorite"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <span style="font-weight: bold;" item-left>
+        {{ '_label.Location-target_' | translate }}:
+    </span>
+
+    <ion-item>
+        <button ion-item detail-none>
+            <p class="location-title">
+                {{ location.locationSpot }}
+            </p>
+            <span class="location-target">
+                {{ locationSpotTarget }}
+            </span>
+        </button>
+        <ion-icon name="barcode" item-end></ion-icon>
+    </ion-item>
+</ion-content>
+
+
+<ion-footer>
+    <ion-toolbar *ngIf="!isAndroid">
+        <button ion-button large block (click)="scanBarcode()">
+            {{ '_button.Scan-barcode_' | translate }}
+        </button>
+    </ion-toolbar>
+</ion-footer>

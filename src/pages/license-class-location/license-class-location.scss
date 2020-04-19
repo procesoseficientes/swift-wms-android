@@ -1,0 +1,51 @@
+page-license-class-location {
+
+    .zone {
+        text-align: left;
+        font-weight: bold;
+        font-size: 1.2em;
+        //border-bottom: #666666 1px solid
+    }
+    .detail
+    {
+        border-top: 1px;
+        border-bottom: 1px;
+    }
+    #grid-detail-zone{
+        padding-top: 0%;
+        padding-right: 0%;
+        padding-bottom: 0%;
+        padding-left: 7%;
+    }
+    .grid-header {
+        color: #666666;
+        font-weight: bold;
+        text-align: left;
+        font-size: 0.8750em;
+    }
+
+    .grid-description {
+        color: #666666;
+        text-align: left;
+        font-size: 0.8750em;
+        //height: 3.5em !important;
+    }
+
+    .center{
+        text-align: center !important
+    }
+
+    .center > h4{
+        margin: 0;
+    }
+
+    .center > p{
+        margin: 0;
+    }
+    .compatible{
+        margin-top: 10px !important;
+    }
+    .input-wrapper>.label.label-md{
+        margin: 0%;
+    }
+}

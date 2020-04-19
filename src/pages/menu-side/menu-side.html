@@ -1,0 +1,35 @@
+<ion-menu [content]="mycontent">
+        <ion-header class="headerSideMenu">
+            <div>
+
+                <ion-item ion-item no-border class="transparentItem">
+                    <ion-avatar item-start style="width:30%">
+                        <img src="assets/images/man.png" alt="." class="imgMan">
+                    </ion-avatar>
+                    <h2 class="texth2">{{loginName}}</h2>
+                </ion-item>
+                <ion-item no-padding class="transparentItem">
+                    <p class="textP" text-wrap>{{loginId}}</p>
+                    <p class="textP" text-wrap>Version: {{version}}</p>
+                </ion-item>
+            </div>
+        </ion-header>
+        <ion-content>
+            <ion-list>
+                <button ion-item class="button" padding (click)="goToPrinterConfiguration()">
+                    {{"_label.Printer-Configuration_"| translate}}
+                    <ion-icon item-end name="print"></ion-icon>
+                </button>
+            </ion-list>
+        </ion-content>
+        <ion-footer no-padding>
+            <ion-list>
+                <button ion-item class="button" padding (click)="userWantsExitApp()">
+                    <ion-icon item-end name="power"></ion-icon>
+                    {{ "_button.EXIT-SWIFT_" | translate }}
+                </button>
+            </ion-list>
+        </ion-footer>
+    </ion-menu>
+
+    <ion-nav [root]="rootPage" #mycontent swipeBackEnabled="false"></ion-nav>
