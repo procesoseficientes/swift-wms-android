@@ -1,5 +1,6 @@
 # Swift 3PL Mobile Android
 Software de manejo de bodega, aplicación para Handhelds Android.
+Branch original `GForce@Paris`
 
 ## Dependencias
 * Node 9.5.0
