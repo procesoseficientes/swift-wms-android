@@ -193,7 +193,13 @@ export class GeneralPickingPage {
             task.qty = qty;
         });
 
-        this.locationTarget = this.taskGroupedByMaterial[0].Tasks[0].locationSpotTarget;
+        try {
+            this.locationTarget = this.taskGroupedByMaterial[0].Tasks[0].locationSpotTarget;       
+        } catch (error) {
+            console.log(this.taskGroupedByMaterial)
+            this.locationTarget = ''
+            console.error(error)
+        }
     }
 
     async printMaterial(materialId: string): Promise<void> {
