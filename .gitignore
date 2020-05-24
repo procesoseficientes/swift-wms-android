@@ -32,3 +32,4 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 /.vscode.7z
+.\src\providers\security\security.ts
