@@ -14,8 +14,8 @@ export class SecurityProvider {
             userCredentials
         );
         userCredentials.communicationAddress = userInfo.CommunicationAddress;
-        */
-        userCredentials.communicationAddress = "http://localhost:6661"
+        */ 
+        userCredentials.communicationAddress = "http://localhost:6661"  
         return this.api.login(userCredentials);
     }
 }
