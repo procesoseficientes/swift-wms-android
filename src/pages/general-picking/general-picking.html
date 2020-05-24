@@ -35,8 +35,8 @@
             </ion-item>
             <ion-item-sliding *ngFor="let header of headers" #item>
                 <ion-item *ngIf="
-                        header.isComplete != true
-                    " ion-item (click)="showDetail(header.Material.materialId)">
+                        header.isComplete != true"
+                        ion-item (click)="showDetail(header.Material.materialId)">
                     <ion-thumbnail item-start>
                         <img [src]="header.Material.image1" alt="." />
                     </ion-thumbnail>
