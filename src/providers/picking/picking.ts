@@ -5,6 +5,8 @@ import { UserSettingsProvider } from "../user-settings/user-settings";
 import { ApiClientV3Provider } from "../api-client/api-client.v3";
 import { ReceptionProvider } from "../reception/reception";
 
+declare const Buffer: { from: (arg0: any) => any; }
+
 @Injectable()
 export class PickingProvider {
     constructor(
