@@ -3,10 +3,8 @@
         "no-duplicate-variable": true,
         "no-unused-variable": [true, { "ignore-pattern": "^_" }],
         "no-require-imports": true,
-        "array-type": [true, "generic"],
         "only-arrow-functions": true,
-        "no-unused-expression": true,
-        "indent": [true, "spaces", 4],
+        "no-unused-expression": true,        
         "no-return-await": true,
         "no-console": true,
         "prefer-template": true
