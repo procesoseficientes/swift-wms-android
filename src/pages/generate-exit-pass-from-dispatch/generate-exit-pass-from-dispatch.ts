@@ -77,25 +77,42 @@ export class GenerateExitPassFromDispatchPage {
 
     async printExitPass():Promise<void>{
         try {
-            if (this.settings.printer.address === "") {
-                this.userInteraction.hideLoading();
+
+            // if (this.settings.printer.address === "") {
+            //     this.userInteraction.hideLoading();
+            //     return;
+            // }
+
+
+            if (!this.settings.printer) {
+                this.userInteraction.showCustomError(
+                    Enums.CustomErrorCodes.PrinterNotConfigured
+                );
                 return;
             }
 
             await this.userInteraction.showLoading();
+
+
             let request: DataRequest.GetPrintPassFormatByHH = DataRequest.Factory.createGetPrintPassFormatByHH(
                 this.exitPassId,
                 this.settings.userCredentials                                
             );
+            console.log(JSON.stringify(request))
 
             let result = await this.printer.getPrintPassFormatByHH(request);
+            
+            console.log(JSON.stringify(result))
+
 
             await this.printer.printDocument(
                 this.settings.printer,
                 result.FORMAT
             );
+            console.log("await this printer")
 
             this.userInteraction.hideLoading();
+
         } catch (e) {
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(e);
