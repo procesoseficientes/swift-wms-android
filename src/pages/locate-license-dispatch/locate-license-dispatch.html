@@ -1,5 +1,17 @@
 <ion-header>
     <ion-navbar color="secondary">
+        <ion-buttons left>
+            <button *ngIf="!isGeneralTransfer"
+                ion-button
+                icon-only
+                (click)="backButtonAction()"
+                class="my-style-for-modal"
+                id="backAction"
+            >
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        
         <ion-title *ngIf="!isGeneralTransfer">{{ '_title.Locate-Dispatch-Licenses_' | translate}}</ion-title>
         <ion-title *ngIf="isGeneralTransfer">{{ '_title.Locate-general-transfer_' | translate }}</ion-title>
     </ion-navbar>

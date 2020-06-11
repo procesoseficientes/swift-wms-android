@@ -12,11 +12,11 @@ Branch original `GForce@Paris`
 ### Instalación
 1. Descargar repo
 ```bash
-git clone https://github.com/fabrv/wms-mobile.git
+git clone https://github.com/procesoseficientes/swift-wms-android.git
 ```
 2. Abrir carpeta
 ```bash
-cd wms-mobile
+cd swift-wms-android
 ```
 3. Descargar dependencias NOM
 ```bash
