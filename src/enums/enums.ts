@@ -340,7 +340,8 @@ export namespace Enums {
         DispatchLicenseExit = "DISPATCH_LICENSE_EXIT",
         SuggestionToLocate = "SUGGESTION_TO_LOCATE",
         ValidationFiscal = "VALIDATION_FISCAL",
-        MaterialSubFamily = "MATERIAL_SUB_FAMILY"
+        MaterialSubFamily = "MATERIAL_SUB_FAMILY",
+        System = "SYSTEM"
     }
 
     export enum StatusLogin {
@@ -354,7 +355,8 @@ export namespace Enums {
         ChangeQty = "CHANGE_QTY",
         DisplaySuggestionMaterial = "DISPLAY_SUGGESTIONS_MATERIAL",
         HandlesFiscalStorage = "HANDLES_FISCAL_STORAGE",
-        UseMaterialSubFamily = "USE_MATERIAL_SUB_FAMILY"
+        UseMaterialSubFamily = "USE_MATERIAL_SUB_FAMILY",
+        MaxPrintingQuantity = "MAX_PRINT_QTY"
     }
 
     export enum EventType {}
