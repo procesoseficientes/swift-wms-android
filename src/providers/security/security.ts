@@ -14,8 +14,13 @@ export class SecurityProvider {
             userCredentials
         );
         userCredentials.communicationAddress = userInfo.CommunicationAddress;
-        */ 
+        */
+
+        //Local
+        //userCredentials.communicationAddress = "localhost:6661"  
+        //Cealsa
         userCredentials.communicationAddress = "http://192.168.0.5:6161"  
         return this.api.login(userCredentials);
+
     }
 }

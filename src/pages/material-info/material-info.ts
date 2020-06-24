@@ -204,11 +204,11 @@ export class MaterialInfoPage {
     }
 
     async presentPrompt(): Promise<void>{
-
-        console.log('presentPrompt')
         let print_qty = await this.getParameterPrintQuantity();
-        let max_qty = print_qty[0].VALUE
-
+        let max_qty = '20';
+        if ( print_qty[0].VALUE != null || print_qty[0].VALUE != ''){
+            max_qty = print_qty[0].VALUE
+        }
         let alert = this.alertCtrl.create({
             title: 'Cantidad a Imprimir',
             inputs: [
@@ -346,7 +346,6 @@ export class MaterialInfoPage {
                 this.settings.userCredentials
             );
             let parameter = await this.configuration.getParameter(requestParameter);
-            console.log('param:'+JSON.stringify(parameter))
             return parameter;
         } catch (error) {
             await this.userInteraction.hideLoading();
