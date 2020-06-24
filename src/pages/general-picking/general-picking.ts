@@ -205,9 +205,10 @@ export class GeneralPickingPage {
     async printMaterial(materialId: string): Promise<void> {
         this.userInteraction.toast(materialId, Enums.ToastTime.Short);
         try {
-            if (this.settings.printer.address === "") {
-                this.userInteraction.hideLoading();
-                return;
+            if (!this.settings.printer) {
+                this.userInteraction.showCustomError(
+                    Enums.CustomErrorCodes.PrinterNotConfigured
+                );
             }
 
             await this.userInteraction.showLoading();
