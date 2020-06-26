@@ -12,7 +12,6 @@ import { PrinterProvider } from "../../providers/printer/printer";
 import { CheckpointProvider } from "../../providers/checkpoint/checkpoint";
 import { ConfigurationProvider } from "../../providers/configuration/configuration";
 import { AlertController } from 'ionic-angular';
-import { type } from "os";
 
 @IonicPage()
 @Component({
@@ -229,11 +228,9 @@ export class MaterialInfoPage {
                 text: 'Imprimir',
                 handler: data => {
                     if (parseInt(data.Cantidad)< parseInt(max_qty)){
-                        for (var _i = 0; _i< parseInt(data.Cantidad);_i++){
-                            this.userWantsPrintMaterial()
-                        }
+                        this.userWantsPrintMaterial(parseInt(data.Cantidad))
                     } else {
-                        this.userInteraction.showError('No se pueden imprimir mas de ' + max_qty);
+                        this.userInteraction.showError(` No se pueden imprimir mas de  ${max_qty}`);
                     }
                 }  
             }
@@ -242,7 +239,7 @@ export class MaterialInfoPage {
         alert.present();
     }
 
-    async userWantsPrintMaterial(): Promise<void> {
+    async userWantsPrintMaterial(n=1): Promise<void> {
         try {
 
             if (!this.settings.printer) {
@@ -262,13 +259,13 @@ export class MaterialInfoPage {
             request.login = this.settings.login;
             let result = await this.printer.getMaterialPrintFormat(request);
 
-
-
             await this.printer.printDocument(
                 this.settings.printer,
-                result.FORMAT
+                result.FORMAT,
+                n
             );
 
+            
             this.userInteraction.hideLoading();
         } catch (e) {
             await this.userInteraction.hideLoading();
