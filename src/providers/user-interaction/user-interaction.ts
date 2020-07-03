@@ -31,7 +31,7 @@ export class UserInteractionProvider {
     }
 
     public promptForValue<TResult>(
-        title: Enums.Translation.Title = Enums.Translation.Title.Swift3PL,
+        title: Enums.Translation.Title = Enums.Translation.Title.WMS,
         message: Enums.Translation.Message,
         placeholder: Enums.Translation.PlaceHolder,
         type: Enums.PromptType,
@@ -125,7 +125,7 @@ export class UserInteractionProvider {
             return new Promise(resolve => {
                 if (this.activeAlert) return;
                 this.activeAlert = this.alertCtrl.create({
-                    title: `${this.version}Swift 3PL`,
+                    title: `${this.version}WMS`,
                     message: message,
                     buttons: [
                         {
@@ -160,7 +160,7 @@ export class UserInteractionProvider {
             .then(value => {
                 return this.alertCtrl
                     .create({
-                        title: `${this.version}Swift 3PL`,
+                        title: `${this.version}WMS`,
                         message: message,
                         buttons: [value]
                     })
@@ -189,7 +189,7 @@ export class UserInteractionProvider {
         ]).then(arrayResult => {
             if (this.activeAlert) return Promise.resolve();
             this.activeAlert = this.alertCtrl.create({
-                title: `${this.version}Swift 3PL`,
+                title: `${this.version}WMS`,
                 message: arrayResult[0],
                 buttons: [
                     {

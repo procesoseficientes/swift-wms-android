@@ -46,7 +46,7 @@ export namespace Enums {
         }
 
         export enum Title {
-            Swift3PL = "Swift-3PL_",
+            WMS = "WMS_",
             EnterYourPin = "Enter-Your-Pin_"
         }
 
