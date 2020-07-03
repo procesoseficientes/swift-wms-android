@@ -134,7 +134,7 @@
     "typescript": "2.4.2",
     "typescript-parser": "^2.2.2"
   },
-  "description": "Swift 3pl a system for automation your third part logistic ",
+  "description": "WMS a system for automation your third part logistic ",
   "config": {
     "ionic_sass": "./config/sass.config.js",
     "ionic_bundler": "webpack",

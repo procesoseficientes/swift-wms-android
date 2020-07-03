@@ -25,7 +25,7 @@
         "NEXT_": "PROCHAIN",
         "DISMISS_": "REJETER",
         "SAVE_": "ENREGISTRER",
-        "EXIT-SWIFT_": "EXIT SWIFT",
+        "EXIT-SWIFT_": "EXIT WMS",
         "START-SESSION_": "COMMENCER LA SESSION",
         "Create-license_": "Créer une licence",
         "Complete-task_": "Tâche complète",
@@ -322,7 +322,7 @@
         "More-transactions_": "Plus de transactions"
     },
     "_title": {
-        "Swift-3PL_": "Swift 3PL",
+        "WMS_": "WMS",
         "Enter-Your-Pin_": "Entrez votre épingle",
         "Create-license_": "Créer une licence",
         "General-Reception_": "Réception générale",
