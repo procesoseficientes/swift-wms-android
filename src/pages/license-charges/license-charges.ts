@@ -48,8 +48,7 @@ export class LicenseChargesPage {
         this.task = this.navParams.data.task || null;
         this.reqRegisterGenTransReception =
             params.reqRegisterGenTransReception || null;
-        this.isGeneralTransfer =
-            this.task.taskSubtype === Enums.TaskSubType.GeneralTransfer;
+        this.isGeneralTransfer = this.task ? this.task.taskSubtype === Enums.TaskSubType.GeneralTransfer : false;
     }
 
     validateInputNumber(index: number) {
