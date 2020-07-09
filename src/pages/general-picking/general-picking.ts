@@ -205,9 +205,10 @@ export class GeneralPickingPage {
     async printMaterial(materialId: string): Promise<void> {
         this.userInteraction.toast(materialId, Enums.ToastTime.Short);
         try {
-            if (this.settings.printer.address === "") {
-                this.userInteraction.hideLoading();
-                return;
+            if (!this.settings.printer) {
+                this.userInteraction.showCustomError(
+                    Enums.CustomErrorCodes.PrinterNotConfigured
+                );
             }
 
             await this.userInteraction.showLoading();
@@ -483,26 +484,27 @@ export class GeneralPickingPage {
                 ""
             );
             this.userInteraction.hideLoading();
-            this.navigation.pushPage(
-                Enums.Page.LocateLicenseDispatch,
-                this.workspace,
-                this.navCtrl,
-                <Model.LocateGeneralPickingParams>{
-                    wavePickingId: this.wavePickingId,
-                    locations: [],
-                    isPickingTaskComplete: isPickingComplete,
-                    regime: this.regimenTask,
-                    isGeneralTransfer: this.isGeneralTransfer,
-                    task: this.task,
-                    reqRegisterGenTransReception: this
-                        .reqRegisterGenTransReception
-                }
-            );
         } catch (e) {
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
+            console.error(e)
         }
+        this.navigation.pushPage(
+            Enums.Page.LocateLicenseDispatch,
+            this.workspace,
+            this.navCtrl,
+            <Model.LocateGeneralPickingParams>{
+                wavePickingId: this.wavePickingId,
+                locations: [],
+                isPickingTaskComplete: isPickingComplete,
+                regime: this.regimenTask,
+                isGeneralTransfer: this.isGeneralTransfer,
+                task: this.task,
+                reqRegisterGenTransReception: this
+                    .reqRegisterGenTransReception
+            }
+        );
     }
 
     async suggestedPicking(

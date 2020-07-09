@@ -6,7 +6,7 @@
         "only-arrow-functions": true,
         "no-unused-expression": true,        
         "no-return-await": true,
-        "no-console": true,
+        "no-console": false,
         "prefer-template": true
     },
     "rulesDirectory": ["node_modules/tslint-eslint-rules/dist/rules"]

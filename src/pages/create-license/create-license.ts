@@ -220,9 +220,11 @@ export class CreateLicensePage {
         material: DataResponse.OP_WMS_SP_GET_TASK_DETAIL_FOR_RECEPTION_CONSOLIDATED
     ): Promise<void> {
         try {
-            if (this.settings.printer.address === "") {
-                this.userInteraction.hideLoading();
-                return;
+           
+            if (!this.settings.printer) {
+                this.userInteraction.showCustomError(
+                    Enums.CustomErrorCodes.PrinterNotConfigured
+                );
             }
 
             await this.userInteraction.showLoading();
