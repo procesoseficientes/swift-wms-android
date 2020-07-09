@@ -350,11 +350,20 @@ export class GeneralReceptionPage {
             59,
             999
         );
+
+        let expirationDate = new Date(this.material.expirationDate) 
+
+        let ToleranceDate = new Date()
+        if (this.material.expirationTolerance>=0){
+            ToleranceDate.setDate(todayDateOnly.getDate()+this.material.expirationTolerance)
+        }
+
         if (
             this.material.batchRequested === Enums.YesNo.Yes &&
             (!this.material.batch ||
-                this.material.expirationDate <= todayDateOnly)
-        ) {
+                expirationDate.getTime() <= ToleranceDate.getTime())
+        ) {    
+            this.userInteraction.showError('El material esta vencido o no cumple con la tolerancia de expiración')      
             return false;
         }
 

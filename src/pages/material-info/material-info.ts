@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavParams, NavController } from "ionic-angular";
 import { MaterialProvider } from "../../providers/material/material";
-import { Model, DataRequest } from "../../models/models";
+import { Model, DataRequest, DataResponse } from "../../models/models";
 import { UserSettingsProvider } from "../../providers/user-settings/user-settings";
 import { Enums } from "../../enums/enums";
 import { WorkspacePage } from "../workspace/workspace";
@@ -11,6 +11,7 @@ import { LicenseProvider } from "../../providers/license/license";
 import { PrinterProvider } from "../../providers/printer/printer";
 import { CheckpointProvider } from "../../providers/checkpoint/checkpoint";
 import { ConfigurationProvider } from "../../providers/configuration/configuration";
+import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -38,7 +39,8 @@ export class MaterialInfoPage {
         private license: LicenseProvider,
         private printer: PrinterProvider,
         private checkpoint: CheckpointProvider,
-        private configuration: ConfigurationProvider
+        private configuration: ConfigurationProvider,
+        private alertCtrl: AlertController
     ) {
         this.materialInfo = Model.Factory.createMaterial();
     }
@@ -200,11 +202,50 @@ export class MaterialInfoPage {
         }
     }
 
-    async userWantsPrintMaterial(): Promise<void> {
+    async presentPrompt(): Promise<void>{
+        let print_qty = await this.getParameterPrintQuantity();
+        let max_qty = '20';
+        if ( print_qty[0].VALUE != null || print_qty[0].VALUE != ''){
+            max_qty = print_qty[0].VALUE
+        }
+        let alert = this.alertCtrl.create({
+            title: 'Cantidad a Imprimir',
+            inputs: [
+            {
+                name: 'Cantidad',
+                placeholder: '',
+                type: 'number',
+            }
+            ],
+            buttons: [
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: data => {
+                }
+            },
+            {
+                text: 'Imprimir',
+                handler: data => {
+                    if (parseInt(data.Cantidad)< parseInt(max_qty)){
+                        this.userWantsPrintMaterial(parseInt(data.Cantidad))
+                    } else {
+                        this.userInteraction.showError(` No se pueden imprimir mas de  ${max_qty}`);
+                    }
+                }  
+            }
+            ]
+        });
+        alert.present();
+    }
+
+    async userWantsPrintMaterial(n=1): Promise<void> {
         try {
-            if (this.settings.printer.address === "") {
-                this.userInteraction.hideLoading();
-                return;
+
+            if (!this.settings.printer) {
+                this.userInteraction.showCustomError(
+                    Enums.CustomErrorCodes.PrinterNotConfigured
+                );
             }
 
             await this.userInteraction.showLoading();
@@ -213,15 +254,18 @@ export class MaterialInfoPage {
                 this.settings.userCredentials
             );
 
+
             request.barcodeId = null;
             request.login = this.settings.login;
             let result = await this.printer.getMaterialPrintFormat(request);
 
             await this.printer.printDocument(
                 this.settings.printer,
-                result.FORMAT
+                result.FORMAT,
+                n
             );
 
+            
             this.userInteraction.hideLoading();
         } catch (e) {
             await this.userInteraction.hideLoading();
@@ -231,9 +275,12 @@ export class MaterialInfoPage {
 
     async printUnitMeasurement(barcodeId: string): Promise<void> {
         try {
-            if (this.settings.printer.address === "") {
-                this.userInteraction.hideLoading();
-                return;
+
+
+            if (!this.settings.printer) {
+                this.userInteraction.showCustomError(
+                    Enums.CustomErrorCodes.PrinterNotConfigured
+                );
             }
 
             await this.userInteraction.showLoading();
@@ -278,6 +325,25 @@ export class MaterialInfoPage {
                 this.showRegime = true;
             }
             return Promise.resolve();
+        } catch (error) {
+            await this.userInteraction.hideLoading();
+            this.userInteraction.showCustomError(
+                Enums.CustomErrorCodes.DataNotFound
+            );
+        }
+    }
+
+
+
+    async getParameterPrintQuantity(): Promise<DataResponse.OP_WMS_SP_GET_PARAMETER[]>{
+        try {
+            let requestParameter = DataRequest.Factory.createGetParameterRequest(
+                Enums.ParameterGroupId.System,
+                Enums.ParameterId.MaxPrintingQuantity,
+                this.settings.userCredentials
+            );
+            let parameter = await this.configuration.getParameter(requestParameter);
+            return parameter;
         } catch (error) {
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(

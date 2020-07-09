@@ -3953,6 +3953,7 @@ export namespace DataResponse {
         QUALITY_CONTROL: number;
         MEASUREMENT_UNIT: string;
         MEASUREMENT_QTY: number;
+        EXPIRATION_TOLERANCE: number;
     }
 
     export interface OP_WMS_VALIDATE_LOCATION_MAX_WEIGHT_AND_VOLUME {
@@ -5074,6 +5075,7 @@ export namespace Model {
         licenseId?: number;
         locationSpot?: string;
         isMoreResults?: boolean;
+        expirationTolerance:number;
     }
 
     export interface Company {
@@ -5604,6 +5606,7 @@ export namespace Model {
         }
 
         public static createMaterial(): Material {
+
             return {
                 materialId: "",
                 clientOwner: "",
@@ -5613,6 +5616,7 @@ export namespace Model {
                 shortName: "",
                 volumeFactor: 0,
                 materialClass: "",
+                expirationTolerance:0,
                 high: 0,
                 length: 0,
                 width: 0,

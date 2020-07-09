@@ -15,9 +15,9 @@ describe("Start Session", () => {
             page.navigateTo("/#/start-session");
         });
 
-        it("App should have a title saying Swift 3PL", () => {
+        it("App should have a title saying WMS", () => {
             page.getTitle().then(title => {
-                expect(title).toEqual("Swift 3PL");
+                expect(title).toEqual("WMS");
             });
         });
 
