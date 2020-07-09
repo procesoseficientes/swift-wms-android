@@ -5,5 +5,4 @@ export * from "./preload-image/preload-image";
 export * from "./rating/rating";
 export * from "./show-hide-password/show-hide-input";
 export * from "./show-hide-password/show-hide-container";
-export * from "./video-player/video-player.module";
 export * from "./custom-toast/custom-toast";

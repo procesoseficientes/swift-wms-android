@@ -259,6 +259,8 @@ export class MaterialInfoPage {
             request.login = this.settings.login;
             let result = await this.printer.getMaterialPrintFormat(request);
 
+
+
             await this.printer.printDocument(
                 this.settings.printer,
                 result.FORMAT,

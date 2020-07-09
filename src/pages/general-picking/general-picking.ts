@@ -483,26 +483,27 @@ export class GeneralPickingPage {
                 ""
             );
             this.userInteraction.hideLoading();
-            this.navigation.pushPage(
-                Enums.Page.LocateLicenseDispatch,
-                this.workspace,
-                this.navCtrl,
-                <Model.LocateGeneralPickingParams>{
-                    wavePickingId: this.wavePickingId,
-                    locations: [],
-                    isPickingTaskComplete: isPickingComplete,
-                    regime: this.regimenTask,
-                    isGeneralTransfer: this.isGeneralTransfer,
-                    task: this.task,
-                    reqRegisterGenTransReception: this
-                        .reqRegisterGenTransReception
-                }
-            );
         } catch (e) {
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
+            console.error(e)
         }
+        this.navigation.pushPage(
+            Enums.Page.LocateLicenseDispatch,
+            this.workspace,
+            this.navCtrl,
+            <Model.LocateGeneralPickingParams>{
+                wavePickingId: this.wavePickingId,
+                locations: [],
+                isPickingTaskComplete: isPickingComplete,
+                regime: this.regimenTask,
+                isGeneralTransfer: this.isGeneralTransfer,
+                task: this.task,
+                reqRegisterGenTransReception: this
+                    .reqRegisterGenTransReception
+            }
+        );
     }
 
     async suggestedPicking(
