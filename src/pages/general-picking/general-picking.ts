@@ -196,9 +196,8 @@ export class GeneralPickingPage {
         try {
             this.locationTarget = this.taskGroupedByMaterial[0].Tasks[0].locationSpotTarget;       
         } catch (error) {
-            console.log(this.taskGroupedByMaterial)
             this.locationTarget = ''
-            console.error(error)
+            this.userInteraction.showError(error)
         }
     }
 
