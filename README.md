@@ -41,3 +41,20 @@ Este paso puede tardar varios minutos en terminar.
 
 ### Configuración
 El archivo de configuración para conectar con el backend está en `/src/security/security.ts`.
+
+
+## Guía de release
+
+1. Cambiar la version en el archivo config.xml
+    - Este es el patrón para las versiones, `"año.mes.día."`
+2. Compilar el proyecto corriendo el siguiente comando
+```bash
+./node_modules/.bin/ionic cordova build android
+```
+3. Este comando crea un .apk en el directiorio `swift-wms-android/platforms/android/build/outputs/apk`
+4. Renombrar el archivo `andoid-debug.apk` que se encuentra en ese directorio como `wms@año.mes.dia.apk`
+5. Comprometer y empujar los cambios con una descripción clara de los cambios que tiene ese release
+6. Preferiblemente crear un Pull Request de la rama donde se hicieron los cambios a la principal
+7. Crear el release en Github
+8. Subir el .apk de Release en la sección de Binario en Github
+9. Públicar el Release
