@@ -28,7 +28,7 @@ export class DeviceDummyProvider implements IDevice {
     async scan(): Promise<boolean> {
         return this.userInteraction
             .promptForValue<string>(
-                Enums.Translation.Title.Swift3PL,
+                Enums.Translation.Title.WMS,
                 Enums.Translation.Message.EnterScanData,
                 Enums.Translation.PlaceHolder.ScanData,
                 Enums.PromptType.Text

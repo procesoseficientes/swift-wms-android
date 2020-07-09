@@ -57,6 +57,7 @@ export class ReceptionProvider {
                 outputMaterial.clientOwner = currentMaterial.CLIENT_OWNER;
                 outputMaterial.materialId = currentMaterial.MATERIAL_ID;
                 outputMaterial.barcodeId = currentMaterial.BARCODE_ID;
+                outputMaterial.expirationTolerance = currentMaterial.EXPIRATION_TOLERANCE;
                 outputMaterial.alternateBarcode =
                     currentMaterial.ALTERNATE_BARCODE;
                 outputMaterial.materialName = currentMaterial.MATERIAL_NAME;

@@ -83,14 +83,16 @@ export class PrinterProvider {
 
     public async printDocument(
         printer: Model.Printer,
-        cpclDocument: string
+        cpclDocument: string,
+        n = 1
     ): Promise<boolean> {
         try {
             let printerEnabled = await this.bluetoothSerial.isEnabled();
             return printerEnabled
                 ? this.sendDocumentToPrinterUsingBluetooth(
                       printer.address,
-                      cpclDocument
+                      cpclDocument,
+                      n
                   )
                 : Promise.resolve(false);
         } catch (error) {
@@ -112,15 +114,18 @@ export class PrinterProvider {
 
     private async sendDocumentToPrinterUsingBluetooth(
         printerAddress: string,
-        cpclDocument: string
+        cpclDocument: string,
+        n
     ): Promise<boolean> {
         let s = this.bluetoothSerial.connect(printerAddress).subscribe(
             async () => {
                 let resultWrite: Promise<any>;
                 try {
-                    resultWrite = await this.bluetoothSerial.write(
-                        cpclDocument
-                    );
+                        for(var _i = 0; _i<n; _i++){
+                            resultWrite = await this.bluetoothSerial.write(
+                                cpclDocument,
+                            );
+                        }   
                 } catch (error) {
                     let translation: string = await this.translate.translateMessageFromErrorCode(
                         Enums.CustomErrorCodes.UnableToSendDocumentToPrinter

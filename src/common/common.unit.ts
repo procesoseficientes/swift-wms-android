@@ -109,6 +109,7 @@ export namespace UnitTesting {
                 measurementUnit: "Unidad",
                 usePickingLine: 0,
                 qualityControl: 0,
+                expirationTolerance: null,
                 SerialNumbers: [
                     {
                         id: 0,

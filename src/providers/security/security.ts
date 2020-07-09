@@ -20,10 +20,10 @@ export class SecurityProvider {
         //userCredentials.communicationAddress = "localhost:6661"  
         //Cealsa
         //userCredentials.communicationAddress = "http://192.168.0.5:6161"  
-
         //Ferco
         userCredentials.communicationAddress = "http://10.240.29.104:8099"  
-        return this.api.login(userCredentials);    
+
+        return this.api.login(userCredentials);
 
     }
 }
