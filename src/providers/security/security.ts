@@ -19,9 +19,9 @@ export class SecurityProvider {
         //Local
         userCredentials.communicationAddress = "localhost:6661"  
         //Cealsa
-        //userCredentials.communicationAddress = "http://192.168.0.5:6161"  
+        userCredentials.communicationAddress = "http://192.168.0.5:6161"  
         //Ferco
-        //userCredentials.communicationAddress = "http://200.124.156.117:8099"  
+        // userCredentials.communicationAddress = "http://200.124.156.117:8099"  
 
         //API LICENE
         //userCredentials.communicationAddress = "http://mobilitywebapi.centralus.cloudapp.azure.com:1025"
