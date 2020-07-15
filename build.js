@@ -35,5 +35,5 @@ for (var i = 0; i < addresses.length; i++) {
   oShell.Run(scriptdir + "/node_modules/.bin/ionic cordova build android' & " + renameScript + "& timeout /t 3000", 1 /* SW_SHOWNORMAL */, true /* bWaitOnReturn */);
   WScript.Echo("Compiled!\n=========");
 
-  //fso.MoveFile(scriptdir + '\\platforms\\android\\build\\outputs\\apk\\android-debug.apk', scriptdir + '\\platforms\\android\\build\\outputs\\apk\\swift@' + desc +'.apk')
+  fso.MoveFile(scriptdir + '\\platforms\\android\\build\\outputs\\apk\\android-debug.apk', scriptdir + '\\platforms\\android\\build\\outputs\\apk\\swift@' + desc +'.apk')
 }
