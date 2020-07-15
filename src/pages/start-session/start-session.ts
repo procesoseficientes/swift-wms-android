@@ -2,8 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavParams, NavController } from "ionic-angular";
 import { UserInteractionProvider } from "../../providers/user-interaction/user-interaction";
 import { Model, DataResponse } from "../../models/models";
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { LoginIdValidator } from "../../components/validators/login-id.validator";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { SecurityProvider } from "../../providers/security/security";
 import { UserSettingsProvider } from "../../providers/user-settings/user-settings";
 import { Enums } from "../../enums/enums";
@@ -37,7 +36,7 @@ export class StartSessionPage {
     ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
             password: ["", []],
-            loginId: LoginIdValidator.createLoginIdFormControl()
+            loginId: ['', [Validators.pattern("^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z])$")]]
         });
     }
 

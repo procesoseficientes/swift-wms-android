@@ -1,6 +1,6 @@
 {
     "name": "swfit-3pl",
-    "version": "2020.7.9",
+    "version": "2020.7.15",
     "author": "Procesos Eficientes",
     "homepage": "http://www.procesoseficients.com/",
     "private": true,
@@ -8,8 +8,6 @@
         "clean": "ionic-app-scripts clean",
         "build": "ionic-app-scripts build",
         "lint": "ionic-app-scripts lint",
-        "ionic:build": "gulp translate && ionic cordova build android",
-        "ionic:serve": "gulp translate && ionic serve",
         "test": "karma start ./test-config/karma.conf.js --browsers Chrome_with_debugging",
         "test-ci": "karma start ./test-config/karma.conf.js --single-run",
         "test-coverage": "karma start ./test-config/karma.coverage.js --coverage --single-run && npx remap-istanbul -i .\\coverage\\coverage.json -o .\\coverage\\html --type html -b %REPO%\\ionic\\3pl-suite\\swift-3pl-mobile\\src",
@@ -37,6 +35,7 @@
         "@ionic-native/core": "^4.5.3",
         "@ionic-native/device": "^4.5.2",
         "@ionic-native/diagnostic": "^4.5.3",
+        "@ionic-native/file": "^4.20.0",
         "@ionic-native/geolocation": "^4.5.2",
         "@ionic-native/hotspot": "^4.5.3",
         "@ionic-native/network-interface": "^4.5.3",
@@ -48,8 +47,6 @@
         "@ngx-translate/http-loader": "^2.0.1",
         "@types/socket.io-client": "^1.4.32",
         "android-versions": "^1.3.0",
-        "angular2-jwt": "^0.2.3",
-        "angular2-text-mask": "^8.0.4",
         "bourbon": "^4.3.4",
         "com-darryncampbell-cordova-plugin-intent": "^1.0.2",
         "cordova": "^7.0.0",
@@ -68,6 +65,7 @@
         "cordova-plugin-splashscreen": "^4.1.0",
         "cordova-plugin-statusbar": "^2.4.1",
         "cordova-plugin-whitelist": "^1.3.3",
+        "cordova-plugin-file": "^4.0.0",
         "cordova.plugins.diagnostic": "^3.9.2",
         "google-libphonenumber": "^3.0.10",
         "graceful-fs": "^4.1.11",
@@ -97,6 +95,7 @@
         "@types/node": "^9.4.0",
         "angular2-template-loader": "^0.6.2",
         "babel-plugin-istanbul": "^4.1.5",
+        "dezalgo": "~1.0",
         "factory.ts": "^0.2.2",
         "fancy-log": "^1.3.2",
         "google-translate-api": "^2.3.0",
@@ -112,7 +111,7 @@
         "gulp-tsc": "^1.3.2",
         "gulp-util": "^3.0.8",
         "html-loader": "^0.5.5",
-        "ionic": "3.20.0",
+        "ionic": "5.4.16",
         "ionic-mocks": "^1.2.1",
         "jasmine": "^2.9.0",
         "jasmine-spec-reporter": "^4.2.1",
@@ -157,7 +156,8 @@
             "cordova-plugin-app-version": {},
             "cordova-plugin-app-update": {},
             "cordova-plugin-badge": {},
-            "cordova-plugin-compat": {}
+            "cordova-plugin-compat": {},
+            "cordova-plugin-file": {}
         },
         "platforms": [
             "android"
