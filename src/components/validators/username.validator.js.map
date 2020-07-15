@@ -1,1 +1,0 @@
-{"version":3,"file":"username.validator.js","sourceRoot":"","sources":["username.validator.ts"],"names":[],"mappings":";;AAEA,MAAa,iBAAiB;IAC1B,MAAM,CAAC,aAAa,CAAC,EAAe;QAChC,IACI,EAAE,CAAC,KAAK,CAAC,WAAW,EAAE,KAAK,QAAQ;YACnC,EAAE,CAAC,KAAK,CAAC,WAAW,EAAE,KAAK,QAAQ,EACrC;YACE,OAAO;gBACH,aAAa,EAAE,IAAI;aACtB,CAAC;SACL;aAAM;YACH,OAAO,IAAI,CAAC;SACf;IACL,CAAC;CACJ;AAbD,8CAaC"}

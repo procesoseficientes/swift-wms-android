@@ -3,7 +3,7 @@ Software de manejo de bodega, aplicación para Handhelds Android.
 Branch original `GForce@Paris`
 
 ## Dependencias
-* Node 9.5.0
+* Node 12.14.1
 * Cordova 7.0.0
 * Android SDK Platform Tools
 * Android API 26, 27 y 29

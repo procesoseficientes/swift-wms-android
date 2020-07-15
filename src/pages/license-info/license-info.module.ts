@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { IonicPageModule } from "ionic-angular";
 import { LicenseInfoPage } from "./license-info";
-import { ComponentModule } from "../../components/components.module";
+
 import { TranslateModule } from "@ngx-translate/core";
 import { PipesModule } from "../../pipes/pipes.module";
 
@@ -10,7 +10,6 @@ import { PipesModule } from "../../pipes/pipes.module";
     imports: [
         IonicPageModule.forChild(LicenseInfoPage),
         TranslateModule,
-        ComponentModule,
         PipesModule
     ]
 })

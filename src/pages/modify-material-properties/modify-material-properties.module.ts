@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ModifyMaterialPropertiesPage } from './modify-material-properties';
 import { TranslateModule } from "@ngx-translate/core";
-import { ComponentModule } from "../../components/components.module";
+
 
 @NgModule({
   declarations: [
@@ -10,8 +10,7 @@ import { ComponentModule } from "../../components/components.module";
   ],
   imports: [
     IonicPageModule.forChild(ModifyMaterialPropertiesPage),
-    TranslateModule,
-    ComponentModule
+    TranslateModule
   ],
 })
 export class ModifyMaterialPropertiesPageModule {}

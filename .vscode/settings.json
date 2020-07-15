@@ -8,8 +8,7 @@
         "src/**/*.js": true,
         "src/**/*.js.map": true,
         "test/**/*.js": true,
-        "test/**/*.js.map": true,
-        "node_modules": true,
+        "test/**/*.js.map": true,        
         "www": true,
         "bin": true,
         "test-config": false

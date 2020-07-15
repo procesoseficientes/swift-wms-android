@@ -10,6 +10,5 @@
       "path": "/server",
       "proxyUrl": "http://mobilitywebapi.centralus.cloudapp.azure.com:1025"
     }
-  ],
-  "app_id": ""
+  ]
 }

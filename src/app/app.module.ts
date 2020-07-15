@@ -55,6 +55,8 @@ import { Badge } from "@ionic-native/badge";
 import { CheckpointProvider } from "../providers/checkpoint/checkpoint";
 import { GeneralTransferProvider } from "../providers/general-transfer/general-transfer";
 
+import { File } from "@ionic-native/file"
+
 export const createTranslateLoader = (http: HttpClient) => {
     return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 };
@@ -124,7 +126,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         AppUpdate,
         Badge,
         CheckpointProvider,
-        GeneralTransferProvider
+        GeneralTransferProvider,
+        File
     ]
 })
 export class AppModule {}
