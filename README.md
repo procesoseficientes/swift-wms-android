@@ -58,3 +58,20 @@ El archivo de configuración para conectar con el backend está en `/src/securit
 7. Crear el release en Github
 8. Subir el .apk de Release en la sección de Binario en Github
 9. Públicar el Release
+
+### Archivo de configuración
+Dentro del telefono android tiene que haber un archivo llamado `conf.json` en el directorio 
+`Interna/Android/data/com.mobilityscm.swift3pl` con el suguiente formato:
+
+```json
+{
+    "ulr": "http://192.168.0.5:6161"
+}
+```
+```
+.
+|- Android
+|   |- data
+|   |   |- com.mobilityscm.swift3pl
+|   |   |   |- **conf.json**
+```
