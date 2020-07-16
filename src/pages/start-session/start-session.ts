@@ -8,6 +8,8 @@ import { UserSettingsProvider } from "../../providers/user-settings/user-setting
 import { Enums } from "../../enums/enums";
 import { DeviceProvider } from "../../providers/device/device";
 import { AppVersion } from "@ionic-native/app-version";
+import { ApiClientV3Provider } from "../../providers/api-client/api-client.v3";
+import { File } from '@ionic-native/file';
 @IonicPage()
 @Component({
     selector: "page-start-session",
@@ -28,7 +30,9 @@ export class StartSessionPage {
         private security: SecurityProvider,
         private device: DeviceProvider,
         private settings: UserSettingsProvider,
-        private appVersion: AppVersion
+        private appVersion: AppVersion,
+        private api: ApiClientV3Provider, 
+        private file: File
     ) {
         this.userCredentials = Model.Factory.createUserCredentials();
     }
@@ -70,22 +74,22 @@ export class StartSessionPage {
     public userWantsExitApp(): void {
         this.device.exitApp();
     }
-    public async userWantsCheckPin(): Promise<boolean> {
+    public userWantsCheckPin() {
         this.userCredentials.loginId = this.userCredentials.loginId.toLocaleUpperCase();
-        return this.userInteraction
-            .promptForValue<number>(
-                Enums.Translation.Title.EnterYourPin,
-                Enums.Translation.Message.VerifyPin,
-                Enums.Translation.PlaceHolder.Pin,
-                Enums.PromptType.Number
-            )
-            .then(pin => {
-                this.userInteraction.showLoading();
-                this.userCredentials.password = pin.toString();
-                this.userCredentials.deviceId =
-                    this.device.getUuid() || this.userCredentials.deviceId;
-                return this.validateUserPin(this.userCredentials);
-            });
+        this.userInteraction
+        .promptForValue<number>(
+            Enums.Translation.Title.EnterYourPin,
+            Enums.Translation.Message.VerifyPin,
+            Enums.Translation.PlaceHolder.Pin,
+            Enums.PromptType.Number
+        )
+        .then(pin => {
+            this.userInteraction.showLoading();
+            this.userCredentials.password = pin.toString();
+            this.userCredentials.deviceId =
+                this.device.getUuid() || this.userCredentials.deviceId;
+            this.validateUserPin(this.userCredentials);
+        });
     }
 
     private saveUserSettings(userCredentials: Model.UserCredentials): void {
@@ -104,33 +108,49 @@ export class StartSessionPage {
         userCredentials.userName = loginInfo.loginName;
     }
 
-    public async validateUserPin(
+    public validateUserPin(
         userCredentials: Model.UserCredentials
-    ): Promise<boolean> {
-        try {
-            let login: DataResponse.Login = await this.security.validateCredentials(
-                userCredentials
-            );
-            if (login.loginStatus == Enums.StatusLogin.active) {
-                this.saveCredentials(userCredentials, login);
-                this.saveUserSettings(userCredentials);
+    ) {
+        this.file.checkFile(this.file.externalApplicationStorageDirectory, 'conf.json').then(
+            _ => {
+                console.log('conf exists')
+                this.file.readAsText(this.file.externalApplicationStorageDirectory, 'conf.json').then(val => {
+                    console.log(val)
+                    const conf = JSON.parse(val)
+                    userCredentials.communicationAddress = conf.url  
+                    
 
-                await this.userInteraction.showLoading();
-                await this.navCtrl.setRoot(Enums.Page.VerifyEnvironment);
-                return Promise.resolve(true);
-            } else {
-                await this.userInteraction.hideLoading();
-                this.userInteraction.showCustomError(
-                    Enums.CustomErrorCodes.UserIsBloqued
-                );
-                return Promise.resolve(true);
+                    this.api.login(userCredentials).then(
+                        login => {
+                            if (login.loginStatus == Enums.StatusLogin.active) {
+                                this.saveCredentials(userCredentials, login);
+                                this.saveUserSettings(userCredentials);
+                
+                                this.userInteraction.showLoading();
+                                this.navCtrl.setRoot(Enums.Page.VerifyEnvironment);
+                            } else {
+                                this.userInteraction.hideLoading();
+                                this.userInteraction.showCustomError(
+                                    Enums.CustomErrorCodes.UserIsBloqued
+                                );
+                            }
+                        }
+                    ).catch(
+                        reason => {
+                            this.userInteraction.hideLoading();
+                            this.userInteraction.showError(reason);
+                        }
+                    )
+                }).catch(err => {
+                    console.error(err)
+                    throw err
+                })
+            }).catch(err => {
+                console.error('conf doesn\'t exist', err)
+                this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"localhost:6661"}', {replace: true})
+                throw "No hay archivo de configuración en el telefono"
             }
-        } catch (reason) {
-            this.userInteraction.hideLoading();
-            this.userInteraction.showError(reason);
-
-            return Promise.resolve(false);
-        }
+        );
     }
 
     public formIsNotValid(): boolean {
