@@ -65,7 +65,7 @@ Dentro del telefono android tiene que haber un archivo llamado `conf.json` en el
 
 ```json
 {
-    "ulr": "http://192.168.0.5:6161"
+    "url": "http://192.168.0.5:6161"
 }
 ```
 ```
