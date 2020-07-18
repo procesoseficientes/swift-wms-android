@@ -10,6 +10,8 @@ import { DeviceProvider } from "../../providers/device/device";
 import { AppVersion } from "@ionic-native/app-version";
 import { ApiClientV3Provider } from "../../providers/api-client/api-client.v3";
 import { File } from '@ionic-native/file';
+import { Platform } from 'ionic-angular';
+
 @IonicPage()
 @Component({
     selector: "page-start-session",
@@ -18,7 +20,7 @@ import { File } from '@ionic-native/file';
 export class StartSessionPage {
     userCredentials: Model.UserCredentials;
     loginForm: FormGroup;
-    version: string = "1";
+    version: string = "2020.7.18";
     versionCode: string = "10";
     isAndroid: boolean = false;
 
@@ -32,7 +34,8 @@ export class StartSessionPage {
         private settings: UserSettingsProvider,
         private appVersion: AppVersion,
         private api: ApiClientV3Provider, 
-        private file: File
+        private file: File,
+        public platform: Platform
     ) {
         this.userCredentials = Model.Factory.createUserCredentials();
     }
@@ -61,10 +64,21 @@ export class StartSessionPage {
         this.userInteraction.version = `V.${this.version}@`;
     }
 
+    toCreateFile: number = 0
     async showVersionCode() {
-        this.userInteraction
-            .toast(this.versionCode, Enums.ToastTime.Short)
-            .present();
+        this.toCreateFile += 1
+        if (this.toCreateFile > 19) {
+            this.toCreateFile = 0
+            
+            this.userInteraction.promptForValue<string>(
+                Enums.Translation.Title.Url,
+                Enums.Translation.Message.VerifyPin,
+                Enums.Translation.PlaceHolder.Url,
+                Enums.PromptType.Text
+            ).then(val => {
+                this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', `{"url":"${val}"}`, {replace: true})
+            })
+        }
     }
 
     public setLoginId(loginId: string): void {
@@ -111,46 +125,60 @@ export class StartSessionPage {
     public validateUserPin(
         userCredentials: Model.UserCredentials
     ) {
-        this.file.checkFile(this.file.externalApplicationStorageDirectory, 'conf.json').then(
-            _ => {
-                console.log('conf exists')
-                this.file.readAsText(this.file.externalApplicationStorageDirectory, 'conf.json').then(val => {
-                    console.log(val)
-                    const conf = JSON.parse(val)
-                    userCredentials.communicationAddress = conf.url  
-                    
+        if (this.platform.is('cordova')) {
+            this.file.checkFile(this.file.externalApplicationStorageDirectory, 'conf.json').then(
+                _ => {
+                    console.log('conf exists')
+                    this.file.readAsText(this.file.externalApplicationStorageDirectory, 'conf.json').then(val => {
+                        console.log(val)
+                        const conf = JSON.parse(val)
+                        userCredentials.communicationAddress = conf.url  
+                        
 
-                    this.api.login(userCredentials).then(
-                        login => {
-                            if (login.loginStatus == Enums.StatusLogin.active) {
-                                this.saveCredentials(userCredentials, login);
-                                this.saveUserSettings(userCredentials);
-                
-                                this.userInteraction.showLoading();
-                                this.navCtrl.setRoot(Enums.Page.VerifyEnvironment);
-                            } else {
-                                this.userInteraction.hideLoading();
-                                this.userInteraction.showCustomError(
-                                    Enums.CustomErrorCodes.UserIsBloqued
-                                );
-                            }
-                        }
-                    ).catch(
-                        reason => {
-                            this.userInteraction.hideLoading();
-                            this.userInteraction.showError(reason);
-                        }
-                    )
+                        this.login(userCredentials)
+                    }).catch(err => {
+                        console.error(err)
+                        throw err
+                    })
                 }).catch(err => {
-                    console.error(err)
-                    throw err
-                })
-            }).catch(err => {
-                console.error('conf doesn\'t exist', err)
-                this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"localhost:6661"}', {replace: true})
-                throw "No hay archivo de configuración en el telefono"
+                    console.error('conf doesn\'t exist', err)
+                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"localhost:6661"}', {replace: true}).catch(
+                        err => console.error(err)
+                    )
+                    this.userInteraction.showCustomError(
+                        Enums.CustomErrorCodes.DataNotFound,'Archivo de configuración',"No hay archivo de configuración en el telefono"
+                    );
+                    this.userInteraction.hideLoading();
+                }
+            );
+        } else {
+            userCredentials.communicationAddress = 'localhost:6661'
+            this.login(userCredentials)
+        }
+    }
+
+    public login(userCredentials: Model.UserCredentials) {
+        this.api.login(userCredentials).then(
+            login => {
+                if (login.loginStatus == Enums.StatusLogin.active) {
+                    this.saveCredentials(userCredentials, login);
+                    this.saveUserSettings(userCredentials);
+    
+                    this.userInteraction.showLoading();
+                    this.navCtrl.setRoot(Enums.Page.VerifyEnvironment);
+                } else {
+                    this.userInteraction.hideLoading();
+                    this.userInteraction.showCustomError(
+                        Enums.CustomErrorCodes.UserIsBloqued
+                    );
+                }
             }
-        );
+        ).catch(
+            reason => {
+                this.userInteraction.hideLoading();
+                this.userInteraction.showError(reason);
+            }
+        )
     }
 
     public formIsNotValid(): boolean {

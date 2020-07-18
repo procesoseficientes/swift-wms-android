@@ -47,7 +47,8 @@ export namespace Enums {
 
         export enum Title {
             WMS = "WMS_",
-            EnterYourPin = "Enter-Your-Pin_"
+            EnterYourPin = "Enter-Your-Pin_",
+            Url = "url"
         }
 
         export enum Message {
@@ -59,7 +60,8 @@ export namespace Enums {
 
         export enum PlaceHolder {
             Pin = "PIN_",
-            ScanData = "Scandata_"
+            ScanData = "Scandata_",
+            Url = "url"
         }
 
         export enum Button {
