@@ -1,5 +1,4 @@
-# WMS Mobile Android
-<img src="resources/android/icon/drawable-xxhdpi-icon.png" width="64">  
+# <img src="resources/android/icon/drawable-xxhdpi-icon.png" width="34"> WMS Mobile Android  
 
 Software de manejo de bodega, aplicación para Handhelds Android.
 Branch original: `GForce@Paris`.
