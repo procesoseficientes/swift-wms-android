@@ -333,10 +333,11 @@ export class GeneralReceptionPage {
                 return this.userInteraction.showCustomError(
                     Enums.CustomErrorCodes.FieldsRequired
                 );
-            if (!this.validateTolerance()){
+            }    
+            else if (!this.validateTolerance()){
                 this.userInteraction.showError('El material esta vencido o no cumple con la tolerancia de expiración')      
             }
-            }else {
+            else {
                 await this.checkIfMaterialIsOnTheDetail();
             }
         }
