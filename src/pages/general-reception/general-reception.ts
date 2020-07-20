@@ -333,13 +333,17 @@ export class GeneralReceptionPage {
                 return this.userInteraction.showCustomError(
                     Enums.CustomErrorCodes.FieldsRequired
                 );
-            } else {
+            if (!this.validateTolerance()){
+                this.userInteraction.showError('El material esta vencido o no cumple con la tolerancia de expiración')      
+            }
+            }else {
                 await this.checkIfMaterialIsOnTheDetail();
             }
         }
     }
 
-    validateScannedMaterialFields(): boolean {
+    validateTolerance(): boolean{
+
         let today = new Date();
         let todayDateOnly: Date = new Date(
             today.getFullYear(),
@@ -360,10 +364,20 @@ export class GeneralReceptionPage {
 
         if (
             this.material.batchRequested === Enums.YesNo.Yes &&
-            (!this.material.batch ||
-                expirationDate.getTime() <= ToleranceDate.getTime())
+            (expirationDate.getTime() <= ToleranceDate.getTime())
         ) {    
-            this.userInteraction.showError('El material esta vencido o no cumple con la tolerancia de expiración')      
+            return false;
+        }
+        return true;
+    }
+
+    validateScannedMaterialFields(): boolean {
+       
+
+        if (
+            this.material.batchRequested === Enums.YesNo.Yes &&
+            (!this.material.batch)
+        ) {    
             return false;
         }
 
