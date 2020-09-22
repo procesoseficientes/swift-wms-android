@@ -98,7 +98,7 @@ export class ReceptionByDocumentPage {
 
                 return Promise.resolve(result);
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -144,7 +144,7 @@ export class ReceptionByDocumentPage {
 
                 return Promise.resolve(result);
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

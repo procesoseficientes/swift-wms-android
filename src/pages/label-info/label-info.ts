@@ -63,7 +63,7 @@ export class LabelInfoPage {
             }
 
             return this.userInteraction.hideLoading();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound,
@@ -105,7 +105,7 @@ export class LabelInfoPage {
                 this.settings.printer,
                 format.FORMAT
             );
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );

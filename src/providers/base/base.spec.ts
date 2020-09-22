@@ -50,7 +50,7 @@ describe("BaseProvider", () => {
                     Enums.CustomErrorCodes.Ok,
                     "Must return a successful response"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };
@@ -74,7 +74,7 @@ describe("BaseProvider", () => {
                     Enums.CustomErrorCodes.Ok,
                     "Must return a successful response"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };
@@ -93,7 +93,7 @@ describe("BaseProvider", () => {
                     "v3/json_test"
                 );
                 return fail("This test should fail");
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 return expect(reason.message).toMatch(
                     new RegExp(
                         `API error \\(${Enums.CustomErrorCodes.BadRequest}\\).+`
@@ -117,7 +117,7 @@ describe("BaseProvider", () => {
                     Model.UserCredentials
                 >("v3/json_test", request, "test");
                 return fail("This test should fail");
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 return expect(reason.message).toMatch(
                     new RegExp(
                         `API error \\(${Enums.CustomErrorCodes.BadRequest}\\).+`
@@ -141,7 +141,7 @@ describe("BaseProvider", () => {
                     Model.UserCredentials
                 >("/v3/json_test", request, "test");
                 return fail("This test should fail");
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 return expect(reason.message).toMatch(
                     new RegExp(
                         `API error \\(${

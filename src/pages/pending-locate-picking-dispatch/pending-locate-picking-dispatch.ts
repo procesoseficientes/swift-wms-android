@@ -35,7 +35,7 @@ export class PendingLocatePickingDispatchPage {
             this.wavePickingPendingToLocate = await this.picking.getWavePickingPendingToLocate(
                 request
             );
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

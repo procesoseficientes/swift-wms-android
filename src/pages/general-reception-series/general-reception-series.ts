@@ -224,7 +224,7 @@ export class GeneralReceptionSeriesPage {
                         : Enums.CustomErrorCodes.UnknownError;
                 this.userInteractionProvider.showCustomError(code);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteractionProvider.showError(reason);
         } finally {
             this.userInteractionProvider.hideLoading();
@@ -254,7 +254,7 @@ export class GeneralReceptionSeriesPage {
                 this.userInteractionProvider.showError(response.Mensaje);
             }
             this.userInteractionProvider.hideLoading();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteractionProvider.showError(reason);
         } finally {
             this.userInteractionProvider.hideLoading();
@@ -319,7 +319,7 @@ export class GeneralReceptionSeriesPage {
                 this.material.SerialNumbers = [];
                 this.userInteractionProvider.showError(result.Mensaje);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteractionProvider.showError(reason.message);
         }
     }
@@ -421,7 +421,7 @@ export class GeneralReceptionSeriesPage {
                     Enums.CustomErrorCodes.DataBaseError
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

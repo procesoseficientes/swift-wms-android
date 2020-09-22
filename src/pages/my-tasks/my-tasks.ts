@@ -87,7 +87,7 @@ export class MyTasksPage {
             ) {
                 this.handlesFiscalStorage = true;
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.GetDataError
@@ -131,7 +131,7 @@ export class MyTasksPage {
             }
 
             await this.userInteraction.hideLoading();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.GetDataError
@@ -257,14 +257,14 @@ export class MyTasksPage {
         try {
             if (!this.isLoadingTasks) this.requestMyTasks();
             this.broadcast.removeBroadcast(data.broadcast);
-        } catch (error) {}
+        } catch (error) { console.log(error)}
     }
 
     processBroadcastLost(data: Array<Model.Broadcast>) {
         try {
             if (!this.isLoadingTasks) this.requestMyTasks();
             this.broadcast.removeBroadcastTasksLost(data);
-        } catch (error) {}
+        } catch (error) { console.log(error)}
     }
 
     async openMenuMoreTransactions() {

@@ -65,7 +65,7 @@ export class LicenseInfoPage {
             this.licenseId = params.licenseId;
             this.wavePickingId = params.wavePickingId;
             await this.getLicenseInventory();
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -261,7 +261,7 @@ export class LicenseInfoPage {
                 return Promise.resolve();
             }
             await this.userInteraction.hideLoading();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -286,7 +286,7 @@ export class LicenseInfoPage {
                 params
             );
             return Promise.resolve();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -326,7 +326,7 @@ export class LicenseInfoPage {
                 );
             }
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.hideLoading();
         }
     }
@@ -354,7 +354,7 @@ export class LicenseInfoPage {
             } else {
                 this.printLicenseDispatch(this.licenseId);
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -382,7 +382,7 @@ export class LicenseInfoPage {
                 this.settings.printer,
                 format.FORMAT
             );
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -409,7 +409,7 @@ export class LicenseInfoPage {
                 this.showRegime = true;
             }
             return Promise.resolve();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound

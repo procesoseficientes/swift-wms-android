@@ -94,7 +94,7 @@ export class LocateGeneralPickingPage {
                 );
             }
             return Promise.resolve(result);
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -163,7 +163,7 @@ export class LocateGeneralPickingPage {
             } else {
                 return Promise.resolve(Model.Factory.createSuccessOperation());
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound,
                 locationSpot

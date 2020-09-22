@@ -32,7 +32,7 @@ describe("/*! ProviderName */", () => {
         let execute = async () => {
             try {
                 return expect(true).toBe(true, "Write your custom test");
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };

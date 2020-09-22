@@ -37,7 +37,7 @@ export class PrinterConfigurationPage {
             if (this.printers) this.setPrinterSelection();
 
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(e);
         }
@@ -66,7 +66,7 @@ export class PrinterConfigurationPage {
             this.userInteraction.hideLoading();
 
             return this.currentPrinter;
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(e);
         }
@@ -85,7 +85,7 @@ export class PrinterConfigurationPage {
             this.userInteraction.hideLoading();
 
             return Promise.resolve(result);
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(e);
             return Promise.resolve(false);
@@ -99,7 +99,7 @@ export class PrinterConfigurationPage {
             if (refresher) refresher.complete();
             if (this.printers) this.setPrinterSelection();
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             if (refresher) refresher.complete();
             this.userInteraction.showCustomError(e);

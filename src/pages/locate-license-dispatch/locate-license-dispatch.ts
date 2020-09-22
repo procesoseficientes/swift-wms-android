@@ -210,7 +210,7 @@ export class LocateLicenseDispatch {
             } else {
                 this.backToGeneralPicking();
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.InsertDataBaseError
             );
@@ -370,7 +370,7 @@ export class LocateLicenseDispatch {
             }
 
             return Promise.resolve(Model.Factory.createSuccessOperation());
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 !isNaN(error) ? error : Enums.CustomErrorCodes.InvalidInput,
@@ -602,7 +602,7 @@ export class LocateLicenseDispatch {
                 this.settings.printer,
                 format.FORMAT
             );
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );

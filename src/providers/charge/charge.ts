@@ -40,7 +40,7 @@ export class ChargeProvider {
             );
 
             return Promise.resolve(charges);
-        } catch (error) {
+        } catch (error) { console.log(error)
             //FIXME: then the error handling is added
             return Promise.reject(error);
         }

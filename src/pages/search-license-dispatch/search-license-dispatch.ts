@@ -120,7 +120,7 @@ export class SearchLicenseDispatchPage {
             );
 
             return this.picking.getWavePickingPendingToDispatch(request);
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -173,7 +173,7 @@ export class SearchLicenseDispatchPage {
                 await this.userInteraction.hideLoading();
             }
 
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

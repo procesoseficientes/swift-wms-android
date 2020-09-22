@@ -46,7 +46,7 @@ describe("SecurityProvider", () => {
                     Enums.PagePath.ServerPath,
                     "Must set a valid communication address"
                 );
-            } catch (reason) {}
+            } catch (reason) { console.log(reason)}
         };
 
         return execute();
