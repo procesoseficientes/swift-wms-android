@@ -227,7 +227,7 @@ export class MaterialInfoPage {
             {
                 text: 'Imprimir',
                 handler: data => {
-                    if (parseInt(data.Cantidad)< parseInt(max_qty)){
+                    if (parseInt(data.Cantidad)<= parseInt(max_qty)){
                         this.userWantsPrintMaterial(parseInt(data.Cantidad))
                     } else {
                         this.userInteraction.showError(` No se pueden imprimir mas de  ${max_qty}`);
