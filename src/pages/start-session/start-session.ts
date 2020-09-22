@@ -20,7 +20,7 @@ import { Platform } from 'ionic-angular';
 export class StartSessionPage {
     userCredentials: Model.UserCredentials;
     loginForm: FormGroup;
-    version: string = "2020.7.18";
+    version: string = "2020.9.22";
     versionCode: string = "10";
     isAndroid: boolean = false;
 
@@ -29,7 +29,6 @@ export class StartSessionPage {
         public navParams: NavParams,
         private userInteraction: UserInteractionProvider,
         private formBuilder: FormBuilder,
-        private security: SecurityProvider,
         private device: DeviceProvider,
         private settings: UserSettingsProvider,
         private appVersion: AppVersion,
