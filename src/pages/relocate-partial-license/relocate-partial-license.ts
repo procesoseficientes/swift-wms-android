@@ -116,7 +116,7 @@ export class RelocatePartialLicensePage {
             this.materialStatus = defaultConfig.paramName;
 
             await this.userInteraction.hideLoading();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -246,7 +246,7 @@ export class RelocatePartialLicensePage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.material = Model.Factory.createMaterial();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.InvalidSku,
@@ -301,7 +301,7 @@ export class RelocatePartialLicensePage {
                 );
                 return Promise.resolve();
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -401,7 +401,7 @@ export class RelocatePartialLicensePage {
                                 this.settings.printer,
                                 format.FORMAT
                             );
-                        } catch (e) {
+                        } catch (e) { console.log(e)
                             this.userInteraction.showCustomError(
                                 Enums.CustomErrorCodes.UnknownError
                             );
@@ -517,7 +517,7 @@ export class RelocatePartialLicensePage {
             );
             await this.rollBackSeries();
             return this.reception.rollbackLicense(license);
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             return Model.Factory.createFaultOperation({
                 code: Enums.CustomErrorCodes.DataBaseError,
@@ -684,7 +684,7 @@ export class RelocatePartialLicensePage {
             }
 
             return Promise.resolve(false);
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

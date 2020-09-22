@@ -47,7 +47,7 @@ export class LocationsPhysicalCountPage {
             );
 
             this.userInteraction.hideLoading();
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -160,7 +160,7 @@ export class LocationsPhysicalCountPage {
             }
 
             return Promise.resolve(result);
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

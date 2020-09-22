@@ -48,7 +48,7 @@ describe("ApiClientProvider", () => {
                     Enums.PagePath.ServerPath,
                     "Must return a valid communication address"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };

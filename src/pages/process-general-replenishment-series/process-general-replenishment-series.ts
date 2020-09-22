@@ -149,7 +149,7 @@ export class ProcessGeneralReplenishmentSeriesPage {
                         : Enums.CustomErrorCodes.UnknownError
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -216,7 +216,7 @@ export class ProcessGeneralReplenishmentSeriesPage {
                 );
                 return Promise.resolve(response);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -291,7 +291,7 @@ export class ProcessGeneralReplenishmentSeriesPage {
                 );
                 return Promise.reject(response.Mensaje);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteractionProvider.hideLoading();
             await this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

@@ -110,7 +110,7 @@ export class InfoCenterPage {
                     this.userInteraction.hideLoading();
                     break;
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.hideLoading();
         }
     }

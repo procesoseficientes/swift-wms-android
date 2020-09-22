@@ -41,7 +41,7 @@ export class LocationProvider {
             shelfSpotVolumeAndWeight.weightIconColor =
                 maxWeightAndVolume.WEIGHT_ICON_COLOR;
             return Promise.resolve(shelfSpotVolumeAndWeight);
-        } catch (error) {
+        } catch (error) { console.log(error)
             //FIXME: then the error handling is added
             return Promise.reject(error);
         }

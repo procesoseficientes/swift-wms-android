@@ -198,7 +198,7 @@ export class ProcessGeneralPickingSeriesPage {
                         : Enums.CustomErrorCodes.UnknownError
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -265,7 +265,7 @@ export class ProcessGeneralPickingSeriesPage {
                 );
                 return Promise.resolve(response);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -285,7 +285,7 @@ export class ProcessGeneralPickingSeriesPage {
     async backButtonAction(): Promise<void> {
         try {
             await this.confirmRollbackSeries();
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.DataBaseError
             );
@@ -348,7 +348,7 @@ export class ProcessGeneralPickingSeriesPage {
                 );
                 return Promise.reject(response.Mensaje);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteractionProvider.hideLoading();
             await this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

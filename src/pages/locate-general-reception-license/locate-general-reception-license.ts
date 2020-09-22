@@ -72,7 +72,7 @@ export class LocateGeneralReceptionLicensePage {
 
             //Updates the value on event
             $event.target.value = newValues.join("");
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showError(error);
         }
     }
@@ -90,7 +90,7 @@ export class LocateGeneralReceptionLicensePage {
             //Updates the value on event
             $event._native.nativeElement.value = newValues.join("");
             $event._value = $event._native.nativeElement.value;
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showError(error);
         }
     }
@@ -136,7 +136,7 @@ export class LocateGeneralReceptionLicensePage {
                     this.generalReceptionParam.location
                 );
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             return this.userInteraction.showError(error);
         }
 
@@ -179,7 +179,7 @@ export class LocateGeneralReceptionLicensePage {
                     validateResult.DbData
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
 
             await this.userInteraction.showCustomError(
@@ -242,7 +242,7 @@ export class LocateGeneralReceptionLicensePage {
             }
 
             await this.userInteraction.hideLoading();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -344,7 +344,7 @@ export class LocateGeneralReceptionLicensePage {
                     return Promise.resolve();
                 }
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -370,7 +370,7 @@ export class LocateGeneralReceptionLicensePage {
                     loginId: this.settings.userCredentials.loginId
                 });
             });
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.toast(
                 "error at save log transaction:",
                 Enums.ToastTime.Short

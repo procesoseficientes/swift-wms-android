@@ -152,7 +152,15 @@ export class StartSessionPage {
                 }
             );
         } else {
-            userCredentials.communicationAddress = 'localhost:6661'
+            //this is for `ionicsf serve`
+            //arium
+            //userCredentials.communicationAddress = 'http://181.174.117.198:6661'
+            //local 
+            userCredentials.communicationAddress = 'http://localhost:6661'
+            //Cealsa
+            //userCredentials.communicationAddress = "http://192.168.0.5:6161"  
+            //Ferco
+            //userCredentials.communicationAddress = "http://200.124.156.117:8099"  
             this.login(userCredentials)
         }
     }

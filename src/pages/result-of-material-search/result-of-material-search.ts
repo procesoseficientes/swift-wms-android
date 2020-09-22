@@ -31,7 +31,7 @@ export class ResultOfMaterialSearchPage {
         try {
             let params = <Model.MaterialInfoParams>this.navParams.data;
             await this.getMaterials(params.materialId);
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -72,7 +72,7 @@ export class ResultOfMaterialSearchPage {
                     }
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound,

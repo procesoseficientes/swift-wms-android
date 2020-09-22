@@ -117,7 +117,7 @@ export class GeneralPickingPage {
                 this.isGeneralTransfer =
                     this.task.taskSubtype === Enums.TaskSubType.GeneralTransfer;
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -195,7 +195,7 @@ export class GeneralPickingPage {
 
         try {
             this.locationTarget = this.taskGroupedByMaterial[0].Tasks[0].locationSpotTarget;       
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.locationTarget = ''
             this.userInteraction.showError(error)
         }
@@ -226,7 +226,7 @@ export class GeneralPickingPage {
             );
 
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(e);
         }
@@ -240,8 +240,10 @@ export class GeneralPickingPage {
         let result = await this.userInteraction.showConfirmMessage(
             confirmMessage
         );
+
+        console.log(result)
         if (result === Enums.YesNo.Yes) {
-            return this.finishWithDifferences(materialId);
+            this.finishWithDifferences(materialId);
         }
     }
 
@@ -253,6 +255,7 @@ export class GeneralPickingPage {
                     return pickingHeader.Material.materialId === materialId;
                 }
             );
+            
             let request: DataRequest.CancelPickingDetailLine = DataRequest.Factory.createCancelPickingDetailLineRequest(
                 this.wavePickingId,
                 material.Material.materialId,
@@ -260,15 +263,18 @@ export class GeneralPickingPage {
             );
 
             let result = await this.picking.cancelPickingDetailLine(request);
+
+            console.log(result)
             if (result.Resultado === Enums.OperationResult.Success) {
                 this.headers = await this.getWavePickingHeaders();
-
+                console.log(this.headers)
                 if (
                     this.headers &&
                     !this.headers.find(header => {
                         return header.qtyPending > 0;
                     })
                 ) {
+                    console.log(2)
                     return this.verifyLicensesDispatchPendingToLocate();
                 }
                 for (let header of this.headers) {
@@ -299,6 +305,8 @@ export class GeneralPickingPage {
                 );
             }
         } catch (reason) {
+            alert('AQUI')
+            console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -390,7 +398,7 @@ export class GeneralPickingPage {
                         : Enums.CustomErrorCodes.UnknownError
                 );
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -465,7 +473,7 @@ export class GeneralPickingPage {
                 this.settings.printer,
                 format.FORMAT
             );
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -483,7 +491,7 @@ export class GeneralPickingPage {
                 ""
             );
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -563,7 +571,7 @@ export class GeneralPickingPage {
                 );
             }
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -600,7 +608,7 @@ export class GeneralPickingPage {
             }
             this.userInteraction.hideLoading();
             return Promise.resolve(result);
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );

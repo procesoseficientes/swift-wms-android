@@ -51,7 +51,7 @@ export class ExplodeMasterPackPage {
                 this.processBarcodeScan(data)
             );
             this.userInteraction.hideLoading();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -113,7 +113,7 @@ export class ExplodeMasterPackPage {
             this.material = Model.Factory.createMaterialMasterPack();
             this.showScanIcon(Enums.MasterPackScan.MaterialBarcode);
             return Promise.resolve(true);
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.currentScan = Enums.MasterPackScan.MaterialBarcode;
             this.detail = [];
             this.material = Model.Factory.createMaterialMasterPack();
@@ -203,7 +203,7 @@ export class ExplodeMasterPackPage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.material = Model.Factory.createMaterialMasterPack();
             this.licenseId = null;
             this.detail = [];
@@ -276,7 +276,7 @@ export class ExplodeMasterPackPage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );

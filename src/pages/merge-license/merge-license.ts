@@ -90,7 +90,7 @@ export class MergeLicensePage {
             this.licenses = await this.licenseProvider.getInfoOfLicenseInLocationForMerge(
                 request
             );
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.GetDataError
@@ -120,7 +120,7 @@ export class MergeLicensePage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showError(e.message);
             return Promise.resolve(false);
@@ -147,7 +147,7 @@ export class MergeLicensePage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showError(e.message);
             return Promise.resolve(false);
@@ -200,7 +200,7 @@ export class MergeLicensePage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showError(e.message);
             return Promise.resolve(false);

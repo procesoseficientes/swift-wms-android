@@ -31,7 +31,7 @@ export class PickingProvider {
             return await this.addSerialNumbersToTasks(
                 objectPickingHeader.pickingTasks
             );
-        } catch (error) {
+        } catch (error) { console.log(error)
             return Promise.reject(error); // FIXME: send a proper error message
         }
     }
@@ -151,7 +151,7 @@ export class PickingProvider {
             );
 
             return Promise.resolve(serialNumbers);
-        } catch (error) {
+        } catch (error) { console.log(error)
             return Promise.reject(error); // FIXME: send a proper error message
         }
     }
@@ -308,7 +308,7 @@ export class PickingProvider {
                 receptionRequest
             );
             return Promise.resolve(result);
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             return Promise.resolve(
                 Model.Factory.createFaultOperation(
                     Model.Factory.createCustomError(

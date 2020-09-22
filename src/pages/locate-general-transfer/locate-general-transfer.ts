@@ -79,7 +79,7 @@ export class LocateGeneralTransferPage {
             );
             //Updates the value on event
             $event.target.value = newValues.join("");
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showError(error);
         }
     }
@@ -97,7 +97,7 @@ export class LocateGeneralTransferPage {
             //Updates the value on event
             $event._native.nativeElement.value = newValues.join("");
             $event._value = $event._native.nativeElement.value;
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showError(error);
         }
     }
@@ -169,7 +169,7 @@ export class LocateGeneralTransferPage {
                 );
                 return Promise.resolve();
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -262,7 +262,7 @@ export class LocateGeneralTransferPage {
                                 this.settings.printer,
                                 format.FORMAT
                             );
-                        } catch (e) {
+                        } catch (e) { console.log(e)
                             this.userInteraction.showCustomError(
                                 Enums.CustomErrorCodes.UnknownError
                             );
@@ -412,7 +412,7 @@ export class LocateGeneralTransferPage {
                     }
                 }
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -437,7 +437,7 @@ export class LocateGeneralTransferPage {
                     loginId: this.settings.userCredentials.loginId
                 });
             });
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.toast(
                 "error at save log transaction:",
                 Enums.ToastTime.Short
@@ -463,7 +463,7 @@ export class LocateGeneralTransferPage {
                     this.licenseId = Number(resultGetLastLicense.DbData);
                 }
             }
-        } catch (error) {}
+        } catch (error) { console.log(error)}
     }
 
     showScanBarcode(): boolean {
@@ -521,7 +521,7 @@ export class LocateGeneralTransferPage {
                 }
             }
             return Promise.resolve();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.locationSpot = Model.Factory.createShelfSpot();
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
