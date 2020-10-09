@@ -364,13 +364,12 @@ export class LocateLicenseDispatch {
                     await this.userInteraction.hideLoading();
                     break;
                 default:
-                    throw new Error(
-                        Enums.CustomErrorCodes.InvalidInput.toString()
-                    );
+                    await this.processLicenseScan(scanData);
             }
 
             return Promise.resolve(Model.Factory.createSuccessOperation());
-        } catch (error) { console.log(error)
+        } catch (error) {
+            console.log(error)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 !isNaN(error) ? error : Enums.CustomErrorCodes.InvalidInput,

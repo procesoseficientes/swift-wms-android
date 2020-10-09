@@ -20,7 +20,7 @@ import { Platform } from 'ionic-angular';
 export class StartSessionPage {
     userCredentials: Model.UserCredentials;
     loginForm: FormGroup;
-    version: string = "2020.9.22";
+    version: string = "2020.10.9";
     versionCode: string = "10";
     isAndroid: boolean = false;
 
@@ -42,7 +42,7 @@ export class StartSessionPage {
     ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
             password: ["", []],
-            loginId: ['', [Validators.pattern("^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z])$")]]
+            loginId: ['', [Validators.pattern("^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)$")]]
         });
     }
 
@@ -141,7 +141,7 @@ export class StartSessionPage {
                     })
                 }).catch(err => {
                     console.error('conf doesn\'t exist', err)
-                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"localhost:6661"}', {replace: true}).catch(
+                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"http://200.124.156.117:8099"}', {replace: true}).catch(
                         err => console.error(err)
                     )
                     this.userInteraction.showCustomError(

@@ -21,7 +21,7 @@ export class SecurityProvider {
         //Cealsa
         //userCredentials.communicationAddress = "http://192.168.0.5:6161"  
         //Ferco
-        // userCredentials.communicationAddress = "http://200.124.156.117:8099"
+        userCredentials.communicationAddress = "http://200.124.156.117:8099"
         //Arium
         // userCredentials.communicationAddress = "http://200.124.156.117:8099"
 
