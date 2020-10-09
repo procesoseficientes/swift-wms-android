@@ -48,7 +48,7 @@ describe("ReceptionProvider", () => {
                     request
                 );
                 return expect(result).toBeDefined("Result must return a value");
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };
@@ -78,7 +78,7 @@ describe("ReceptionProvider", () => {
                     Enums.OperationResult.Success,
                     "Result must return be successful"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };
@@ -107,7 +107,7 @@ describe("ReceptionProvider", () => {
                     Enums.OperationResult.Success,
                     "Result must return be successful"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };
@@ -136,7 +136,7 @@ describe("ReceptionProvider", () => {
                     request.barcode,
                     "Result's barcode should be the same as the one sent on the request"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };
@@ -180,7 +180,7 @@ describe("ReceptionProvider", () => {
                     Enums.OperationResult.Success,
                     "Result must be successful"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };
@@ -206,7 +206,7 @@ describe("ReceptionProvider", () => {
                     Enums.OperationResult.Success,
                     "Result must be successful"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };
@@ -232,7 +232,7 @@ describe("ReceptionProvider", () => {
                     Enums.OperationResult.Success,
                     "Result must be successful"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };
@@ -260,7 +260,7 @@ describe("ReceptionProvider", () => {
                     Enums.OperationResult.Success,
                     "Result must be successful."
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };

@@ -57,7 +57,7 @@ export class RelocateFullLicensePage {
             );
             //Updates the value on event
             $event.target.value = newValues.join("");
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showError(error);
         }
     }
@@ -75,7 +75,7 @@ export class RelocateFullLicensePage {
             //Updates the value on event
             $event._native.nativeElement.value = newValues.join("");
             $event._value = $event._native.nativeElement.value;
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showError(error);
         }
     }
@@ -155,7 +155,7 @@ export class RelocateFullLicensePage {
                     })
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -203,7 +203,7 @@ export class RelocateFullLicensePage {
                     (this.usedMt2 + this.mt2);
             }
             return Promise.resolve(Model.Factory.createSuccessOperation());
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound,
                 locationSpot
@@ -315,7 +315,7 @@ export class RelocateFullLicensePage {
                 }
                 return Promise.resolve(result);
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -339,7 +339,7 @@ export class RelocateFullLicensePage {
                 taskType: Enums.TaskTypeLog.CompleteRelocation,
                 loginId: this.settings.userCredentials.loginId
             });
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.toast(
                 "error at save log transaction:",
                 Enums.ToastTime.Short
@@ -365,6 +365,6 @@ export class RelocateFullLicensePage {
                     this.licenseId = Number(resultGetLastLicense.DbData);
                 }
             }
-        } catch (error) {}
+        } catch (error) { console.log(error)}
     }
 }

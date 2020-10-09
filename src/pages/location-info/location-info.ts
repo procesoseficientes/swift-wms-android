@@ -79,7 +79,7 @@ export class LocationInfoPage {
 
             this.userInteraction.hideLoading();
             return Promise.resolve();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -107,7 +107,7 @@ export class LocationInfoPage {
 
             this.userInteraction.hideLoading();
             return Promise.resolve();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound,
@@ -177,7 +177,7 @@ export class LocationInfoPage {
                 this.showRegime = true;
             }
             return Promise.resolve();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound

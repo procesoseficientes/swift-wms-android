@@ -106,7 +106,7 @@ export class AddSeriesRankPage {
             }
 
             return Promise.resolve();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 !isNaN(error) ? error : Enums.CustomErrorCodes.InvalidInput,
@@ -274,10 +274,11 @@ export class AddSeriesRankPage {
                         : Enums.CustomErrorCodes.UnknownError
                 );
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
+            console.log(e);
         } finally {
             this.userInteraction.hideLoading();
         }

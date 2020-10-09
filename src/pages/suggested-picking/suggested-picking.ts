@@ -86,7 +86,7 @@ export class SuggestedPickingPage {
             } else {
                 this.backButtonAction();
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.InsertDataBaseError
             );
@@ -129,7 +129,7 @@ export class SuggestedPickingPage {
                         : Enums.CustomErrorCodes.UnknownError
                 );
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

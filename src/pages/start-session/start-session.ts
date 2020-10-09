@@ -20,7 +20,7 @@ import { Platform } from 'ionic-angular';
 export class StartSessionPage {
     userCredentials: Model.UserCredentials;
     loginForm: FormGroup;
-    version: string = "2020.7.18";
+    version: string = "2020.9.22";
     versionCode: string = "10";
     isAndroid: boolean = false;
 
@@ -29,7 +29,6 @@ export class StartSessionPage {
         public navParams: NavParams,
         private userInteraction: UserInteractionProvider,
         private formBuilder: FormBuilder,
-        private security: SecurityProvider,
         private device: DeviceProvider,
         private settings: UserSettingsProvider,
         private appVersion: AppVersion,
@@ -152,7 +151,19 @@ export class StartSessionPage {
                 }
             );
         } else {
+<<<<<<< HEAD
             userCredentials.communicationAddress = 'http://200.124.156.117:8099'
+=======
+            //this is for `ionicsf serve`
+            //arium
+            //userCredentials.communicationAddress = 'http://181.174.117.198:6661'
+            //local 
+            userCredentials.communicationAddress = 'http://localhost:6661'
+            //Cealsa
+            //userCredentials.communicationAddress = "http://192.168.0.5:6161"  
+            //Ferco
+            //userCredentials.communicationAddress = "http://200.124.156.117:8099"  
+>>>>>>> 6ecb0392da6b1e97504bc8d6d1968faa1535e975
             this.login(userCredentials)
         }
     }

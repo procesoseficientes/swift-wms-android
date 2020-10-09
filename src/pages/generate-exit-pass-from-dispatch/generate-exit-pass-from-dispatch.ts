@@ -104,7 +104,7 @@ export class GenerateExitPassFromDispatchPage {
 
             this.userInteraction.hideLoading();
 
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(e);
         }
@@ -181,7 +181,7 @@ export class GenerateExitPassFromDispatchPage {
                         : Enums.CustomErrorCodes.UnknownError
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );

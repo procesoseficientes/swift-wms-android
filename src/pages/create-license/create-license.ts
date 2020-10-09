@@ -71,7 +71,7 @@ export class CreateLicensePage {
             this.createLicense.regime = this.receptionRequest.regime,
             this.regimenTask = this.receptionRequest.regime;
             return Promise.resolve(Model.Factory.createSuccessOperation());
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -104,7 +104,7 @@ export class CreateLicensePage {
                 this.showPolicyAndRegime = true;
             }
             return Promise.resolve();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound
@@ -138,7 +138,7 @@ export class CreateLicensePage {
                 );
             }
             return Promise.resolve(result);
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -175,7 +175,7 @@ export class CreateLicensePage {
             }
             this.userInteraction.hideLoading();
             return Promise.resolve(result);
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -243,7 +243,7 @@ export class CreateLicensePage {
             );
 
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(e);
         }

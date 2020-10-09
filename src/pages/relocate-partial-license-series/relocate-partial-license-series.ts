@@ -198,7 +198,7 @@ export class RelocatePartialLicenseSeriesPage {
             }
 
             return Promise.resolve(response);
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteractionProvider.hideLoading();
             this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -285,7 +285,7 @@ export class RelocatePartialLicenseSeriesPage {
                 );
                 return Promise.resolve(response);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteractionProvider.hideLoading();
             this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -330,7 +330,7 @@ export class RelocatePartialLicenseSeriesPage {
                     Enums.CustomErrorCodes.DataBaseError
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteractionProvider.hideLoading();
             await this.userInteractionProvider.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -458,7 +458,7 @@ export class RelocatePartialLicenseSeriesPage {
             } else {
                 this.userInteractionProvider.showError(result.Mensaje);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteractionProvider.showError(reason.message);
         }
     }

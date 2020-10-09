@@ -92,7 +92,7 @@ export class ProcessGeneralPickingPage {
                     Enums.CustomErrorCodes.DataBaseError
                 );
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -189,7 +189,7 @@ export class ProcessGeneralPickingPage {
                 this.processSku.wavePickingId = this.task.wavePickingId;
                 this.processSku.materialId = this.task.materialId;
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.LoadPage
             );
@@ -225,7 +225,7 @@ export class ProcessGeneralPickingPage {
             }
 
             return Promise.resolve(Model.Factory.createSuccessOperation());
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 !isNaN(error) ? error : Enums.CustomErrorCodes.InvalidInput,
@@ -560,7 +560,7 @@ export class ProcessGeneralPickingPage {
                 }
             }
             return Promise.resolve(true);
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.InternalServerError
@@ -582,7 +582,7 @@ export class ProcessGeneralPickingPage {
                 taskId: this.task.wavePickingId,
                 loginId: this.settings.userCredentials.loginId
             });
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.toast(
                 "Error at save log transaction:",
                 Enums.ToastTime.Short
@@ -616,7 +616,7 @@ export class ProcessGeneralPickingPage {
                     Enums.CustomErrorCodes.DataBaseError
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -644,7 +644,7 @@ export class ProcessGeneralPickingPage {
                 this.settings.printer,
                 format.FORMAT
             );
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -692,7 +692,7 @@ export class ProcessGeneralPickingPage {
                 this.settings.printer,
                 format.FORMAT
             );
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );

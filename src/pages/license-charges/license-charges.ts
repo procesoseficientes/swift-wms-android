@@ -162,7 +162,7 @@ export class LicenseChargesPage {
                 this.userInteraction.showCustomError(code);
             }
             return Promise.resolve(result);
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );

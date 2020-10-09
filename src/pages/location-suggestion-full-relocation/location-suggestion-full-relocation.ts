@@ -285,7 +285,7 @@ export class LocationSuggestionFullRelocationPage {
             await this.userInteraction.showLoading();
             await this.processLocationByZone(scanData);
             await this.userInteraction.hideLoading();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 !isNaN(error) ? error : Enums.CustomErrorCodes.InvalidInput,
@@ -422,7 +422,7 @@ export class LocationSuggestionFullRelocationPage {
             }
             await this.userInteraction.hideLoading();
             return Promise.resolve(Model.Factory.createSuccessOperation());
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             return Promise.resolve(
                 Model.Factory.createFaultOperation(

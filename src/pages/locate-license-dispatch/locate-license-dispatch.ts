@@ -210,7 +210,7 @@ export class LocateLicenseDispatch {
             } else {
                 this.backToGeneralPicking();
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.InsertDataBaseError
             );
@@ -601,7 +601,7 @@ export class LocateLicenseDispatch {
                 this.settings.printer,
                 format.FORMAT
             );
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );

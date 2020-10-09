@@ -61,7 +61,7 @@ export class MergeLicenseDetailPage {
             );
 
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

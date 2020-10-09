@@ -15,7 +15,7 @@ async function generateTranslations(text, language) {
 function loadFromFile(language, root = "src/assets/i18n") {
     try {
         return JSON.parse(fs.readFileSync(`./${root}/${language}.json`));
-    } catch (e) {
+    } catch (e) { console.log(e)
         return {};
     }
 }

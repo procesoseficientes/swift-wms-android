@@ -49,7 +49,7 @@ export class PrinterProvider {
             return result
                 ? this.discoverPrintersUsingBluetooth()
                 : new Array<Model.Printer>();
-        } catch (error) {
+        } catch (error) { console.log(error)
             let translation: string = await this.translate.translateMessageFromErrorCode(
                 Enums.CustomErrorCodes.BluetoothDisabled
             );
@@ -61,7 +61,7 @@ export class PrinterProvider {
         try {
             this.settings.printer = printer;
             return Promise.resolve();
-        } catch (error) {
+        } catch (error) { console.log(error)
             let translation: string = await this.translate.translateMessageFromErrorCode(
                 Enums.CustomErrorCodes.SomethingWentWrong
             );
@@ -73,7 +73,7 @@ export class PrinterProvider {
         try {
             let printer = this.settings.printer;
             return Promise.resolve(printer);
-        } catch (error) {
+        } catch (error) { console.log(error)
             let translation: string = await this.translate.translateMessageFromErrorCode(
                 Enums.CustomErrorCodes.SomethingWentWrong
             );
@@ -95,7 +95,7 @@ export class PrinterProvider {
                       n
                   )
                 : Promise.resolve(false);
-        } catch (error) {
+        } catch (error) { console.log(error)
             let translation: string = await this.translate.translateMessageFromErrorCode(
                 Enums.CustomErrorCodes.CannotEstablishConnectionToPrinter
             );
@@ -126,7 +126,7 @@ export class PrinterProvider {
                                 cpclDocument,
                             );
                         }   
-                } catch (error) {
+                } catch (error) { console.log(error)
                     let translation: string = await this.translate.translateMessageFromErrorCode(
                         Enums.CustomErrorCodes.UnableToSendDocumentToPrinter
                     );
@@ -162,7 +162,7 @@ export class PrinterProvider {
                 );
                 return Promise.reject(translation);
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             let translation: string = await this.translate.translateMessageFromErrorCode(
                 Enums.CustomErrorCodes.CouldNotDisconnectPrinter
             );

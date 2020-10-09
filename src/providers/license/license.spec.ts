@@ -54,7 +54,7 @@ describe("LicenseProvider", () => {
                     Enums.OperationResult.Success,
                     "Result must return be successful"
                 );
-            } catch (reason) {
+            } catch (reason) { console.log(reason)
                 fail(reason);
             }
         };

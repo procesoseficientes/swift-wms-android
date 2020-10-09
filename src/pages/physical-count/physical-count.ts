@@ -51,7 +51,7 @@ export class PhysicalCountPage {
             );
 
             this.userInteraction.hideLoading();
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -111,7 +111,7 @@ export class PhysicalCountPage {
             ];
 
             return this.userInteraction.showOptionAlert(null, buttons);
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -148,7 +148,7 @@ export class PhysicalCountPage {
                 this.userInteraction.hideLoading();
                 return Promise.resolve(false);
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -192,7 +192,7 @@ export class PhysicalCountPage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -270,7 +270,7 @@ export class PhysicalCountPage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -347,7 +347,7 @@ export class PhysicalCountPage {
                     Enums.ReceptionAction.Insert
                 );
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.serialNumber = "";
             this.userInteraction.showCustomError(
@@ -406,7 +406,7 @@ export class PhysicalCountPage {
                 this.serialNumber = "";
                 return Promise.resolve(false);
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.serialNumber = "";
             this.userInteraction.showCustomError(

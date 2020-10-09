@@ -59,7 +59,7 @@ export class ManifiestCertificationSeriesPage {
                 this.processBarcodeScan(data)
             );
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.BadRequest
@@ -111,7 +111,7 @@ export class ManifiestCertificationSeriesPage {
             );
 
             return Promise.resolve(this.scannedSeries);
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -208,7 +208,7 @@ export class ManifiestCertificationSeriesPage {
                         : Enums.CustomErrorCodes.InsertDataBaseError
                 );
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -252,7 +252,7 @@ export class ManifiestCertificationSeriesPage {
                 this.validateCompletedCertification();
             }
             return Promise.resolve(result);
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataBaseError
@@ -287,7 +287,7 @@ export class ManifiestCertificationSeriesPage {
 
             this.userInteraction.hideLoading();
             return Promise.resolve(result);
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -327,7 +327,7 @@ export class ManifiestCertificationSeriesPage {
             }
 
             return Promise.resolve(result);
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

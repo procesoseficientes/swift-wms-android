@@ -61,7 +61,7 @@ export class MaterialInfoPage {
                 this.materialInfo.isMoreResults = this.isMoreResults;
                 await this.getInventoryInfo(this.materialInfo.materialId);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -81,7 +81,7 @@ export class MaterialInfoPage {
             this.materialInfo = await this.material.getMaterial(
                 materialRequest
             );
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound,
                 materialId
@@ -109,7 +109,7 @@ export class MaterialInfoPage {
                 this.settings.userCredentials
             );
             this.validateCheckPoint();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -136,7 +136,7 @@ export class MaterialInfoPage {
                     this.checkpointChangeMaterialProperties = true;
                 }
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -227,7 +227,7 @@ export class MaterialInfoPage {
             {
                 text: 'Imprimir',
                 handler: data => {
-                    if (parseInt(data.Cantidad)< parseInt(max_qty)){
+                    if (parseInt(data.Cantidad)<= parseInt(max_qty)){
                         this.userWantsPrintMaterial(parseInt(data.Cantidad))
                     } else {
                         this.userInteraction.showError(` No se pueden imprimir mas de  ${max_qty}`);
@@ -269,7 +269,7 @@ export class MaterialInfoPage {
 
             
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(e);
         }
@@ -300,7 +300,7 @@ export class MaterialInfoPage {
             );
 
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(e);
         }
@@ -327,7 +327,7 @@ export class MaterialInfoPage {
                 this.showRegime = true;
             }
             return Promise.resolve();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound
@@ -346,7 +346,7 @@ export class MaterialInfoPage {
             );
             let parameter = await this.configuration.getParameter(requestParameter);
             return parameter;
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.DataNotFound

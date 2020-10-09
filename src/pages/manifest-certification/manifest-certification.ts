@@ -85,7 +85,7 @@ export class ManifestCertificationPage {
             }
 
             this.userInteraction.hideLoading();
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -205,7 +205,7 @@ export class ManifestCertificationPage {
                     Enums.CustomErrorCodes.DataNotFound
                 );
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -258,7 +258,7 @@ export class ManifestCertificationPage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.InvalidInput,
@@ -340,7 +340,7 @@ export class ManifestCertificationPage {
                         : Enums.CustomErrorCodes.DeleteDataError
                 );
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -392,7 +392,7 @@ export class ManifestCertificationPage {
             } else {
                 this.validateCompletedCertification();
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -422,7 +422,7 @@ export class ManifestCertificationPage {
             }
 
             this.userInteraction.hideLoading();
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -445,7 +445,7 @@ export class ManifestCertificationPage {
             );
 
             return this.insertCertificationDetail(request);
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -468,7 +468,7 @@ export class ManifestCertificationPage {
             );
 
             return this.insertCertificationDetail(request);
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -497,7 +497,7 @@ export class ManifestCertificationPage {
 
                 return this.insertCertificationDetail(request);
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -518,7 +518,7 @@ export class ManifestCertificationPage {
             if (confirmation == Enums.YesNo.Yes) {
                 this.markCertificationAsCompleted();
             }
-        } catch (e) {
+        } catch (e) { console.log(e)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -554,7 +554,7 @@ export class ManifestCertificationPage {
                     Enums.CustomErrorCodes.DataBaseError
                 );
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -631,7 +631,7 @@ export class ManifestCertificationPage {
                             }
                         );
                     }
-                } catch (error) {
+                } catch (error) { console.log(error)
                     await this.userInteraction.hideLoading();
                     this.userInteraction.showCustomError(
                         Enums.CustomErrorCodes.DataBaseError

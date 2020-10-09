@@ -307,7 +307,7 @@ export class GeneralReceptionPage {
                 );
                 return Promise.resolve(false);
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
             );
@@ -336,6 +336,9 @@ export class GeneralReceptionPage {
             }    
             else if (!this.validateTolerance()){
                 this.userInteraction.showError('El material esta vencido o no cumple con la tolerancia de expiración')      
+            }
+            else if (!this.validateCar()){
+                this.userInteraction.showError('No se puede ingresar mas de 1 unindad con el mismo vin')
             }
             else {
                 await this.checkIfMaterialIsOnTheDetail();
@@ -372,6 +375,13 @@ export class GeneralReceptionPage {
         return true;
     }
 
+    validateCar(): boolean{
+        if (this.material.isCar === Enums.YesNo.Yes && this.material.quantity>1) {
+            return false;
+        }
+        return true;
+    }
+
     validateScannedMaterialFields(): boolean {
        
 
@@ -398,6 +408,7 @@ export class GeneralReceptionPage {
 
         if (this.material.isCar === Enums.YesNo.Yes && !this.material.vin) {
             return false;
+
         }
 
         return true;
@@ -464,7 +475,7 @@ export class GeneralReceptionPage {
                 this.userInteraction.showCustomError(code);
             }
             return Promise.resolve(false);
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -613,7 +624,7 @@ export class GeneralReceptionPage {
                                 this.settings.printer,
                                 format.FORMAT
                             );
-                        } catch (e) {
+                        } catch (e) { console.log(e)
                             this.userInteraction.showCustomError(
                                 Enums.CustomErrorCodes.UnknownError
                             );
@@ -679,7 +690,7 @@ export class GeneralReceptionPage {
                 params
             );
             return Promise.resolve();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -733,7 +744,7 @@ export class GeneralReceptionPage {
                                     Enums.CustomErrorCodes.DataBaseError
                                 );
                             }
-                        } catch (error) {
+                        } catch (error) { console.log(error)
                             this.userInteraction.showCustomError(
                                 Enums.CustomErrorCodes.DataBaseError
                             );
@@ -798,7 +809,7 @@ export class GeneralReceptionPage {
                 return Promise.resolve();
             }
             await this.userInteraction.hideLoading();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -829,7 +840,7 @@ export class GeneralReceptionPage {
                 params
             );
             return Promise.resolve();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

@@ -65,7 +65,7 @@ export class LocatePartialLicensePage {
             );
             //Updates the value on event
             $event.target.value = newValues.join("");
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showError(error);
         }
     }
@@ -83,7 +83,7 @@ export class LocatePartialLicensePage {
             //Updates the value on event
             $event._native.nativeElement.value = newValues.join("");
             $event._value = $event._native.nativeElement.value;
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.showError(error);
         }
     }
@@ -156,7 +156,7 @@ export class LocatePartialLicensePage {
                 );
                 return Promise.resolve();
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -214,7 +214,7 @@ export class LocatePartialLicensePage {
                 }
             }
             return Promise.resolve();
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             this.locationSpot = Model.Factory.createShelfSpot();
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
@@ -391,7 +391,7 @@ export class LocatePartialLicensePage {
                     }
                 }
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError
@@ -416,7 +416,7 @@ export class LocatePartialLicensePage {
                     loginId: this.settings.userCredentials.loginId
                 });
             });
-        } catch (error) {
+        } catch (error) { console.log(error)
             this.userInteraction.toast(
                 "error at save log transaction:",
                 Enums.ToastTime.Short
@@ -442,6 +442,6 @@ export class LocatePartialLicensePage {
                     this.licenseId = Number(resultGetLastLicense.DbData);
                 }
             }
-        } catch (error) {}
+        } catch (error) { console.log(error)}
     }
 }

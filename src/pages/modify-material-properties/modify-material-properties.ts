@@ -105,7 +105,7 @@ export class ModifyMaterialPropertiesPage {
                     );
             }
             return Promise.resolve(Model.Factory.createSuccessOperation());
-        } catch (error) {
+        } catch (error) { console.log(error)
             await this.userInteraction.hideLoading();
             await this.userInteraction.showCustomError(
                 !isNaN(error) ? error : Enums.CustomErrorCodes.InvalidInput,
@@ -151,7 +151,7 @@ export class ModifyMaterialPropertiesPage {
                     Enums.CustomErrorCodes.DataBaseError
                 );
             }
-        } catch (reason) {
+        } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
             this.userInteraction.showCustomError(
                 Enums.CustomErrorCodes.UnknownError

@@ -93,7 +93,7 @@ export class ReceptionProvider {
                 });
                 return Promise.resolve(operation);
             }
-        } catch (error) {
+        } catch (error) { console.log(error)
             return Promise.reject(error); // FIXME: better error handling
         }
     }
