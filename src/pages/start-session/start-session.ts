@@ -43,7 +43,7 @@ export class StartSessionPage {
     ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
             password: ["", []],
-            loginId: ['', [Validators.pattern("^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z])$")]]
+            loginId: ['', [Validators.pattern("^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)$")]]
         });
     }
 
@@ -142,7 +142,7 @@ export class StartSessionPage {
                     })
                 }).catch(err => {
                     console.error('conf doesn\'t exist', err)
-                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"localhost:6661"}', {replace: true}).catch(
+                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"http://200.124.156.117:8099"}', {replace: true}).catch(
                         err => console.error(err)
                     )
                     this.userInteraction.showCustomError(
@@ -152,7 +152,7 @@ export class StartSessionPage {
                 }
             );
         } else {
-            userCredentials.communicationAddress = 'localhost:6661'
+            userCredentials.communicationAddress = 'http://200.124.156.117:8099'
             this.login(userCredentials)
         }
     }
