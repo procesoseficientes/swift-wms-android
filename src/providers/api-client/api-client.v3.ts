@@ -163,6 +163,7 @@ export class ApiClientV3Provider extends BaseProvider {
     public validateBarcodeForLicense(
         request: DataRequest.GetScannedMaterialByLicenseInReceptionTask
     ): Promise<DataResponse.Operation> {
+        console.log(request)
         return this.post<
             DataResponse.Operation,
             DataRequest.GetScannedMaterialByLicenseInReceptionTask

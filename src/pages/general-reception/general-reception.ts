@@ -239,6 +239,8 @@ export class GeneralReceptionPage {
                 this.settings.userCredentials
             );
 
+            console.log(materialRequest)
+
             let result = await this.reception.validateBarcodeForLicense(
                 materialRequest
             );

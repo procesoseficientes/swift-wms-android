@@ -364,7 +364,9 @@ export class LocateLicenseDispatch {
                     await this.userInteraction.hideLoading();
                     break;
                 default:
-                    await this.processLicenseScan(scanData);
+                    throw new Error(
+                        Enums.CustomErrorCodes.InvalidInput.toString()
+                    );
             }
 
             return Promise.resolve(Model.Factory.createSuccessOperation());
@@ -620,8 +622,8 @@ export class LocateLicenseDispatch {
                 this.navCtrl,
                 <Model.GeneralReceptionParam>{
                     licenseId: this.reqRegisterGenTransReception.targetLicense,
-                    taskId: this.task ? this.task.id : undefined,
-                    clientOwner: this.task ? this.task.clientOwner : undefined,
+                    taskId: this.task ? this.task.id : 0,
+                    clientOwner: this.task ? this.task.clientOwner : '',
                     taskSubtype: Enums.TaskSubType.GeneralTransfer,
                     actionBack: false,
                     showSuggestedLocation: Enums.ShowSuggestedLocation.No,
@@ -632,7 +634,7 @@ export class LocateLicenseDispatch {
                     reqRegisterGenTransReception: this
                         .reqRegisterGenTransReception,
                     wavePickingId: this.wavePickingId,
-                    task: this.task ? this.task: undefined,
+                    task: this.task ? this.task: {},
                 }
             );
         }
