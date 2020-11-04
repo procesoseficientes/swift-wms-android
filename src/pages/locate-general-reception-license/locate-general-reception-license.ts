@@ -152,38 +152,31 @@ export class LocateGeneralReceptionLicensePage {
     }
 
     private async validateLocation(locationSpot: string): Promise<void> {
-        try {
-            await this.userInteraction.showLoading();
+        await this.userInteraction.showLoading();
 
-            this.scanData = locationSpot;
+        this.scanData = locationSpot;
 
-            let validateLocationRequest: DataRequest.ValidateLocationForStorage = DataRequest.Factory.createValidateLocationForStorageRequest(
-                this.licenseId,
-                locationSpot,
-                this.taskId,
-                this.settings.userCredentials
-            );
+        let validateLocationRequest: DataRequest.ValidateLocationForStorage = DataRequest.Factory.createValidateLocationForStorageRequest(
+            this.licenseId,
+            locationSpot,
+            this.taskId,
+            this.settings.userCredentials
+        );
 
-            let validateResult = await this.location.validateLocationForStorage(
-                validateLocationRequest
-            );
 
-            if (validateResult.Resultado === Enums.OperationResult.Success) {
-                await this.getLocation(locationSpot);
-            } else {
-                await this.userInteraction.hideLoading();
-                await this.userInteraction.showCustomError(
-                    validateResult.Codigo && validateResult.Codigo > 0
-                        ? validateResult.Codigo
-                        : Enums.CustomErrorCodes.UnknownError,
-                    validateResult.DbData
-                );
-            }
-        } catch (reason) { console.log(reason)
+        let validateResult = await this.location.validateLocationForStorage(
+            validateLocationRequest
+        );
+
+        if (validateResult.Resultado === Enums.OperationResult.Success) {
+            await this.getLocation(locationSpot);
+        } else {
             await this.userInteraction.hideLoading();
-
             await this.userInteraction.showCustomError(
-                Enums.CustomErrorCodes.UnknownError
+                validateResult.Codigo && validateResult.Codigo > 0
+                    ? validateResult.Codigo
+                    : Enums.CustomErrorCodes.UnknownError,
+                validateResult.DbData
             );
         }
 

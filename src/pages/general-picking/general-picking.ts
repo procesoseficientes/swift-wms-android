@@ -78,7 +78,21 @@ export class GeneralPickingPage {
                     header.isComplete = true;
                 }
             }
-
+            if (
+                this.headers &&
+                this.headers.length > 0 &&
+                this.headers[0].Tasks &&
+                this.headers[0].Tasks.length > 0
+            ) {
+                let task: Model.Task = this.headers[0].Tasks[0];
+                this.projectId = task.projectId;
+                this.projectCode = task.projectCode;
+                this.projectName = task.projectName;
+                this.projectShortName = task.projectShortName;
+                this.task = task;
+                this.isGeneralTransfer =
+                    this.task.taskSubtype === Enums.TaskSubType.GeneralTransfer;
+            }
             var countTaskComplete = 0;
             for (let task of this.headers) {
                 if (task.isComplete == true) {
@@ -101,21 +115,6 @@ export class GeneralPickingPage {
                 })
             ) {
                 return this.verifyLicensesDispatchPendingToLocate();
-            }
-            if (
-                this.headers &&
-                this.headers.length > 0 &&
-                this.headers[0].Tasks &&
-                this.headers[0].Tasks.length > 0
-            ) {
-                let task: Model.Task = this.headers[0].Tasks[0];
-                this.projectId = task.projectId;
-                this.projectCode = task.projectCode;
-                this.projectName = task.projectName;
-                this.projectShortName = task.projectShortName;
-                this.task = task;
-                this.isGeneralTransfer =
-                    this.task.taskSubtype === Enums.TaskSubType.GeneralTransfer;
             }
         } catch (reason) { console.log(reason)
             await this.userInteraction.hideLoading();
