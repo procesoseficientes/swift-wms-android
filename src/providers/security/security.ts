@@ -17,7 +17,7 @@ export class SecurityProvider {
         */
        
         //Local
-        userCredentials.communicationAddress = "http://localhost:6661"  
+        userCredentials.communicationAddress = "http://10.101.0.4:6161"  
         //Cealsa
         //userCredentials.communicationAddress = "http://192.168.0.5:6161"  
         //Ferco

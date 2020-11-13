@@ -133,6 +133,35 @@ export namespace DataRequest {
         location: string;
     }
 
+    // -----------------------------------------------------------------------------
+    export interface CreateTask extends Model.UserCredentials {
+        createBy: String;
+        taskType: String;
+        taskAssignedTo: String;
+        isAccepted: number;
+        isComplete: number;
+        isPaused: number;
+        isCanceled: number;
+        regimen: Enums.Regime;
+        assignedDate: Date;
+        acceptedDate: Date;
+        completedDate: Date;
+        canceledDate: Date;
+        canceledBy: String;
+        lastUpdate: Date;
+        lastUdateBy: String;
+        priority: Number;
+        comments: String
+    }
+
+    export interface CompleteRealloc extends Model.UserCredentials {
+        taskId: number;
+    }
+
+    export interface Canceltask extends Model.UserCredentials {
+        taskId: number;
+    }
+
     export interface GetScannedMaterialByLicenseInReceptionTask
         extends Model.UserCredentials {
         barcode: string;
@@ -1854,6 +1883,103 @@ export namespace DataRequest {
                 result: "",
                 taskId: taskId,
                 location: null,
+                password: "",
+                loginId: "",
+                userRole: "Host",
+                userName: "",
+                loginImage: userCredentials.loginImage,
+                validationType: userCredentials.validationType,
+                dbUser: userCredentials.dbUser,
+                dbPassword: userCredentials.dbPassword,
+                deviceId: userCredentials.deviceId,
+                serverIp: userCredentials.serverIp,
+                communicationAddress: userCredentials.communicationAddress
+            };
+            return Model.Factory.mergeEntities(userCredentials, entity);
+        }
+
+
+        public static createTaskRequest(
+            createBy: String,
+            taskType: String,
+            taskAssignedTo: String,
+            isAccepted: number,
+            isComplete: number,
+            isPaused: number,
+            isCanceled: number,
+            regimen: Enums.Regime,
+            assignedDate: Date,
+            acceptedDate: Date,
+            completedDate: Date,
+            canceledDate: Date,
+            canceledBy: String,
+            lastUpdate: Date,
+            lastUdateBy: String,
+            priority: Number,
+            comments: String,
+            userCredentials: Model.UserCredentials
+        ): CreateTask {
+            let entity: CreateTask = {
+                createBy: createBy,
+                taskType: taskType,
+                taskAssignedTo: taskAssignedTo,
+                isAccepted: isAccepted,
+                isComplete: isComplete,
+                isPaused: isPaused,
+                isCanceled: isCanceled,
+                regimen: regimen,
+                assignedDate: assignedDate,
+                acceptedDate: acceptedDate,
+                completedDate: completedDate,
+                canceledDate: canceledDate,
+                canceledBy: canceledBy,
+                lastUpdate: lastUpdate,
+                lastUdateBy: lastUdateBy,
+                priority: priority,
+                comments: comments,
+                password: "",
+                loginId: "",
+                userRole: "Host",
+                userName: "",
+                loginImage: userCredentials.loginImage,
+                validationType: userCredentials.validationType,
+                dbUser: userCredentials.dbUser,
+                dbPassword: userCredentials.dbPassword,
+                deviceId: userCredentials.deviceId,
+                serverIp: userCredentials.serverIp,
+                communicationAddress: userCredentials.communicationAddress
+            };
+            return Model.Factory.mergeEntities(userCredentials, entity);
+        }
+
+
+        public static completeReallocRequest(
+            taskId: number,
+            userCredentials: Model.UserCredentials
+        ): CompleteRealloc {
+            let entity: CompleteRealloc = {
+                taskId: taskId,
+                password: "",
+                loginId: "",
+                userRole: "Host",
+                userName: "",
+                loginImage: userCredentials.loginImage,
+                validationType: userCredentials.validationType,
+                dbUser: userCredentials.dbUser,
+                dbPassword: userCredentials.dbPassword,
+                deviceId: userCredentials.deviceId,
+                serverIp: userCredentials.serverIp,
+                communicationAddress: userCredentials.communicationAddress
+            };
+            return Model.Factory.mergeEntities(userCredentials, entity);
+        }
+
+        public static cancelTaskRequest(
+            taskId: number,
+            userCredentials: Model.UserCredentials
+        ): CompleteRealloc {
+            let entity: CompleteRealloc = {
+                taskId: taskId,
                 password: "",
                 loginId: "",
                 userRole: "Host",
