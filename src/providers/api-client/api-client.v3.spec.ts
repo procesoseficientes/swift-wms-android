@@ -59,7 +59,7 @@ describe("ApiClientProvider", () => {
     it("Should create license successfully", () => {
         let execute = async () => {
             let request: DataRequest.CreateLicense = <DataRequest.CreateLicense>UnitTesting.getTestCredentials();
-            request.communicationAddress = "http://10.101.0.4:6161";
+            request.communicationAddress = "http://localhost:6661";
             request.dbUser = "alsersa";
             request.dbPassword = "alsersaServer1237710";
             request.codePolicy = "483707";
@@ -85,7 +85,7 @@ describe("ApiClientProvider", () => {
     it("Should get Header Task Reception", () => {
         let execute = async () => {
             let request: DataRequest.Reception = <DataRequest.Reception>UnitTesting.getTestCredentials();
-            request.communicationAddress = "http://10.101.0.4:6161";
+            request.communicationAddress = "http://localhost:6661";
             request.dbUser = "alsersa";
             request.dbPassword = "alsersaServer1237710";
             request.regime = Enums.Regime.General;
@@ -102,7 +102,7 @@ describe("ApiClientProvider", () => {
     it("Should complete task reception", () => {
         let execute = async () => {
             let request: DataRequest.Reception = <DataRequest.Reception>UnitTesting.getTestCredentials();
-            request.communicationAddress = "http://10.101.0.4:6161";
+            request.communicationAddress = "http://localhost:6661";
             request.dbUser = "alsersa";
             request.dbPassword = "alsersaServer1237710";
 
@@ -126,7 +126,7 @@ describe("ApiClientProvider", () => {
     it("Should validate barcode for the reception's license", () => {
         let execute = async () => {
             let request: DataRequest.GetScannedMaterialByLicenseInReceptionTask = <DataRequest.GetScannedMaterialByLicenseInReceptionTask>UnitTesting.getTestCredentials();
-            request.communicationAddress = "http://10.101.0.4:6161";
+            request.communicationAddress = "http://localhost:6661";
             request.dbUser = "alsersa";
             request.dbPassword = "alsersaServer1237710";
 
@@ -149,7 +149,7 @@ describe("ApiClientProvider", () => {
     it("Should get the material for the reception task", () => {
         let execute = async () => {
             let request: DataRequest.GetScannedMaterialByLicenseInReceptionTask = <DataRequest.GetScannedMaterialByLicenseInReceptionTask>UnitTesting.getTestCredentials();
-            request.communicationAddress = "http://10.101.0.4:6161";
+            request.communicationAddress = "http://localhost:6661";
             request.dbUser = "alsersa";
             request.dbPassword = "alsersaServer1237710";
 
@@ -181,7 +181,7 @@ describe("ApiClientProvider", () => {
     it("Should add material to license", () => {
         let execute = async () => {
             let request: DataRequest.AddMaterialToLicense = <DataRequest.AddMaterialToLicense>UnitTesting.getTestCredentials();
-            request.communicationAddress = "http://10.101.0.4:6161";
+            request.communicationAddress = "http://localhost:6661";
             request.dbUser = "alsersa";
             request.dbPassword = "alsersaServer1237710";
 
@@ -221,7 +221,7 @@ describe("ApiClientProvider", () => {
     it("Should validate material in reception license", () => {
         let execute = async () => {
             let request: DataRequest.ValidateStatusInMaterialsLicense = <DataRequest.ValidateStatusInMaterialsLicense>UnitTesting.getTestCredentials();
-            request.communicationAddress = "http://10.101.0.4:6161";
+            request.communicationAddress = "http://localhost:6661";
             request.dbUser = "alsersa";
             request.dbPassword = "alsersaServer1237710";
 
@@ -243,7 +243,7 @@ describe("ApiClientProvider", () => {
     it("Should RollBack License", () => {
         let execute = async () => {
             let request: DataRequest.RollBackLicense = <DataRequest.RollBackLicense>UnitTesting.getTestCredentials();
-            request.communicationAddress = "http://10.101.0.4:6161";
+            request.communicationAddress = "http://localhost:6661";
             request.dbUser = "alsersa";
             request.dbPassword = "alsersaServer1237710";
 
