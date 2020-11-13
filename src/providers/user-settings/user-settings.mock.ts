@@ -25,7 +25,7 @@ export class UserSettingsProvider {
     loginId: string = this.userCredentials.loginId;
 
     constructor(
-        private communicationAddress: string = "http://10.101.0.4:6161"
+        private communicationAddress: string = "http://localhost:6661"
     ) {}
 
     public get userCredentials() {
