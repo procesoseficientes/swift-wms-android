@@ -6,7 +6,7 @@ export namespace UnitTesting {
         let credentials = Model.Factory.createUserCredentials();
         credentials.loginId = "BCORADO@L3W";
         credentials.password = "123";
-        credentials.communicationAddress = "http://10.101.0.4:6161";
+        credentials.communicationAddress = "http://localhost:6661";
         return credentials;
     };
 
