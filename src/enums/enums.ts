@@ -643,7 +643,7 @@ export namespace Enums {
     }
 
     export enum PagePath {
-        ServerPath = "http://10.101.0.4:6161",
+        ServerPath = "http://localhost:6661",
         VerifyEnviroment = "http://localhost:8100/#/verify-environment",
         CreateLicense = "http://localhost:8100/#/workspace/my-tasks/create-license",
         MyTasks = "http://localhost:8100/#/workspace/my-tasks/my-tasks"
