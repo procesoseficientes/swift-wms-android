@@ -8,7 +8,7 @@ export class ApiClientV3Provider {
         _userCredentials: Model.UserCredentials
     ): Promise<Model.UserConnectionInfo> {
         return Promise.resolve({
-            CommunicationAddress: "http://localhost:6661",
+            CommunicationAddress: "http://10.101.0.4:6161",
             ValidationType: Enums.ValidationTypes.PerUser
         });
     }

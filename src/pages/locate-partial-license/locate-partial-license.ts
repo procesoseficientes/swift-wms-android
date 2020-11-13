@@ -14,6 +14,7 @@ import * as _ from "lodash";
 import { ChargeProvider } from "../../providers/charge/charge";
 import { TransactionOperatorProvider } from "../../providers/transaction-operator/transaction-operator";
 import { CheckpointProvider } from "../../providers/checkpoint/checkpoint";
+import { TaskProvider } from "../../providers/task/task";
 @IonicPage()
 @Component({
     selector: "page-locate-partial-license",
@@ -47,6 +48,7 @@ export class LocatePartialLicensePage {
         private location: LocationProvider,
         private settings: UserSettingsProvider,
         private relocate: RelocateProvider,
+        private task: TaskProvider,
         private userInteraction: UserInteractionProvider,
         private charge: ChargeProvider,
         private transactionOperator: TransactionOperatorProvider
@@ -308,6 +310,17 @@ export class LocatePartialLicensePage {
         });
     }
 
+    private async completeReallocTask(taskId: number){
+        let completeRealloc: DataRequest.CompleteRealloc = DataRequest.Factory.completeReallocRequest(
+            taskId,
+            this.settings.userCredentials
+        )
+
+
+        let res: DataResponse.Operation = await this.task.completeRealloc(completeRealloc)
+        return res
+    }
+
     public async locateLicense(): Promise<boolean> {
         try {
             await this.userInteraction.showLoading();
@@ -381,6 +394,7 @@ export class LocatePartialLicensePage {
                         );
                         return Promise.resolve(true);
                     } else {
+                        this.completeReallocTask(Number(localStorage.getItem('currentReallocTaskId')))
                         this.navigation.popPage(
                             this.workspace,
                             this.navCtrl,

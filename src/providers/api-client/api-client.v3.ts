@@ -142,6 +142,33 @@ export class ApiClientV3Provider extends BaseProvider {
         >(Routes.V3.Task.getReceptionTask, request);
     }
 
+    public createTask(
+        request: DataRequest.CreateTask
+    ): Promise<DataResponse.Operation>{
+        return this.post<DataResponse.Operation, DataRequest.CreateTask>(
+            Routes.V3.Task.createTask,
+            request
+        );
+    }
+
+    public completeRealloc(
+        request: DataRequest.CompleteRealloc
+    ): Promise<DataResponse.Operation>{
+        return this.post<DataResponse.Operation, DataRequest.CompleteRealloc>(
+            Routes.V3.Relocation.completeRealloc,
+            request
+        );
+    }
+
+    public cancelTask(
+        request: DataRequest.Canceltask
+    ): Promise<DataResponse.Operation>{
+        return this.post<DataResponse.Operation, DataRequest.Canceltask>(
+            Routes.V3.Task.cancelTask,
+            request
+        );
+    }
+
     public completeTask(
         request: DataRequest.Reception
     ): Promise<DataResponse.Operation> {

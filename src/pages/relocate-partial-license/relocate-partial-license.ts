@@ -17,6 +17,7 @@ import { LicenseProvider } from "../../providers/license/license";
 import { MaterialProvider } from "../../providers/material/material";
 import { PickingProvider } from "../../providers/picking/picking";
 import { LocationSuggestionProvider } from "../../providers/location-suggestion/location-suggestion";
+import { TaskProvider } from "../../providers/task/task";
 @IonicPage()
 @Component({
     selector: "page-relocate-partial-license",
@@ -55,7 +56,9 @@ export class RelocatePartialLicensePage {
         private license: LicenseProvider,
         private materialProvider: MaterialProvider,
         private pickingProvider: PickingProvider,
-        private locationSuggestion: LocationSuggestionProvider
+        private locationSuggestion: LocationSuggestionProvider,
+        private task: TaskProvider
+
     ) {}
 
     ionViewDidLeave(): void {
@@ -446,6 +449,18 @@ export class RelocatePartialLicensePage {
         });
     }
 
+    private async cancelTask(taskId: number){
+        let cancelTask: DataRequest.Canceltask = DataRequest.Factory.cancelTaskRequest(
+            taskId,
+            this.settings.userCredentials
+        )
+
+        console.log(cancelTask)
+
+        let res: DataResponse.Operation = await this.task.cancelTask(cancelTask)
+        return res
+    }
+
     backButtonAction(): Promise<any> {
         return Promise.all([
             this.translate.translateGroupValue(
@@ -470,6 +485,7 @@ export class RelocatePartialLicensePage {
                     handler: async () => {
                         await this.userInteraction.showLoading();
                         this.userInteraction.activeAlert = null; //FIXME: code should be handled in user interaction provider
+                        this.cancelTask(Number(localStorage.getItem('currentReallocTaskId')))
                         let result = await this.rollbackLicense();
                         if (
                             result.Resultado === Enums.OperationResult.Success

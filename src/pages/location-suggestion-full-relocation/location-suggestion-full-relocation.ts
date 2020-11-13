@@ -12,6 +12,7 @@ import { WorkspacePage } from "../workspace/workspace";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { LocationProvider } from "../../providers/location/location";
 import { ConfigurationProvider } from "../../providers/configuration/configuration";
+import { TaskProvider } from "../../providers/task/task";
 
 @IonicPage()
 @Component({
@@ -48,7 +49,9 @@ export class LocationSuggestionFullRelocationPage {
         private device: DeviceProvider,
         private translate: TranslateProvider,
         private location: LocationProvider,
-        private configuration: ConfigurationProvider
+        private configuration: ConfigurationProvider,
+        private task: TaskProvider
+
     ) {}
 
     ionViewDidLeave(): void {
@@ -470,7 +473,20 @@ export class LocationSuggestionFullRelocationPage {
         }
     }
 
+    private async cancelTask(taskId: number){
+        let cancelTask: DataRequest.Canceltask = DataRequest.Factory.cancelTaskRequest(
+            taskId,
+            this.settings.userCredentials
+        )
+
+
+        let res: DataResponse.Operation = await this.task.cancelTask(cancelTask)
+        return res
+    }
+
     backButtonAction() {
+
+        this.cancelTask(Number(localStorage.getItem('currentReallocTaskId')))
         this.relocationFullParam.actionBack = true;
         return this.navigation.popPage(
             this.workspace,

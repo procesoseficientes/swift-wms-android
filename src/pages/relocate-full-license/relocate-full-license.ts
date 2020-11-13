@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavParams, NavController } from "ionic-angular";
-import { Model, DataRequest } from "../../models/models";
+import { Model, DataRequest, DataResponse } from "../../models/models";
 import { Subscription } from "rxjs/Subscription";
 import { NavigationProvider } from "../../providers/navigation/navigation";
 import { WorkspacePage } from "../workspace/workspace";
@@ -12,6 +12,7 @@ import { LocationProvider } from "../../providers/location/location";
 import { Enums } from "../../enums/enums";
 import { TransactionOperatorProvider } from "../../providers/transaction-operator/transaction-operator";
 import { CheckpointProvider } from "../../providers/checkpoint/checkpoint";
+import { TaskProvider } from "../../providers/task/task";
 @IonicPage()
 @Component({
     selector: "page-relocate-full-license",
@@ -43,7 +44,9 @@ export class RelocateFullLicensePage {
         private location: LocationProvider,
         private userInteraction: UserInteractionProvider,
         private relocation: RelocateProvider,
-        private transactionOperator: TransactionOperatorProvider
+        private transactionOperator: TransactionOperatorProvider,
+        private task: TaskProvider
+
     ) {}
 
     public async validateTotalPositionsOnKeyUp($event: any) {
@@ -237,6 +240,8 @@ export class RelocateFullLicensePage {
         }
     }
 
+    
+
     backButtonAction(): Promise<void> {
         let times: number = 1;
         let params = {
@@ -265,6 +270,17 @@ export class RelocateFullLicensePage {
         );
     }
 
+    private async completeReallocTask(taskId: number){
+        let completeRealloc: DataRequest.CompleteRealloc = DataRequest.Factory.completeReallocRequest(
+            taskId,
+            this.settings.userCredentials
+        )
+
+
+        let res: DataResponse.Operation = await this.task.completeRealloc(completeRealloc)
+        return res
+    }
+
     async relocateLicense(): Promise<Model.Operation> {
         try {
             if (this.totalPosition < 1 || this.totalPosition == null) {
@@ -286,6 +302,7 @@ export class RelocateFullLicensePage {
                 );
                 await this.getLastLicense();
                 if (result.Resultado === Enums.OperationResult.Success) {
+                    this.completeReallocTask(Number(localStorage.getItem('currentReallocTaskId')))
                     await this.saveLog();
                     let times: number = 1;
     

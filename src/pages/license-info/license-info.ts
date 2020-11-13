@@ -12,6 +12,7 @@ import { TranslateProvider } from "../../providers/translate/translate";
 import { PrinterProvider } from "../../providers/printer/printer";
 import { LocationSuggestionProvider } from "../../providers/location-suggestion/location-suggestion";
 import { ConfigurationProvider } from "../../providers/configuration/configuration";
+import { TaskProvider } from "../../providers/task/task";
 
 @IonicPage()
 @Component({
@@ -50,6 +51,7 @@ export class LicenseInfoPage {
         public navigation: NavigationProvider,
         private userInteraction: UserInteractionProvider,
         private license: LicenseProvider,
+        private task: TaskProvider,
         private settings: UserSettingsProvider,
         private translate: TranslateProvider,
         private printer: PrinterProvider,
@@ -167,6 +169,39 @@ export class LicenseInfoPage {
         );
     }
 
+    async createReallocTask(){
+        //Create Task
+        let createTask: DataRequest.CreateTask = DataRequest.Factory.createTaskRequest(
+            this.settings.login,
+            "TAREA_REUBICACION",
+            this.settings.login,
+            1,
+            0,
+            0,
+            0,
+            Enums.Regime.General,
+            new Date(),
+            new Date(),
+            null,
+            null,
+            null,
+            new Date(),
+            this.settings.login,
+            1,
+            "",
+            this.settings.userCredentials
+
+        )
+
+        try {
+            let res: DataResponse.Operation = await this.task.createTask(createTask)
+            localStorage.setItem('currentReallocTaskId', res.DbData)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     showRelocationOptions(): Promise<any> {
         return Promise.all([
             this.translate.translateGroupValue(
@@ -181,12 +216,14 @@ export class LicenseInfoPage {
                 Enums.Translation.Groups.Buttons,
                 Enums.Translation.Button.Cancel
             )
-        ]).then(arrResult => {
+        ]).then(async arrResult => {
+           
             let buttons = [
                 {
                     text: arrResult[0],
                     handler: () => {
                         this.userInteraction.activeAlert = null; //FIXME: handle the active alert in userinteraction provider
+                        this.createReallocTask();
                         this.userWantsRelocatePartialLicense();
                     }
                 },
@@ -194,6 +231,7 @@ export class LicenseInfoPage {
                     text: arrResult[1],
                     handler: () => {
                         this.userInteraction.activeAlert = null;
+                        this.createReallocTask();
                         return this.validateSuggestedLocation();
                     }
                 },

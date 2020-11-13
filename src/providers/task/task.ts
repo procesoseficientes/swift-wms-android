@@ -5,6 +5,7 @@ import { Events } from "ionic-angular";
 import { TranslateProvider } from "../translate/translate";
 import { UserSettingsProvider } from "../../providers/user-settings/user-settings";
 import { ApiClientV3Provider } from "../api-client/api-client.v3";
+import { DataRequest, DataResponse } from "../../models/models";
 
 @Injectable()
 export class TaskProvider {
@@ -40,6 +41,24 @@ export class TaskProvider {
 
         let groupedTasks = this.getTaskHeaders(tasks);
         return Promise.resolve(groupedTasks);
+    }
+
+    createTask(
+        createTask: DataRequest.CreateTask
+    ): Promise<DataResponse.Operation> {
+        return this.api.createTask(createTask);
+    }
+
+    completeRealloc(
+        completeRealloc: DataRequest.CompleteRealloc
+    ): Promise<DataResponse.Operation> {
+        return this.api.completeRealloc(completeRealloc);
+    }
+
+    cancelTask(
+        cancelTask: DataRequest.Canceltask
+    ): Promise<DataResponse.Operation> {
+        return this.api.cancelTask(cancelTask);
     }
 
     private getTaskHeaders(

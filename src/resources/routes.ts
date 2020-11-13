@@ -51,6 +51,8 @@ export class Routes {
         },
         Task: {
             getReceptionTask: "/v3/task/getReceptionTask",
+            createTask: "/v3/task/createReallocTask", //Crear tarea de reubicacion
+            cancelTask: "/v3/task/cancelTask",
             validateTaskStatus: "/v3/task/validateTaskStatus",
             getMyFirstTask: "/v3/task/getMyFirstTask",
             getMyFirstGeneralPickingTask:
@@ -99,6 +101,7 @@ export class Routes {
         Relocation: {
             relocatePickingLabel: "/v3/relocation/relocatePickingLabel",
             relocateLicense: "/v3/relocation/relocateLicense",
+            completeRealloc: "/v3/relocation/completeRealloc",
             validateLicenseForPartialRelocation:
                 "/v3/relocation/validateLicenseForPartialRelocation",
             registerPartialRelocation:
