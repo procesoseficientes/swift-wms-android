@@ -18,6 +18,7 @@ import * as _ from "lodash";
     templateUrl: "physical-count.html"
 })
 export class PhysicalCountPage {
+    completedForm: boolean = false;
     scanToken: Subscription;
     isAndroid: boolean = false;
     locationSpot: string;
@@ -38,6 +39,10 @@ export class PhysicalCountPage {
         private translate: TranslateProvider,
         private physicalCount: PhysicalCountProvider
     ) {}
+
+    validateFields(){
+
+    }
 
     async ionViewDidEnter(): Promise<void> {
         try {
@@ -158,47 +163,61 @@ export class PhysicalCountPage {
     }
 
     async finishLocation(): Promise<boolean> {
-        try {
-            let message = await this.translate.translateGroupValue(
-                Enums.Translation.Groups.Alerts,
-                Enums.Translation.Alert.DoYouWishToContinue
-            );
-            let confirmation = await this.userInteraction.showConfirmMessage(
-                message
-            );
-            if (confirmation === Enums.YesNo.No) return;
+        console.log(this.material.MATERIAL_ID, this.material.QTY, this.material.MATERIAL_ID == null, this.material.MATERIAL_ID.replace(/\s/g, '').length < 1, this.material.QTY > 0)
+        if (
+            (this.material.MATERIAL_ID == null || this.material.MATERIAL_ID.replace(/\s/g, '').length < 1) &&
+            !(this.material.QTY > 0)
+        ) {
+            //let x = await this.processMaterial(null, this.material.QTY);
+            //console.log("Proces material", x);
+            try {
+                let message = await this.translate.translateGroupValue(
+                    Enums.Translation.Groups.Alerts,
+                    Enums.Translation.Alert.DoYouWishToContinue
+                );
+                //console.log("Message", message);
+                //let confirmation = await this.userInteraction.showConfirmMessage(
+                  //  message
+                //);
+                //console.log("Confirmacion", confirmation);
+                //if (confirmation === Enums.YesNo.No) return;
+        
+                this.userInteraction.showLoading();
+                let request = DataRequest.Factory.createFinishLocationRequest(
+                    Number(this.taskId),
+                    this.locationSpot,
+                    this.settings.userCredentials
+                );
 
-            this.userInteraction.showLoading();
-            let request = DataRequest.Factory.createFinishLocationRequest(
-                Number(this.taskId),
-                this.locationSpot,
-                this.settings.userCredentials
-            );
-
-            let result = await this.physicalCount.finishLocation(request);
-
-            if (
-                result.RESULT === Enums.OK.OK ||
-                result.RESULT === Enums.OK.Completed
-            ) {
-                this.navigation.popPage(this.workspace, this.navCtrl, {
-                    taskId: this.taskId
-                });
-                return Promise.resolve(true);
-            } else {
+                let result = await this.physicalCount.finishLocation(request);
+                console.log("Physical Count", result);
+                if (
+                    result.RESULT === Enums.OK.OK ||
+                    result.RESULT === Enums.OK.Completed
+                ) {
+                    debugger
+                    this.navigation.popPage(this.workspace, this.navCtrl, {
+                        taskId: this.taskId
+                    });
+                    return Promise.resolve(true);
+                } else {
+                    await this.userInteraction.hideLoading();
+                    this.userInteraction.showCustomError(
+                        Enums.CustomErrorCodes.BadRequest
+                    );
+                    return Promise.resolve(false);
+                }
+            } catch (error) { console.log(error)
                 await this.userInteraction.hideLoading();
                 this.userInteraction.showCustomError(
-                    Enums.CustomErrorCodes.BadRequest
+                    Enums.CustomErrorCodes.UnknownError
                 );
                 return Promise.resolve(false);
             }
-        } catch (error) { console.log(error)
-            await this.userInteraction.hideLoading();
-            this.userInteraction.showCustomError(
-                Enums.CustomErrorCodes.UnknownError
-            );
-            return Promise.resolve(false);
+        }else{
+            this.userInteraction.showMessage("Formulario incompleto")
         }
+        
     }
 
     processScan(scanData: string): void {
@@ -261,6 +280,7 @@ export class PhysicalCountPage {
                 this.material = _.first(result);
                 this.userInteraction.hideLoading();
                 this.changeCurrentScan(Enums.PhysicalCountScan.SerialNumber);
+                this.completedForm = false;
                 return Promise.resolve(true);
             } else {
                 await this.userInteraction.hideLoading();
@@ -396,6 +416,7 @@ export class PhysicalCountPage {
                         QTY: 0
                     };
                     this.currentScan = Enums.PhysicalCountScan.MaterialBarcode;
+                    this.completedForm = true;
                 }
                 this.serialNumber = "";
                 this.userInteraction.hideLoading();
@@ -432,6 +453,7 @@ export class PhysicalCountPage {
             this.material.MATERIAL_ID &&
             this.material.QTY > 0
         ) {
+            this.completedForm = true;
             this.processMaterial(null, this.material.QTY);
         }
     }

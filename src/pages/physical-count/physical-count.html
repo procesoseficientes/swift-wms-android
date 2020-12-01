@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-fab bottom right>
+    <ion-fab bottom right *ngIf="completedForm">
         <button color="light" ion-fab (click)="finishLocation()" id="processPicking">
             <ion-icon name="done-all" color="favorite"></ion-icon>
         </button>
