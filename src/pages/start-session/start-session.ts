@@ -20,7 +20,7 @@ import { Platform } from 'ionic-angular';
 export class StartSessionPage {
     userCredentials: Model.UserCredentials;
     loginForm: FormGroup;
-    version: string = "2020.11.6";
+    version: string = "2020.12.1";
     versionCode: string = "10";
     isAndroid: boolean = false;
 
@@ -141,7 +141,7 @@ export class StartSessionPage {
                     })
                 }).catch(err => {
                     console.error('conf doesn\'t exist', err)
-                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"http://200.124.156.117:8099"}', {replace: true}).catch(
+                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"http://10.101.0.4:6161"}', {replace: true}).catch(
                         err => console.error(err)
                     )
                     this.userInteraction.showCustomError(
@@ -154,8 +154,10 @@ export class StartSessionPage {
             //this is for `ionicsf serve`
             //arium
             //userCredentials.communicationAddress = 'http://181.174.117.198:6661'
-            //local 
-            userCredentials.communicationAddress = 'http://10.101.0.4:6161'
+            //alza 
+            //userCredentials.communicationAddress = 'http://10.101.0.4:6161'
+            //localhost 
+            userCredentials.communicationAddress = 'http://localhost:6161'
             //Cealsa
             //userCredentials.communicationAddress = "http://192.168.0.5:6161"  
             //Ferco

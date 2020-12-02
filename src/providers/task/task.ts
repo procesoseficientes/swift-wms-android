@@ -56,9 +56,15 @@ export class TaskProvider {
     }
 
     cancelTask(
-        cancelTask: DataRequest.Canceltask
+        cancelTask: DataRequest.CancelTask
     ): Promise<DataResponse.Operation> {
         return this.api.cancelTask(cancelTask);
+    }
+
+    completeCount(
+        completeCount: DataRequest.CompleteCount
+    ): Promise<DataResponse.Operation> {
+        return this.api.completeCountTask(completeCount);
     }
 
     private getTaskHeaders(

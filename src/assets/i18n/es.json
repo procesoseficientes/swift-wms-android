@@ -13,7 +13,8 @@
         "Location-completed-do-you-wish-to-recount_": "Ubicación completa ¿Quieres volver a contarla?",
         "Proceed-new-query-info-center_": "¿Desea continuar con una nueva consulta? Los resultados de la consulta anterior se perderán.",
         "Do-you-wish-to-change-target-location_": "Desea cambiar la ubicación destino por la ubicación escaneada?",
-        "Create-a-new-license-with-incompatible-classes?_": "Desea crear una nueva licencia para las clases incompatibles?"
+        "Create-a-new-license-with-incompatible-classes?_": "Desea crear una nueva licencia para las clases incompatibles?",
+        "You-sure-you-want-to-finish-the-count?_": "¿Está seguro de que desea completar el conteo?"
     },
     "_button": {
         "LOGIN_": "INICIAR SESIÓN",

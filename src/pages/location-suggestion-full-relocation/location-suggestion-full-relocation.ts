@@ -474,7 +474,7 @@ export class LocationSuggestionFullRelocationPage {
     }
 
     private async cancelTask(taskId: number){
-        let cancelTask: DataRequest.Canceltask = DataRequest.Factory.cancelTaskRequest(
+        let cancelTask: DataRequest.CancelTask = DataRequest.Factory.cancelTaskRequest(
             taskId,
             this.settings.userCredentials
         )

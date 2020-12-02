@@ -161,9 +161,9 @@ export class ApiClientV3Provider extends BaseProvider {
     }
 
     public cancelTask(
-        request: DataRequest.Canceltask
+        request: DataRequest.CancelTask
     ): Promise<DataResponse.Operation>{
-        return this.post<DataResponse.Operation, DataRequest.Canceltask>(
+        return this.post<DataResponse.Operation, DataRequest.CancelTask>(
             Routes.V3.Task.cancelTask,
             request
         );
@@ -174,6 +174,15 @@ export class ApiClientV3Provider extends BaseProvider {
     ): Promise<DataResponse.Operation> {
         return this.post<DataResponse.Operation, DataRequest.Reception>(
             Routes.V3.Reception.registerReceptionStatus,
+            request
+        );
+    }
+
+    public completeCountTask(
+        request: DataRequest.CompleteCount
+    ): Promise<DataResponse.Operation> {
+        return this.post<DataResponse.Operation, DataRequest.CompleteCount>(
+            Routes.V3.Task.completeCountTask,
             request
         );
     }

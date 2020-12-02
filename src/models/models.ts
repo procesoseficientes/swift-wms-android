@@ -158,7 +158,11 @@ export namespace DataRequest {
         taskId: number;
     }
 
-    export interface Canceltask extends Model.UserCredentials {
+    export interface CancelTask extends Model.UserCredentials {
+        taskId: number;
+    }
+
+    export interface CompleteCount extends Model.UserCredentials {
         taskId: number;
     }
 
@@ -1977,8 +1981,29 @@ export namespace DataRequest {
         public static cancelTaskRequest(
             taskId: number,
             userCredentials: Model.UserCredentials
-        ): CompleteRealloc {
-            let entity: CompleteRealloc = {
+        ): CancelTask {
+            let entity: CancelTask = {
+                taskId: taskId,
+                password: "",
+                loginId: "",
+                userRole: "Host",
+                userName: "",
+                loginImage: userCredentials.loginImage,
+                validationType: userCredentials.validationType,
+                dbUser: userCredentials.dbUser,
+                dbPassword: userCredentials.dbPassword,
+                deviceId: userCredentials.deviceId,
+                serverIp: userCredentials.serverIp,
+                communicationAddress: userCredentials.communicationAddress
+            };
+            return Model.Factory.mergeEntities(userCredentials, entity);
+        }
+
+        public static completeCountRequest(
+            taskId: number,
+            userCredentials: Model.UserCredentials
+        ): CancelTask {
+            let entity: CancelTask = {
                 taskId: taskId,
                 password: "",
                 loginId: "",

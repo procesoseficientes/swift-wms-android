@@ -53,6 +53,7 @@ export class Routes {
             getReceptionTask: "/v3/task/getReceptionTask",
             createTask: "/v3/task/createReallocTask", //Crear tarea de reubicacion
             cancelTask: "/v3/task/cancelTask",
+            completeCountTask: "/v3/task/completeCount",
             validateTaskStatus: "/v3/task/validateTaskStatus",
             getMyFirstTask: "/v3/task/getMyFirstTask",
             getMyFirstGeneralPickingTask:

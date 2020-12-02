@@ -93,7 +93,8 @@ export namespace Enums {
             QAStatusIsNotAvailable = "QA-status-is-not-available_",
             DoYouWantToProceedNewQuery = "Proceed-new-query-info-center_",
             DoYouWishToChangeTargetLocation = "Do-you-wish-to-change-target-location_",
-            CreateANewLicenseWithIncompatibleClasses = "Create-a-new-license-with-incompatible-classes?_"
+            CreateANewLicenseWithIncompatibleClasses = "Create-a-new-license-with-incompatible-classes?_",
+            YouSureYouWantToFinishTheCount = "You-sure-you-want-to-finish-the-count?_"
         }
     }
 

@@ -10,6 +10,7 @@ import { PhysicalCountProvider } from "../../providers/physical-count/physical-c
 import { DataRequest, DataResponse, Model } from "../../models/models";
 import { UserSettingsProvider } from "../../providers/user-settings/user-settings";
 import { TranslateProvider } from "../../providers/translate/translate";
+import { TaskProvider } from "../../providers/task/task";
 
 @IonicPage()
 @Component({
@@ -31,7 +32,8 @@ export class LocationsPhysicalCountPage {
         private userInteraction: UserInteractionProvider,
         private device: DeviceProvider,
         private physicalCount: PhysicalCountProvider,
-        private translate: TranslateProvider
+        private translate: TranslateProvider,
+        private task: TaskProvider
     ) {}
 
     async ionViewDidEnter(): Promise<void> {
@@ -52,6 +54,41 @@ export class LocationsPhysicalCountPage {
                 Enums.CustomErrorCodes.UnknownError
             );
         }
+    }
+
+    async completeCount(): Promise<DataResponse.Operation>{
+        this.userInteraction.showLoading();
+        try {
+            let message = await this.translate.translateGroupValue(
+                Enums.Translation.Groups.Alerts,
+                Enums.Translation.Alert.YouSureYouWantToFinishTheCount
+            );
+            console.log("Message", message);
+            let confirmation = await this.userInteraction.showConfirmMessage(
+            message
+            );
+            console.log("Confirmacion", confirmation);
+            if (confirmation === Enums.YesNo.No) return;
+            let params = this.navParams.data;
+            let completeCount: DataRequest.CompleteCount = DataRequest.Factory.completeCountRequest(
+                params.taskId,
+                this.settings.userCredentials
+            )
+            let res: DataResponse.Operation = await this.task.completeCount(completeCount)
+
+            if (res.Resultado === Enums.OperationResult.Success) {
+                this.navigation.popPage(this.workspace, this.navCtrl);
+            } else {
+                this.userInteraction.showCustomError(
+                    Enums.CustomErrorCodes.DataBaseError
+                );
+            }
+        } catch (error) { console.log(error)
+            this.userInteraction.showCustomError(
+                Enums.CustomErrorCodes.UnknownError
+            );
+        }
+        
     }
 
     ionViewDidLeave(): void {

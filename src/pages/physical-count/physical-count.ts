@@ -195,7 +195,6 @@ export class PhysicalCountPage {
                     result.RESULT === Enums.OK.OK ||
                     result.RESULT === Enums.OK.Completed
                 ) {
-                    debugger
                     this.navigation.popPage(this.workspace, this.navCtrl, {
                         taskId: this.taskId
                     });
