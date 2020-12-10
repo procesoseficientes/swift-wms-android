@@ -71,6 +71,7 @@ export class ReceptionByDocumentPage {
         this.documentNumber = "";
     }
 
+    debugger
     async validateDocument(
         documentId: string
     ): Promise<DataResponse.Operation> {
