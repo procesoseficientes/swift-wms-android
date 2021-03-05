@@ -370,7 +370,8 @@ export class GeneralReceptionPage {
 
         if (
             this.material.batchRequested === Enums.YesNo.Yes &&
-            (expirationDate.getTime() <= ToleranceDate.getTime())
+            (expirationDate.getTime() <= ToleranceDate.getTime()) &&
+            this.receptionSubtype.toString()  !== 'DEVOLUCION_FACTURA'
         ) {    
             return false;
         }
