@@ -141,6 +141,11 @@ export class MyTasksPage {
 
     async processTask(task: Model.Task): Promise<Enums.TaskType> {
         await this.userInteraction.showLoading();
+        
+
+        if(task.taskType.toString() == "TAREA_CONTEO_FISICO"){
+            this.workspace.enableTabs(false);
+        }
 
         if (task.regime == Enums.Regime.Fiscal) {
             switch (task.taskSubtype) {
