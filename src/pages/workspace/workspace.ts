@@ -36,4 +36,10 @@ export class WorkspacePage {
         await this.tabRef.select(TabNumber);
         return Promise.resolve();
     }
+    
+    tabsEnabled = true;
+
+    enableTabs(enable: boolean): void {
+        this.tabsEnabled = enable;
+    }
 }

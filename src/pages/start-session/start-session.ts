@@ -154,9 +154,12 @@ export class StartSessionPage {
            //this is for `ionicsf serve`
             //arium
             //userCredentials.communicationAddress = 'http://181.174.117.198:6661'
+            //userCredentials.communicationAddress = 'http://172.16.10.85:8088'
+            //Alza
+            //userCredentials.communicationAddress = 'http://10.101.0.4:6661'
             //alza QA
             //userCredentials.communicationAddress = 'http://10.101.0.4:6161'
-            userCredentials.communicationAddress = 'http://10.101.233.4:6161'
+            //userCredentials.communicationAddress = 'http://10.101.233.4:6161'
             //localhost 
             //userCredentials.communicationAddress = 'http://localhost:6661'
             //Cealsa
@@ -164,7 +167,10 @@ export class StartSessionPage {
             //Ferco
             //userCredentials.communicationAddress = "http://200.124.156.117:8099"
             //FercoQA
-            //userCredentials.communicationAddress = 'http://10.240.29.104:8099' 
+            userCredentials.communicationAddress = 'http://10.240.29.104:8099' 
+            //userCredentials.communicationAddress = 'http://10.240.29.99:6661' 
+            //userCredentials.communicationAddress = 'http://10.240.29.99:6662' 
+            //userCredentials.communicationAddress = 'http://10.240.29.99:6663' 
             //Alsersa
             //userCredentials.communicationAddress = 'http://190.56.128.150:6161' 
             this.login(userCredentials)

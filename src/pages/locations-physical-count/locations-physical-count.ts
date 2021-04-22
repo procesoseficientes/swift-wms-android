@@ -81,6 +81,10 @@ export class LocationsPhysicalCountPage {
         return this.physicalCount.getLocationsForCount(request);
     }
 
+    disableTab(){
+        this.workspace.enableTabs(false);
+    }
+
     async validateScannedLocation(
         locationSpot: string
     ): Promise<DataResponse.Operation> {
