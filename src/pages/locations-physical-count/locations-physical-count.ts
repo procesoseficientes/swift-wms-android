@@ -45,14 +45,6 @@ export class LocationsPhysicalCountPage {
         }
         this.workspace.enableTabs(false);
 
-        // this.platform.registerBackButtonAction( async()=>{
-            //     let message = await this.translate.translateGroupValue(
-                //         Enums.Translation.Groups.Messages,
-                //         Enums.Translation.Message.CompleteTask
-                //     );
-                // this.userInteraction.showMessage(message);
-                // },9999) 
-                // this.workspace.enableTabs(false);
     }
     
     async ionViewDidEnter(): Promise<void> {
@@ -62,6 +54,10 @@ export class LocationsPhysicalCountPage {
             this.taskId = params.taskId;
 
             this.locations = await this.getLocations();
+            //we redirect the user when there are no more locations to scan
+            if(this.locations.length === 0){
+                this.backButtonAction();
+            }
 
             this.isAndroid = this.device.isAndroid();
             this.scanToken = this.device.subscribeToScanner(data =>
