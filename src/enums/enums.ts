@@ -54,6 +54,7 @@ export namespace Enums {
         export enum Message {
             VerifyPin = "Verify-PIN_",
             ConfirmExit = "Exit-application_",
+            CompleteTask = "Complete-task_",
             EnterScanData = "Enter-scan-data_",
             SerialNumberNotFound = "Serial-number-not-found_"
         }

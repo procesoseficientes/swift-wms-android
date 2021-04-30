@@ -271,6 +271,7 @@
         "Associated-Sub-Families_": "Sub-familias Asociadas"    },
     "_message": {
         "Confirmation_": "¿Estás seguro?",
+        "Complete-task_": "Complete la tarea",
         "There-is-no-connection-to-the-server_": "No hay conexión con el servidor",
         "Do-you-want-to-remove-all-items_": "¿Quieres eliminar todos los elementos?",
         "Bluetooth-disabled_": "Bluetooth está deshabilitado, por favor habilítelo e intente de nuevo",

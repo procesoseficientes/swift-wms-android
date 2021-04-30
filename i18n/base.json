@@ -252,6 +252,7 @@
     },
     "_message": {
         "Confirmation_": "Are you sure?",
+        "Complete-task_": "Complete Task",
         "There-is-no-connection-to-the-server_": "There is no connection to the server",
         "Do-you-want-to-remove-all-items_": "Do you want to remove all items?",
         "Bluetooth-disabled_": "Bluetooth is disabled, please enable it and try again",

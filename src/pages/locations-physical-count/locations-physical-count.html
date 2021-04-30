@@ -1,16 +1,16 @@
 <ion-header>
     <ion-navbar color="secondary">
         <ion-buttons left>
-            <!-- <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backButton">
+            <button *ngIf="this.workspace.tabsEnabled" ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backButton">
                 <ion-icon name="arrow-back"></ion-icon>
-            </button> -->
+            </button>
         </ion-buttons>
         <ion-title>{{ '_title.Physical-Count_' | translate }}</ion-title>
     </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding >
     <ion-list>
         <ion-item>
             <p class="taskId" id="taskId">

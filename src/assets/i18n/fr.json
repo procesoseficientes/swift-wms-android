@@ -270,6 +270,7 @@
     },
     "_message": {
         "Confirmation_": "Êtes-vous sûr?",
+        "Complete-task_": "finissez la tâche",
         "There-is-no-connection-to-the-server_": "Il n'y a pas de connexion au serveur",
         "Do-you-want-to-remove-all-items_": "Voulez-vous supprimer tous les éléments?",
         "Bluetooth-disabled_": "Bluetooth est désactivé, veuillez l'activer et réessayer",

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavParams, NavController } from "ionic-angular";
+import { IonicPage, NavParams, NavController, Platform } from "ionic-angular";
 import { NavigationProvider } from "../../providers/navigation/navigation";
 import { WorkspacePage } from "../workspace/workspace";
 import { UserInteractionProvider } from "../../providers/user-interaction/user-interaction";
@@ -31,11 +31,33 @@ export class LocationsPhysicalCountPage {
         private userInteraction: UserInteractionProvider,
         private device: DeviceProvider,
         private physicalCount: PhysicalCountProvider,
-        private translate: TranslateProvider
-    ) {}
+        private translate: TranslateProvider,
+        private platform: Platform
+    ) {
+        if(!this.workspace.tabsEnabled){
+            this.platform.registerBackButtonAction( async () =>{
+                let message = await this.translate.translateGroupValue(
+                    Enums.Translation.Groups.Messages,
+                    Enums.Translation.Message.CompleteTask
+                );
+                this.userInteraction.showMessage(message);
+            })
+        }
+        this.workspace.enableTabs(false);
 
+        // this.platform.registerBackButtonAction( async()=>{
+            //     let message = await this.translate.translateGroupValue(
+                //         Enums.Translation.Groups.Messages,
+                //         Enums.Translation.Message.CompleteTask
+                //     );
+                // this.userInteraction.showMessage(message);
+                // },9999) 
+                // this.workspace.enableTabs(false);
+    }
+    
     async ionViewDidEnter(): Promise<void> {
         try {
+            
             let params = this.navParams.data;
             this.taskId = params.taskId;
 
@@ -79,10 +101,6 @@ export class LocationsPhysicalCountPage {
             this.settings.userCredentials
         );
         return this.physicalCount.getLocationsForCount(request);
-    }
-
-    disableTab(){
-        this.workspace.enableTabs(false);
     }
 
     async validateScannedLocation(

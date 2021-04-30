@@ -52,7 +52,8 @@ export class MyTasksPage {
         private settings: UserSettingsProvider,
         private configuration: ConfigurationProvider
     ) {
-        this.param = navParams.data;
+        this.param = navParams.data;  
+        this.workspace.enableTabs(true);
     }
 
     async ionViewDidEnter(): Promise<void> {
@@ -141,11 +142,6 @@ export class MyTasksPage {
 
     async processTask(task: Model.Task): Promise<Enums.TaskType> {
         await this.userInteraction.showLoading();
-        
-
-        if(task.taskType.toString() == "TAREA_CONTEO_FISICO"){
-            this.workspace.enableTabs(false);
-        }
 
         if (task.regime == Enums.Regime.Fiscal) {
             switch (task.taskSubtype) {
