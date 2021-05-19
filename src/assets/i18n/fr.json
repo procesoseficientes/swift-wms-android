@@ -13,7 +13,8 @@
         "Location-completed-do-you-wish-to-recount_": "Lieu complété. Voulez-vous le raconter?",
         "Proceed-new-query-info-center_": "Voulez-vous poursuivre avec une nouvelle requête? Les résultats de la requête précédente seront perdus.",
         "Do-you-wish-to-change-target-location": "Voulez-vous changer l'emplacement cible pour l'emplacement analysé?",
-        "Create-a-new-license-with-incompatible-classes?_": "Voulez-vous créer une nouvelle licence avec des classes incompatibles?"
+        "Create-a-new-license-with-incompatible-classes?_": "Voulez-vous créer une nouvelle licence avec des classes incompatibles?",
+        "Finish-this-recepcion_?": "terminer cette réception?"
     },
     "_button": {
         "LOGIN_": "S'IDENTIFIER",
@@ -140,8 +141,9 @@
         "Class_incompatibilities_of_the_zone_": "L'emplacement ne peut pas accepter toutes les classes de la licence, car la zone est configurée comme obligatoire",
         "Stored-material-of-different-project_": "Licence introuvable, matériel stocké de projet différent",
         "Stored-material-of-a-project_": "Licence introuvable, matériel stocké",
-        "You-mustenter-the-physical-spaces_": "Vous devez saisir les positions physiques de la licence"
-        
+        "You-mustenter-the-physical-spaces_": "Vous devez saisir les positions physiques de la licence",
+        "Material-status-does-not-match_": "Le statut de l'article ne correspond pas au statut du Cueillette"
+
     },
     "_info": {
         "Could-not-get-token_": "Impossible d'obtenir un jeton",
@@ -266,7 +268,7 @@
         "Project_": "Projet",
         "Enter-Value_": "Entrer une valeur",
         "Licensed-positions_": "Postes sous licence",
-        "Regime_":"Régime"
+        "Regime_": "Régime"
     },
     "_message": {
         "Confirmation_": "Êtes-vous sûr?",

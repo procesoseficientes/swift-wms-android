@@ -94,7 +94,8 @@ export namespace Enums {
             QAStatusIsNotAvailable = "QA-status-is-not-available_",
             DoYouWantToProceedNewQuery = "Proceed-new-query-info-center_",
             DoYouWishToChangeTargetLocation = "Do-you-wish-to-change-target-location_",
-            CreateANewLicenseWithIncompatibleClasses = "Create-a-new-license-with-incompatible-classes?_"
+            CreateANewLicenseWithIncompatibleClasses = "Create-a-new-license-with-incompatible-classes?_",
+            FinishThisReception = "Finish-this-recepcion_?"
         }
     }
 
@@ -264,7 +265,8 @@ export namespace Enums {
         StatusDifferentFromTheStored = 5003,
         StoredMaterialOfDifferentProject = 5004,
         StoredMaterialOfAProject = 5005,
-        YouMustenterThePhysicalSpaces = 5006
+        YouMustenterThePhysicalSpaces = 5006,
+        MaterialStatusDoesNotMatch = 5007
     }
 
     export enum MaterialDoesNotBelong {

@@ -13,7 +13,8 @@
         "Location-completed-do-you-wish-to-recount_": "Location completed. Do you wish to recount it?",
         "Proceed-new-query-info-center_": "Do you want to proceed with a new query? The results of the previous query will be lost.",
         "Do-you-wish-to-change-target-location": "Do you want to change the target location for the location scanned?",
-        "Create-a-new-license-with-incompatible-classes?_": "Do you want create a new licenses with incompatible classes?"
+        "Create-a-new-license-with-incompatible-classes?_": "Do you want create a new licenses with incompatible classes?",
+        "Finish-this-recepcion_?": "Finish this reception?"
     },
     "_button": {
         "LOGIN_": "LOGIN",
@@ -140,7 +141,8 @@
         "Status-number-different-from-the-stored_": "Can not be located because it exists different STATUS stored for the material",
         "Stored-material-of-different-project_": "License cannot be located, stored material of different project",
         "Stored-material-of-a-project_": "License cannot be located, stored material",
-        "You-mustenter-the-physical-spaces_": "You must enter the physical positions of the license"
+        "You-mustenter-the-physical-spaces_": "You must enter the physical positions of the license",
+        "Material-status-does-not-match_": "Material status doesn't match whit the original picking demand"
     },
     "_info": {
         "Could-not-get-token_": "Could not get token",

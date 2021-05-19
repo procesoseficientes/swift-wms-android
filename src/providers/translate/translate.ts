@@ -368,6 +368,9 @@ export class TranslateProvider {
             case Enums.CustomErrorCodes.YouMustenterThePhysicalSpaces:
                 label = "You-mustenter-the-physical-spaces_";
             break;
+            case Enums.CustomErrorCodes.MaterialStatusDoesNotMatch:
+                label = "Material-status-does-not-match_";
+            break;
             default:
                 label = "An-error-was-ocurred_";
                 break;
