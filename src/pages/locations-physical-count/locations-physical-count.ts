@@ -22,6 +22,7 @@ export class LocationsPhysicalCountPage {
     isAndroid: boolean = false;
     locations: Array<DataResponse.OP_WMS_SP_GET_LOCATIONS_FOR_COUNT> = [];
     backbutton: any;
+    showBackButton: boolean = true;
 
     constructor(
         public navCtrl: NavController,
@@ -45,7 +46,7 @@ export class LocationsPhysicalCountPage {
             })
         }
         if(localStorage.getItem("userRole") != '1'){
-            this.workspace.enableTabs(false);
+            this.showBackButton = false;
         }
         
     }
@@ -53,11 +54,18 @@ export class LocationsPhysicalCountPage {
     
     
       ionViewWillLeave() {
-        this.platform.backButton.observers.push(this.backbutton);
+        if (this.showBackButton = false){
+            this.platform.backButton.observers.push(this.backbutton);
+        }
       }
     
     async ionViewDidEnter(): Promise<void> {
-        this.backbutton = this.platform.backButton.observers.pop();
+        if (localStorage.getItem("userRole") != '1'){
+            this.backbutton = this.platform.backButton.observers.pop();
+            this.workspace.enableTabs(false);
+        }
+        
+
         try {
             let params = this.navParams.data;
             this.taskId = params.taskId;
