@@ -20,7 +20,7 @@ import { Platform } from 'ionic-angular';
 export class StartSessionPage {
     userCredentials: Model.UserCredentials;
     loginForm: FormGroup;
-    version: string = "2021.05.19";
+    version: string = "2021.05.22";
     versionCode: string = "10";
     isAndroid: boolean = false;
 
