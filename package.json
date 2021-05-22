@@ -50,7 +50,7 @@
         "bourbon": "^4.3.4",
         "com-darryncampbell-cordova-plugin-intent": "^1.0.2",
         "cordova": "^7.0.0",
-        "cordova-android": "^6.2.3",
+        "cordova-android": "^9.0.0",
         "cordova-plugin-app-update": "^2.0.2",
         "cordova-plugin-app-version": "^0.1.9",
         "cordova-plugin-appversion": "^1.0.0",

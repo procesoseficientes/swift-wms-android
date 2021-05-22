@@ -121,6 +121,12 @@ export class StartSessionPage {
         userCredentials.userName = loginInfo.loginName;
     }
 
+    private saveUserRole(
+        authorizer: DataResponse.Login
+    ){
+        localStorage.setItem("userRole", (authorizer.authorizer).toString());
+    }
+
     public validateUserPin(
         userCredentials: Model.UserCredentials
     ) {
@@ -156,7 +162,7 @@ export class StartSessionPage {
             //userCredentials.communicationAddress = 'http://181.174.117.198:6661'
             //userCredentials.communicationAddress = 'http://172.16.10.85:8088'
             //Alza
-            userCredentials.communicationAddress = 'http://10.101.233.4:6161'
+            //userCredentials.communicationAddress = 'http://10.101.233.4:6161'
             //alza QA
             //userCredentials.communicationAddress = 'http://10.101.0.4:6161'
             //userCredentials.communicationAddress = 'http://10.101.233.4:6161'
@@ -167,7 +173,7 @@ export class StartSessionPage {
             //Ferco
             //userCredentials.communicationAddress = "http://200.124.156.117:8099"
             //FercoQA
-            //userCredentials.communicationAddress = 'http://10.240.29.104:8099' 
+            userCredentials.communicationAddress = 'http://10.240.29.104:8099' 
             //userCredentials.communicationAddress = 'http://10.240.29.99:6661' 
             //userCredentials.communicationAddress = 'http://10.240.29.99:6662' 
             //userCredentials.communicationAddress = 'http://10.240.29.99:6663' 
@@ -183,6 +189,7 @@ export class StartSessionPage {
                 if (login.loginStatus == Enums.StatusLogin.active) {
                     this.saveCredentials(userCredentials, login);
                     this.saveUserSettings(userCredentials);
+                    this.saveUserRole(login);
     
                     this.userInteraction.showLoading();
                     this.navCtrl.setRoot(Enums.Page.VerifyEnvironment);

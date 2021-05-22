@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar color="secondary">
         <ion-buttons left>
-            <button *ngIf="this.workspace.tabsEnabled" ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backButton">
+            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal" id="backButton">
                 <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
@@ -10,7 +10,7 @@
 </ion-header>
 
 
-<ion-content padding >
+<ion-content padding>
     <ion-list>
         <ion-item>
             <p class="taskId" id="taskId">

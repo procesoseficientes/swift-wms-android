@@ -21,6 +21,7 @@ export class LocationsPhysicalCountPage {
     taskId: string = "";
     isAndroid: boolean = false;
     locations: Array<DataResponse.OP_WMS_SP_GET_LOCATIONS_FOR_COUNT> = [];
+    backbutton: any;
 
     constructor(
         public navCtrl: NavController,
@@ -43,13 +44,21 @@ export class LocationsPhysicalCountPage {
                 this.userInteraction.showMessage(message);
             })
         }
-        this.workspace.enableTabs(false);
-
+        if(localStorage.getItem("userRole") != '1'){
+            this.workspace.enableTabs(false);
+        }
+        
     }
     
+    
+    
+      ionViewWillLeave() {
+        this.platform.backButton.observers.push(this.backbutton);
+      }
+    
     async ionViewDidEnter(): Promise<void> {
+        this.backbutton = this.platform.backButton.observers.pop();
         try {
-            
             let params = this.navParams.data;
             this.taskId = params.taskId;
 
