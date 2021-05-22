@@ -9,15 +9,17 @@ import { Enums } from "../../enums/enums";
 })
 export class WorkspacePage {
     @ViewChild("myTabs") tabRef: Tabs;
-
+    
     myTaskRoot = Enums.Page.MyTasks;
     taskSentRoot = Enums.Page.TaskSent;
     infoCenterRoot = Enums.Page.InfoCenter;
     moreTransactionsRoot = Enums.Page.MoreTransactions;
-
+    
     myTaskNavCtrl: NavController;
     infoCenterNavCtrl: NavController;
-
+    
+    public tabsEnabled = true;
+    
     constructor(
         public navCtrl: NavController,
         public navigation: NavigationProvider,
@@ -35,5 +37,10 @@ export class WorkspacePage {
         this.navigation.changeActiveTab(TabName);
         await this.tabRef.select(TabNumber);
         return Promise.resolve();
+    }
+    
+
+    enableTabs(enable: boolean): void {
+        this.tabsEnabled = enable;
     }
 }

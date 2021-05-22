@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavParams, NavController } from "ionic-angular";
+import { IonicPage, NavParams, NavController, Platform } from "ionic-angular";
 import { NavigationProvider } from "../../providers/navigation/navigation";
 import { WorkspacePage } from "../workspace/workspace";
 import { UserInteractionProvider } from "../../providers/user-interaction/user-interaction";
@@ -21,6 +21,8 @@ export class LocationsPhysicalCountPage {
     taskId: string = "";
     isAndroid: boolean = false;
     locations: Array<DataResponse.OP_WMS_SP_GET_LOCATIONS_FOR_COUNT> = [];
+    backbutton: any;
+    showBackButton: boolean = true;
 
     constructor(
         public navCtrl: NavController,
@@ -31,15 +33,48 @@ export class LocationsPhysicalCountPage {
         private userInteraction: UserInteractionProvider,
         private device: DeviceProvider,
         private physicalCount: PhysicalCountProvider,
-        private translate: TranslateProvider
-    ) {}
-
+        private translate: TranslateProvider,
+        private platform: Platform
+    ) {
+        if(!this.workspace.tabsEnabled){
+            this.platform.registerBackButtonAction( async () =>{
+                let message = await this.translate.translateGroupValue(
+                    Enums.Translation.Groups.Messages,
+                    Enums.Translation.Message.CompleteTask
+                );
+                this.userInteraction.showMessage(message);
+            })
+        }
+        if(localStorage.getItem("userRole") != '1'){
+            this.showBackButton = false;
+        }
+        
+    }
+    
+    
+    
+      ionViewWillLeave() {
+        if (this.showBackButton = false){
+            this.platform.backButton.observers.push(this.backbutton);
+        }
+      }
+    
     async ionViewDidEnter(): Promise<void> {
+        if (localStorage.getItem("userRole") != '1'){
+            this.backbutton = this.platform.backButton.observers.pop();
+            this.workspace.enableTabs(false);
+        }
+        
+
         try {
             let params = this.navParams.data;
             this.taskId = params.taskId;
 
             this.locations = await this.getLocations();
+            //we redirect the user when there are no more locations to scan
+            if(this.locations.length === 0){
+                this.backButtonAction();
+            }
 
             this.isAndroid = this.device.isAndroid();
             this.scanToken = this.device.subscribeToScanner(data =>

@@ -52,7 +52,8 @@ export class MyTasksPage {
         private settings: UserSettingsProvider,
         private configuration: ConfigurationProvider
     ) {
-        this.param = navParams.data;
+        this.param = navParams.data;  
+        this.workspace.enableTabs(true);
     }
 
     async ionViewDidEnter(): Promise<void> {

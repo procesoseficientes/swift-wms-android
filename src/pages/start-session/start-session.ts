@@ -20,7 +20,7 @@ import { Platform } from 'ionic-angular';
 export class StartSessionPage {
     userCredentials: Model.UserCredentials;
     loginForm: FormGroup;
-    version: string = "2021.03.05";
+    version: string = "2021.05.22";
     versionCode: string = "10";
     isAndroid: boolean = false;
 
@@ -121,6 +121,12 @@ export class StartSessionPage {
         userCredentials.userName = loginInfo.loginName;
     }
 
+    private saveUserRole(
+        authorizer: DataResponse.Login
+    ){
+        localStorage.setItem("userRole", (authorizer.authorizer).toString());
+    }
+
     public validateUserPin(
         userCredentials: Model.UserCredentials
     ) {
@@ -154,9 +160,12 @@ export class StartSessionPage {
            //this is for `ionicsf serve`
             //arium
             //userCredentials.communicationAddress = 'http://181.174.117.198:6661'
+            //userCredentials.communicationAddress = 'http://172.16.10.85:8088'
+            //Alza
+            //userCredentials.communicationAddress = 'http://10.101.233.4:6161'
             //alza QA
             //userCredentials.communicationAddress = 'http://10.101.0.4:6161'
-            userCredentials.communicationAddress = 'http://10.101.233.4:6161'
+            //userCredentials.communicationAddress = 'http://10.101.233.4:6161'
             //localhost 
             //userCredentials.communicationAddress = 'http://localhost:6661'
             //Cealsa
@@ -164,7 +173,10 @@ export class StartSessionPage {
             //Ferco
             //userCredentials.communicationAddress = "http://200.124.156.117:8099"
             //FercoQA
-            //userCredentials.communicationAddress = 'http://10.240.29.104:8099' 
+            userCredentials.communicationAddress = 'http://10.240.29.104:8099' 
+            //userCredentials.communicationAddress = 'http://10.240.29.99:6661' 
+            //userCredentials.communicationAddress = 'http://10.240.29.99:6662' 
+            //userCredentials.communicationAddress = 'http://10.240.29.99:6663' 
             //Alsersa
             //userCredentials.communicationAddress = 'http://190.56.128.150:6161' 
             this.login(userCredentials)
@@ -177,6 +189,7 @@ export class StartSessionPage {
                 if (login.loginStatus == Enums.StatusLogin.active) {
                     this.saveCredentials(userCredentials, login);
                     this.saveUserSettings(userCredentials);
+                    this.saveUserRole(login);
     
                     this.userInteraction.showLoading();
                     this.navCtrl.setRoot(Enums.Page.VerifyEnvironment);

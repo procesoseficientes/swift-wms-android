@@ -10,6 +10,7 @@ import { UserSettingsProvider } from "../../providers/user-settings/user-setting
 import { Enums } from "../../enums/enums";
 import { PrinterProvider } from "../../providers/printer/printer";
 import { ConfigurationProvider } from "../../providers/configuration/configuration";
+import { TranslateProvider } from "../../providers/translate/translate";
 
 @IonicPage()
 @Component({
@@ -37,7 +38,8 @@ export class CreateLicensePage {
         private userInteraction: UserInteractionProvider,
         public settings: UserSettingsProvider,
         public printer: PrinterProvider,
-        private configuration: ConfigurationProvider
+        private configuration: ConfigurationProvider,
+        private translate: TranslateProvider
     ) {
         this.loadReceptionObjects();
     }
@@ -157,6 +159,16 @@ export class CreateLicensePage {
     public async userWantsToCompleteTask(): Promise<DataResponse.Operation> {
         this.userInteraction.showLoading();
         try {
+            let message = await this.translate.translateGroupValue(
+                Enums.Translation.Groups.Alerts,
+                Enums.Translation.Alert.FinishThisReception
+            );
+            console.log("Message", message);
+            let confirmation = await this.userInteraction.showConfirmMessage(
+            message
+            );
+            console.log("Confirmacion", confirmation);
+            if (confirmation === Enums.YesNo.No) return;
             this.receptionRequest.transType = Enums.TransType.GeneralReception;
             this.receptionRequest.loginId = this.settings.loginId;
             this.receptionRequest.login = this.settings.login;

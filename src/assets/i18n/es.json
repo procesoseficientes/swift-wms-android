@@ -13,7 +13,8 @@
         "Location-completed-do-you-wish-to-recount_": "Ubicación completa ¿Quieres volver a contarla?",
         "Proceed-new-query-info-center_": "¿Desea continuar con una nueva consulta? Los resultados de la consulta anterior se perderán.",
         "Do-you-wish-to-change-target-location_": "Desea cambiar la ubicación destino por la ubicación escaneada?",
-        "Create-a-new-license-with-incompatible-classes?_": "Desea crear una nueva licencia para las clases incompatibles?"
+        "Create-a-new-license-with-incompatible-classes?_": "Desea crear una nueva licencia para las clases incompatibles?",
+        "Finish-this-recepcion_?": "¿Desea finalizar esta recepción?"
     },
     "_button": {
         "LOGIN_": "INICIAR SESIÓN",
@@ -140,7 +141,8 @@
         "Status-number-different-from-the-stored_": "No se puede ubicar porque existe un ESTADO diferente almacenado para el material",
         "Stored-material-of-different-project_": "No se puede ubicar la licencia, material almacenado con diferente proyecto",
         "Stored-material-of-a-project_": "No se puede ubicar la licencia, material almacenado",
-        "You-mustenter-the-physical-spaces_": "Debe ingresar las posiciones físicas de la licencia"
+        "You-mustenter-the-physical-spaces_": "Debe ingresar las posiciones físicas de la licencia",
+        "Material-status-does-not-match_": "El estado del material no coincide con el estado del picking original"
     },
     "_info": {
         "Could-not-get-token_": "No se pudo obtener el token",
@@ -264,13 +266,15 @@
         "Handles-Caliber_": "Maneja Calibre",
         "Project_": "Proyecto",
         "Enter-Value_": "Ingrese valor",
-        "Regime_":"Regimen",
+        "Regime_": "Regimen",
         "Licensed-positions_": "Posiciones en licencia",
         "License-Transfer_": "Licencia de traslado",
         "Allowed-Sub-Families_": "Allowed Sub-Families",
-        "Associated-Sub-Families_": "Sub-familias Asociadas"    },
+        "Associated-Sub-Families_": "Sub-familias Asociadas"
+    },
     "_message": {
         "Confirmation_": "¿Estás seguro?",
+        "Complete-task_": "Complete la tarea",
         "There-is-no-connection-to-the-server_": "No hay conexión con el servidor",
         "Do-you-want-to-remove-all-items_": "¿Quieres eliminar todos los elementos?",
         "Bluetooth-disabled_": "Bluetooth está deshabilitado, por favor habilítelo e intente de nuevo",
