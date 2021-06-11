@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mobilityscm.swift3pl" version="2021.05.22" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mobilityscm.swift3pl" version="2021.06.11" xmlns="http://www.w3.org/ns/widgets" xmlns:Android="http://schemas.Android.com/apk/res/Android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>WMS</name>
     <description>Logistic</description>
     <author email="" href="http://www.procesoseficients.com">Procesos Eficientes</author>
@@ -82,22 +82,22 @@
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
     <allow-navigation href="http://192.168.1.6:8101" />
-    <engine name="android" spec="^9.0.0" />
-    <plugin name="com-darryncampbell-cordova-plugin-intent" spec="^1.0.2" />
-    <plugin name="cordova-plugin-app-update" spec="^2.0.2" />
-    <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
-    <plugin name="cordova-plugin-badge" spec="^0.8.8" />
-    <plugin name="cordova-plugin-battery-status" spec="^2.0.1" />
-    <plugin name="cordova-plugin-bluetooth-serial" spec="^0.4.7" />
-    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
-    <plugin name="cordova-plugin-device" spec="^1.1.7" />
-    <plugin name="cordova-plugin-file" spec="^4.0.0" />
-    <plugin name="cordova-plugin-hotspot" spec="^1.2.10" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
-    <plugin name="cordova-plugin-networkinterface" spec="^1.2.0" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
-    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <plugin name="cordova.plugins.diagnostic" spec="^3.9.2" />
+    <engine name="android" spec="^6.3.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-device" spec="^1.1.7" />
+    <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
+    <plugin name="cordova-plugin-bluetooth-serial" spec="^0.4.7" />
+    <plugin name="cordova-plugin-battery-status" spec="^2.0.1" />
+    <plugin name="cordova-plugin-networkinterface" spec="^1.2.0" />
+    <plugin name="cordova.plugins.diagnostic" spec="^3.9.2" />
+    <plugin name="cordova-plugin-hotspot" spec="^1.2.10" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
+    <plugin name="com-darryncampbell-cordova-plugin-intent" spec="^1.0.2" />
+    <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
+    <plugin name="cordova-plugin-app-update" spec="^2.0.2" />
+    <plugin name="cordova-plugin-badge" spec="^0.8.8" />
+    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
+    <plugin name="cordova-plugin-file" spec="^4.0.0" />
 </widget>
