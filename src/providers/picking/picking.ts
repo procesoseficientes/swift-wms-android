@@ -297,12 +297,12 @@ export class PickingProvider {
             let receptionRequest: DataRequest.Reception = DataRequest.Factory.createReceptionRequest(
                 this.settings.userCredentials
             );
-            receptionRequest.transType = Enums.TransType.GeneralReception;
+            receptionRequest.transType = Enums.TransType.GeneralPicking;
             receptionRequest.loginId = loginId;
             receptionRequest.login = loginId.split("@")[0];
             receptionRequest.policyCode = task.sourcePolicyCode;
             receptionRequest.taskId = task.id;
-            receptionRequest.status = Enums.ReceptionStatus.Accepted;
+            receptionRequest.status = Enums.ReceptionStatus.Completed;
             receptionRequest.completeTask = closeTask || Enums.YesNo.No;
             let result: DataResponse.Operation = await this.reception.recordAndCompleteTheTask(
                 receptionRequest

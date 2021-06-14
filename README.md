@@ -45,7 +45,7 @@ El archivo de configuración para conectar con el backend está en `/src/securit
 
 
 ## Guía de release
-
+0. Agregar en "platforms\android\AndroidManifest.xml" "android:usesCleartextTraffic="true" como propiedad de la etiqueta "<Application>"
 1. Cambiar la version en el archivo config.xml
     - Este es el patrón para las versiones, `"año.mes.día."`
 2. Compilar el proyecto corriendo el siguiente comando
