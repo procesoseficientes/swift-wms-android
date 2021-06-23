@@ -302,7 +302,7 @@ export class PickingProvider {
             receptionRequest.login = loginId.split("@")[0];
             receptionRequest.policyCode = task.sourcePolicyCode;
             receptionRequest.taskId = task.id;
-            receptionRequest.status = Enums.ReceptionStatus.Accepted;
+            receptionRequest.status = Enums.ReceptionStatus.Completed;
             receptionRequest.completeTask = closeTask || Enums.YesNo.No;
             let result: DataResponse.Operation = await this.reception.recordAndCompleteTheTask(
                 receptionRequest

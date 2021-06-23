@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { IonicPage, NavParams, NavController } from "ionic-angular";
+import { Component, ViewChild } from "@angular/core";
+import { IonicPage, NavParams, NavController, ItemSliding, Item } from "ionic-angular";
 import { NavigationProvider } from "../../providers/navigation/navigation";
 import { WorkspacePage } from "../workspace/workspace";
 import { Model, DataRequest, DataResponse } from "../../models/models";
@@ -19,8 +19,10 @@ import { ReceptionProvider } from "../../providers/reception/reception";
     templateUrl: "general-picking.html"
 })
 export class GeneralPickingPage {
+    @ViewChild("itemGroup") item: any;
     currentSegment: string = "pendingToWork";
 
+   
     wavePickingId: number = 0;
     licenseDispatchId: number = 0;
     projectId: string = "";
@@ -124,6 +126,8 @@ export class GeneralPickingPage {
         } finally {
             this.userInteraction.hideLoading();
         }
+
+        this.openAllSlides();
     }
 
     async verifyLicensesDispatchPendingToLocate(): Promise<void> {
@@ -161,6 +165,35 @@ export class GeneralPickingPage {
     async backButtonAction(): Promise<void> {
         return this.navigation.popPage(this.workspace, this.navCtrl);
     }
+    openAllSlides(){
+      let a = Array.prototype.slice.call(this.item.nativeElement.children)
+      a.map(val => {
+        const item = val.children[0];
+        this.openSlide(val, item);
+        // item.setElementStyle('transition', null);
+        // item.setElementStyle('transform', 'translate3d(-' + swipeAmount + '%, 0px, 0px)');
+      });
+    
+      //   for (let i = 0; i < a.length; i++){
+    //       console.log(i);
+    //       a[i].open();
+    //   }
+  }
+
+  openSlide(itemSlide: any, item: any) {
+    // Keep track of the last item slided so i can duplicate behaviour when another is being opened
+       
+        // let eleRef =itemSlide.item.getElementRef();
+    //Get number of siblings buttons in ion-options to calculate the width to slide
+        // let options = eleRef.nativeElement['nextElementSibling']['children'].length;
+        // itemSlide.item['opened'] = true;
+        itemSlide.classList.add("active-sliding");
+        itemSlide.classList.add("active-slide");
+        itemSlide.classList.add("active-options-right");
+        // this.lastItemSliding = itemSlide;
+    // I used a FIXED width for ion-options buttons. Siblings Width can be used
+        item.style.transform = `translate3d(-${2*70}px, 0px, 0px)`
+      }
 
     showDetail(materialId?: string): void {
         if (materialId) {
