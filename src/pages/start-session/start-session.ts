@@ -147,7 +147,7 @@ export class StartSessionPage {
                     })
                 }).catch(err => {
                     console.error('conf doesn\'t exist', err)
-                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"http://10.101.233.4:6161"}', {replace: true}).catch(
+                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"http://10.240.29.104:8099"}', {replace: true}).catch(
                         err => console.error(err)
                     )
                     this.userInteraction.showCustomError(
