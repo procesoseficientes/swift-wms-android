@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mobilityscm.swift3pl" version="2021.06.11" xmlns="http://www.w3.org/ns/widgets" xmlns:Android="http://schemas.Android.com/apk/res/Android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mobilityscm.swift3pl" version="2021.06.23" xmlns="http://www.w3.org/ns/widgets" xmlns:Android="http://schemas.Android.com/apk/res/Android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>WMS</name>
     <description>Logistic</description>
     <author email="" href="http://www.procesoseficients.com">Procesos Eficientes</author>

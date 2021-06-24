@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar color="secondary" no-border-bottom>
         <ion-buttons left>
-            <button ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal">
+            <button *ngIf="showBackButton" ion-button icon-only (click)="backButtonAction()" class="my-style-for-modal">
                 <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>

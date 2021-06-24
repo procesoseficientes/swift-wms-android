@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { IonicPage, NavParams, NavController, ItemSliding, Item } from "ionic-angular";
+import { IonicPage, NavParams, NavController, Platform} from "ionic-angular";
 import { NavigationProvider } from "../../providers/navigation/navigation";
 import { WorkspacePage } from "../workspace/workspace";
 import { Model, DataRequest, DataResponse } from "../../models/models";
@@ -41,6 +41,8 @@ export class GeneralPickingPage {
     task: Model.Task;
     isGeneralTransfer: Boolean = false;
     reqRegisterGenTransReception: DataRequest.RegisterGeneralTransferReception;
+    backbutton: any;
+    showBackButton: boolean = true;
 
     constructor(
         public navCtrl: NavController,
@@ -53,10 +55,34 @@ export class GeneralPickingPage {
         private translate: TranslateProvider,
         private settings: UserSettingsProvider,
         private label: LabelProvider,
-        private printer: PrinterProvider // private generalTransfer: GeneralTransferProvider
-    ) {}
+        private printer: PrinterProvider, // private generalTransfer: GeneralTransferProvider
+        private platform: Platform
+    ) {
+        if(!this.workspace.tabsEnabled){
+            this.platform.registerBackButtonAction( async () =>{
+                let message = await this.translate.translateGroupValue(
+                    Enums.Translation.Groups.Messages,
+                    Enums.Translation.Message.CompleteTask
+                );
+                this.userInteraction.showMessage(message);
+            })
+        }
+        if(localStorage.getItem("userRole") != '1'){
+            this.showBackButton = false;
+        }
+    }
+
+    ionViewWillLeave() {
+        if (this.showBackButton = false){
+            this.platform.backButton.observers.push(this.backbutton);
+        }
+      }
 
     async ionViewDidEnter(): Promise<void> {
+        if (localStorage.getItem("userRole") != '1'){
+            this.backbutton = this.platform.backButton.observers.pop();
+            this.workspace.enableTabs(false);
+        }
         try {
             this.wavePickingId = this.navParams.data.wavePickingId;
             this.regimenTask = this.navParams.data.regime;
