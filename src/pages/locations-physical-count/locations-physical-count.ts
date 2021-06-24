@@ -64,8 +64,6 @@ export class LocationsPhysicalCountPage {
             this.backbutton = this.platform.backButton.observers.pop();
             this.workspace.enableTabs(false);
         }
-        
-
         try {
             let params = this.navParams.data;
             this.taskId = params.taskId;
