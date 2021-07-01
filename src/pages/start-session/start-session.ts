@@ -173,7 +173,7 @@ export class StartSessionPage {
             //Ferco
             //userCredentials.communicationAddress = "http://200.124.156.117:8099"
             //FercoQA
-            userCredentials.communicationAddress = 'http://10.240.29.104:8099'
+            //userCredentials.communicationAddress = 'http://10.240.29.104:8099'
             //localhost
             //userCredentials.communicationAddress = 'http://localhost:6161'
             //userCredentials.communicationAddress = 'http://10.240.29.99:6661' 

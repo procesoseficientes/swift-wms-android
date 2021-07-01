@@ -454,6 +454,7 @@ export class GeneralReceptionPage {
             addMaterial.enteredMeasurementUnitQty = this.material.quantity;
             addMaterial.enteredMeasurementUnitConversionFactor = this.material.measurementQty;
             addMaterial.sourceLicenseId = null;
+            // addMaterial.isMasterPack = this.material.isMasterPack;
 
             let result: DataResponse.Operation = await this.reception.addMaterialToLicense(
                 addMaterial

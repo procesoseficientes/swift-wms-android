@@ -194,6 +194,7 @@ export namespace DataRequest {
         enteredMeasurementUnitQty: number;
         enteredMeasurementUnitConversionFactor: number;
         sourceLicenseId?: number;
+        // isMasterPack: Enums.YesNo;
     }
     export interface SuggestedLocation extends Model.UserCredentials {
         licenseId: number;
@@ -2130,7 +2131,8 @@ export namespace DataRequest {
                 communicationAddress: userCredentials.communicationAddress,
                 enteredMeasurementUnit: "",
                 enteredMeasurementUnitQty: 0,
-                enteredMeasurementUnitConversionFactor: 0
+                enteredMeasurementUnitConversionFactor: 0,
+                // isMasterPack: 0
             };
             return Model.Factory.mergeEntities(userCredentials, entity);
         }

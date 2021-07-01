@@ -77,6 +77,8 @@ export class ReceptionProvider {
                     currentMaterial.SERIAL_NUMBER_REQUESTS === Enums.YesNo.Yes
                         ? "arrow-dropright"
                         : "";
+                outputMaterial.isMasterPack = currentMaterial.IS_MASTER_PACK;
+                outputMaterial.explodeInReception = currentMaterial.EXPLODE_IN_RECEPTION;
                 let operation = Model.Factory.createSuccessOperation();
                 operation.ObjectData = outputMaterial;
                 return Promise.resolve(operation);
