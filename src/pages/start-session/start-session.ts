@@ -20,7 +20,7 @@ import { Platform } from 'ionic-angular';
 export class StartSessionPage {
     userCredentials: Model.UserCredentials;
     loginForm: FormGroup;
-    version: string = "2021.06.11";
+    version: string = "2021.07.01";
     versionCode: string = "10";
     isAndroid: boolean = false;
 
@@ -165,7 +165,7 @@ export class StartSessionPage {
             //userCredentials.communicationAddress = 'http://10.101.0.4:6661'
             //alza QA
             //userCredentials.communicationAddress = 'http://10.101.0.4:6161'
-           // userCredentials.communicationAddress = 'http://10.101.233.4:6161'
+            userCredentials.communicationAddress = 'http://10.101.233.4:6161'
             //localhost 
             //userCredentials.communicationAddress = 'http://localhost:6661'
             //Cealsa
@@ -173,7 +173,7 @@ export class StartSessionPage {
             //Ferco
             //userCredentials.communicationAddress = "http://200.124.156.117:8099"
             //FercoQA
-            userCredentials.communicationAddress = 'http://10.240.29.104:8099'
+            //userCredentials.communicationAddress = 'http://10.240.29.104:8099'
             //localhost
             //userCredentials.communicationAddress = 'http://localhost:6161'
             //userCredentials.communicationAddress = 'http://10.240.29.99:6661' 

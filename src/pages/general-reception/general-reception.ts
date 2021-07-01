@@ -326,6 +326,8 @@ export class GeneralReceptionPage {
     }
 
     async keyPressQuantity(keyCode: Enums.KeyCode): Promise<void> {
+        let repSubtype: String = this.receptionSubtype;
+        
         if (
             keyCode === Enums.KeyCode.Enter &&
             this.material.materialId !== "" &&
@@ -336,7 +338,8 @@ export class GeneralReceptionPage {
                     Enums.CustomErrorCodes.FieldsRequired
                 );
             }    
-            else if (!this.validateTolerance()){
+            else if (!this.validateTolerance() && repSubtype == 'RECEPCION_COMPRA_LOCAL'){
+                console.log(this.receptionSubtype);
                 this.userInteraction.showError('El material esta vencido o no cumple con la tolerancia de expiración')      
             }
             else if (!this.validateCar()){
