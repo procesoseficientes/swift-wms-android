@@ -162,10 +162,9 @@ export class StartSessionPage {
             //userCredentials.communicationAddress = 'http://181.174.117.198:6661'
             //userCredentials.communicationAddress = 'http://172.16.10.85:8088'
             //Alza
-            //userCredentials.communicationAddress = 'http://10.101.0.4:6661'
+            userCredentials.communicationAddress = 'http://10.101.0.4:6661'
             //alza QA
-            //userCredentials.communicationAddress = 'http://10.101.0.4:6161'
-           // userCredentials.communicationAddress = 'http://10.101.233.4:6161'
+            //userCredentials.communicationAddress = 'http://10.101.233.4:6161'
             //localhost 
             //userCredentials.communicationAddress = 'http://localhost:6661'
             //Cealsa

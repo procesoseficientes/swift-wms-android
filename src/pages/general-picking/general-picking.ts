@@ -189,7 +189,11 @@ export class GeneralPickingPage {
     }
 
     async backButtonAction(): Promise<void> {
-        return this.navigation.popPage(this.workspace, this.navCtrl);
+        if(this.currentSegment == "pickingDetail"){
+            this.currentSegment = "pendingToWork"
+        }else{
+            return this.navigation.popPage(this.workspace, this.navCtrl);
+        }
     }
     openAllSlides(){
       let a = Array.prototype.slice.call(this.item.nativeElement.children)
