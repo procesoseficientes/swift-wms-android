@@ -35,8 +35,7 @@
             </ion-item>
             <ion-item-sliding *ngFor="let header of headers" #item>
                 <ion-item *ngIf="
-                        header.isComplete != true"
-                        ion-item (click)="showDetail(header.Material.materialId)">
+                        header.isComplete != true" ion-item (click)="showDetail(header.Material.materialId)">
                     <ion-thumbnail item-start>
                         <img [src]="header.Material.image1" alt="." />
                     </ion-thumbnail>
@@ -82,8 +81,7 @@
                 <p text-wrap>
                     <span style="font-weight: bold;" item-left>
                         {{ "_label.Location-target_" | translate }}:
-                    </span>
-                    {{ locationTarget }}
+                    </span> {{ locationTarget }}
                 </p>
             </ion-item>
             <ion-item *ngIf="licenseDispatchId != 0">
@@ -93,8 +91,7 @@
                     </span>
                     <span style="font-weight: bold;" item-left *ngIf="isGeneralTransfer">
                         {{ "_label.License-Transfer_" | translate }}:
-                    </span>
-                    {{ licenseDispatchId }}
+                    </span> {{ licenseDispatchId }}
                 </p>
                 <button ion-button large item-end (click)="locateLicenseDispatch(false)">
                     <ion-icon name="walk"></ion-icon>
@@ -112,12 +109,11 @@
                     <button ion-item (click)="toggleDetails(m)">
                         <h2>{{ m.Material.materialId }}</h2>
                         <button *ngIf="
-                                m.Tasks[0].isDiscretionary != 1 &&
-                                m.Material.batchRequested != 1
+                                m.Tasks[0].isDiscretionary != 1
                             " ion-button large item-end (click)="suggestedPicking(m.Tasks[0], m)">
                             <ion-icon name="swap"></ion-icon>
                         </button>
-                        <ion-icon color="primary" item-right [name]="m.icon"></ion-icon>
+                    <ion-icon color="primary" item-right [name]="m.icon"></ion-icon>
                     </button>
                     <ion-list *ngIf="m.showDetails">
                         <ng-container *ngFor="let t of m.Tasks">

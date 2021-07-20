@@ -20,7 +20,7 @@ import { Platform } from 'ionic-angular';
 export class StartSessionPage {
     userCredentials: Model.UserCredentials;
     loginForm: FormGroup;
-    version: string = "2021.07.01";
+    version: string = "2021.07.13";
     versionCode: string = "10";
     isAndroid: boolean = false;
 
@@ -147,7 +147,7 @@ export class StartSessionPage {
                     })
                 }).catch(err => {
                     console.error('conf doesn\'t exist', err)
-                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"http://10.101.233.4:6161"}', {replace: true}).catch(
+                    this.file.writeFile(this.file.externalApplicationStorageDirectory, 'conf.json', '{"url":"http://10.101.0.4:6661"}', {replace: true}).catch(
                         err => console.error(err)
                     )
                     this.userInteraction.showCustomError(
@@ -165,15 +165,15 @@ export class StartSessionPage {
             //userCredentials.communicationAddress = 'http://10.101.0.4:6661'
             //alza QA
             //userCredentials.communicationAddress = 'http://10.101.0.4:6161'
-            userCredentials.communicationAddress = 'http://10.101.233.4:6161'
+            //userCredentials.communicationAddress = 'http://10.101.233.4:6161'
             //localhost 
-            //userCredentials.communicationAddress = 'http://localhost:6661'
+            //userCredentials.communicationAddress = 'http://localhost:6161'
             //Cealsa
             //userCredentials.communicationAddress = "http://192.168.0.5:6161"  
             //Ferco
             //userCredentials.communicationAddress = "http://200.124.156.117:8099"
             //FercoQA
-            //userCredentials.communicationAddress = 'http://10.240.29.104:8099'
+            userCredentials.communicationAddress = 'http://10.240.29.104:8099'
             //localhost
             //userCredentials.communicationAddress = 'http://localhost:6161'
             //userCredentials.communicationAddress = 'http://10.240.29.99:6661' 
